@@ -10,21 +10,41 @@
 import utila
 import utila.cli
 
-from figureo import __version__
+import figureo
 
-COMMANDS = []  # add additional commands here
+DESCRIPTION = """
+"""
+
+WORKPLAN = [
+    utila.create_step(
+        'standard',
+        inputs=[
+            utila.Pattern('*', 'pdf'),
+        ],
+        output=[
+            ('figures/{FILEHASH_1}', 'yaml'),
+            ('figures/{FILEHASHS}', 'png'),
+        ],
+    ),
+]
 
 
 @utila.saveme
 def main():
-    parser = utila.cli.create_parser(
-        COMMANDS,
-        version=__version__,
-        config=utila.ParserConfiguration(
-            outputparameter=True,
-            inputparameter=True,
-        ),
+    config = utila.FeaturePackConfig(
+        configflag=True,
+        description=DESCRIPTION,
+        multiprocessed=True,
+        name=figureo.PROCESS,
+        pages=True,
+        profileflag=True,
+        singleinput=True,
+        verboseflag=True,
+        version=figureo.__version__,
     )
-    args = utila.parse(parser)
-    inputpath, output, _ = utila.sources(args)  # pylint:disable=W0612,W0632
-    return utila.SUCCESS
+    utila.featurepack(
+        workplan=WORKPLAN,
+        config=config,
+        root=figureo.ROOT,
+        featurepackage='figureo.features',
+    )

@@ -44,6 +44,8 @@ if __name__ == "__main__":
         ],
         packages=[
             'figureo',
+            'figureo.features',
+            'figureo.standard',
         ],
         entry_points={
             'console_scripts': ['figureo = figureo.cli:main'],
