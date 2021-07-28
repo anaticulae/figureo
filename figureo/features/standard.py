@@ -12,6 +12,9 @@ Extract figures and convert to images
 
 """
 
+import serializeraw
+import utila
+
 import figureo.serialize
 import figureo.standard.converter
 import figureo.utils
@@ -19,11 +22,19 @@ import figureo.utils
 
 def work(
     path: str,
+    content: str = None,
     pages: tuple = None,
 ) -> figureo.utils.DumpedFigureInformation:
     pages = sorted(pages) if pages else pages
 
-    figures = figureo.standard.converter.extract_figures(path, pages=pages)
-
+    if utila.exists(content):
+        content = serializeraw.load_contentboundingbox(content, pages=pages)
+    else:
+        content = None
+    figures = figureo.standard.converter.extract_figures(
+        path,
+        boundings=content,
+        pages=pages,
+    )
     dumped = figureo.serialize.dump_figures(figures)
     return dumped

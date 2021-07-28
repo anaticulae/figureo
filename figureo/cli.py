@@ -20,6 +20,11 @@ WORKPLAN = [
         'standard',
         inputs=[
             utila.Pattern('*', 'pdf'),
+            utila.ResultFile(
+                producer='groupme',
+                name='content_content',
+                optional=True,
+            ),
         ],
         output=[
             ('figures/{FILEHASH_1}', 'yaml'),

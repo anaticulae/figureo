@@ -29,8 +29,9 @@ LAYOUT = pdfminer.layout.LAParams()
 
 class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
-    def __init__(self):
+    def __init__(self, boundings: list = None):
         super().__init__(laparams=LAYOUT)
+        self.boundings = boundings
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
@@ -146,6 +147,7 @@ def merge_figures(pagefigures) -> iamraw.Figures:
 
 def extract_figures(
     document: str,
+    boundings: list = None,
     pages: tuple = None,
 ) -> iamraw.Figures:
     with rawmaker.reader.read(document) as pdf:
