@@ -112,8 +112,8 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     assert len(written) == expected, str(written)
 
 
-def extract(source, pages, monkeypatch) -> list:
-    cmd = f'-i {source} --pages={pages} --standard'
+def extract(pdf, pages, monkeypatch) -> list:
+    cmd = f'-i {pdf} --pages={pages} --standard'
     tests.run(cmd, monkeypatch=monkeypatch)
     written = utila.file_list('figureo__standard_figures')
     return written

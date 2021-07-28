@@ -55,8 +55,8 @@ def test_figure_master155_page15(testdir, monkeypatch):
 
 def test_figure_master155_page17(testdir, monkeypatch):
     """Include lower 0, 5, 10 base."""
-    source = power.MASTER155_PDF
-    tests.run(f'-i {source} --standard --pages=17', monkeypatch=monkeypatch)
+    pdf = power.MASTER155_PDF
+    tests.run(f'-i {pdf} --standard --pages=17', monkeypatch=monkeypatch)
     imageinformation = serializeraw.images.load_image_informations_frompath(
         os.path.join(testdir.tmpdir, 'figureo__standard_figures'))
     assert len(imageinformation) == 1
