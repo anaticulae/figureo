@@ -7,4 +7,41 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
+import genex
+import power
+import pytest
+
+import figureo
+
 pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
+
+PACKAGE = figureo.PROCESS
+WORKER = 6
+
+power.setup(figureo.ROOT)
+
+RESOURCES = [
+    power.BACHELOR051_PDF,
+    power.BACHELOR056_PDF,
+    power.BACHELOR085_PDF,
+    power.BACHELOR090_PDF,
+    power.DISS266_PDF,
+    power.MASTER116_PDF,
+    power.MASTER155_PDF,
+]
+
+
+@pytest.mark.usefixtures('session')
+def pytest_sessionstart():
+    power.run()
+
+
+def extract(resources):
+    genex.extract(
+        files=resources,
+        destination=power.generated(),
+        groupme='--pagenumbers --border --footer --content',
+        pages=':',
+        worker=WORKER,
+        base=power.REPOSITORY,
+    )
