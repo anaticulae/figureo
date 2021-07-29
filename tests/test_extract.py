@@ -20,9 +20,10 @@ import tests
 def extract_figures(pages=None):
     """2 Figures on page 12 and 1 figure and 1 image on page 13."""
     source = power.MASTER116_PDF
+    content = power.link(source)
     if pages is None:
         pages = (12, 13)
-    extracted = figureo.features.standard.work(source, pages=pages)
+    extracted = figureo.features.standard.work(source, content, pages=pages)
     assert extracted
     return extracted
 
@@ -113,7 +114,8 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
 
 
 def extract(pdf, pages, monkeypatch) -> list:
-    cmd = f'-i {pdf} --pages={pages} --standard'
+    source = power.link(pdf)
+    cmd = f'-i {pdf} -i {source} --pages={pages} --standard'
     tests.run(cmd, monkeypatch=monkeypatch)
     written = utila.file_list('figureo__standard_figures')
     return written
