@@ -37,10 +37,13 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
+        bounding = None
         if self.boundings:
             bounding = utila.select_page(self.boundings, self.page)
+        if bounding:
             pagesize = (0, bounding.top, ltpage.width, bounding.bottom)
         else:
+            # white page or no self.boundings defined.
             pagesize = (0, 0, ltpage.width, ltpage.height)
         for item in ltpage:
             self.render_pagecontent(self.page, item, pagesize)
