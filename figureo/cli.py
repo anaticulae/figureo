@@ -45,6 +45,7 @@ def main():
         profileflag=True,
         singleinput=True,
         verboseflag=True,
+        rename=rename,
         version=figureo.__version__,
     )
     utila.featurepack(
@@ -53,3 +54,15 @@ def main():
         root=figureo.ROOT,
         featurepackage='figureo.features',
     )
+
+
+def rename(path):
+    if not isinstance(path, str):
+        path = [rename(item) for item in path]
+        return path
+    path = utila.rreplace(
+        path,
+        token='figureo__standard_figures',
+        replacement='rawmaker__images_images',
+    )
+    return path

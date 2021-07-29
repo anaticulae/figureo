@@ -26,7 +26,7 @@ def test_figures_run_bachelor56page27(monkeypatch):
     tests.run(cmd, monkeypatch=monkeypatch)
 
     expected_file_count = 1
-    figure = 'figureo__standard_figures'
+    figure = 'rawmaker__images_images'
     written = utila.file_list(figure, include='yaml')
     assert len(written) == expected_file_count, str(written)
 
