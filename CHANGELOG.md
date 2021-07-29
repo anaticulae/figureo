@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.3.0
+
+### Feature
+
+* rename output to write to rawmaker__images folder (674c3476a8eb)
+
 ## v0.2.0
 
 ### Feature
