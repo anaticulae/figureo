@@ -38,7 +38,11 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
-        pagesize = (ltpage.width, ltpage.height)
+        if self.boundings:
+            bounding = utila.select_page(self.boundings, self.page)
+            pagesize = (0, bounding.top, ltpage.width, bounding.bottom)
+        else:
+            pagesize = (0, 0, ltpage.width, ltpage.height)
         for item in ltpage:
             self.render_pagecontent(self.page, item, pagesize)
 
@@ -108,14 +112,14 @@ def too_long(item) -> bool:
     return False
 
 
-def valid_area(bbox: utila.Rectangle, pagesize: tuple, borderwidth=-5) -> bool:
+def valid_area(bbox: utila.Rectangle, pagesize: tuple, borderwidth=5) -> bool:
     # borderwith: minus means a little bit outside of the page. This often
     # happens when having full page images.
     inside = (
-        borderwidth,
-        borderwidth,
         pagesize[0] - borderwidth,
         pagesize[1] - borderwidth,
+        pagesize[2] + borderwidth,
+        pagesize[3] + borderwidth,
     )
     if utila.rectangle_inside(inside, bbox):
         return True
@@ -153,7 +157,7 @@ def extract_figures(
     with rawmaker.reader.read(document) as pdf:
         # Processing layout
         content = pdfminer.pdfpage.PDFPage.create_pages(pdf)
-        device = FigureConverter()
+        device = FigureConverter(boundings=boundings)
         interpreter = pdfminer.pdfinterp.PDFPageInterpreter(
             device.resources,
             device,

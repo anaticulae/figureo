@@ -26,7 +26,6 @@ def work(
     pages: tuple = None,
 ) -> figureo.utils.DumpedFigureInformation:
     pages = sorted(pages) if pages else pages
-
     if utila.exists(content):
         content = serializeraw.load_contentboundingbox(content, pages=pages)
     else:
