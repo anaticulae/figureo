@@ -70,3 +70,14 @@ def test_figure_master155_page17(testdir, monkeypatch):
     bounding = imageinformation[0].content[0].bounding
     expected = (155.76, 182.04, 528.05, 408.15)
     assert utila.nears(bounding, expected)
+
+
+def test_bachelor90_whitepage_error(testdir, monkeypatch):
+    """First page is a white page, this page produced an missing
+    bounding error."""
+    source = power.BACHELOR090_PDF
+    pages = '0:10'
+    tests.run(
+        f'-i {source} -i{power.link(source)} --standard --pages={pages}',
+        monkeypatch=monkeypatch,
+    )
