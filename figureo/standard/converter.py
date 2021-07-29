@@ -13,7 +13,6 @@ import math
 import iamraw
 import pdfminer
 import pdfminer.layout
-import pdfminer.utils
 import PIL.Image
 import PIL.ImageDraw
 import rawmaker.converter.basic
