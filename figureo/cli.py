@@ -62,7 +62,7 @@ def rename(path):
         return path
     path = utila.rreplace(
         path,
-        token='figureo__standard_figures',
-        replacement='rawmaker__images_images',
+        pattern='figureo__standard_figures',
+        replace='rawmaker__images_images',
     )
     return path
