@@ -10,6 +10,7 @@
 import collections
 import math
 
+import elements
 import iamraw
 import pdfminer
 import pdfminer.layout
@@ -63,7 +64,8 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if isinstance(item, pdfminer.layout.LTRect) and item.linewidth == 0:
             # skip hidden Rectangle
             return
-
+        if iscaption(item):
+            return
         self.nonfigure[pageid].append(item)
 
     def render_figure(self, item: pdfminer.layout.LTFigure, pageid: int):
@@ -82,6 +84,15 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if merged:
             self.content.extend(merged)
         return self.content
+
+
+def iscaption(item) -> bool:
+    if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
+        return False
+    # TODO: REMOVE STRIP LATER
+    if elements.iscaption(item.get_text().strip()):
+        return True
+    return False
 
 
 def imageonly(figure) -> bool:
