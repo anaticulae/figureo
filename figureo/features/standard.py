@@ -12,6 +12,8 @@ Extract figures and convert to images
 
 """
 
+import ghost
+import iamraw
 import serializeraw
 import utila
 
@@ -35,5 +37,19 @@ def work(
         boundings=content,
         pages=pages,
     )
+    if figures:
+        figures = beautify_figures(figures, path)
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
+
+
+def beautify_figures(figures, path: str):
+    """Use ghost to render pdf and crop interested area."""
+    boundings = [
+        iamraw.ImageInformation(page=image.page, bounding=image.bounding)
+        for image in figures
+    ]
+    extracted = ghost.images(path, boundings)
+    for figure, image in zip(figures, extracted):
+        figure.data = image
+    return figures
