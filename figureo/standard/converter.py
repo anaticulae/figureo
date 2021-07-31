@@ -109,6 +109,9 @@ def imageonly(figure) -> bool:
     return False
 
 
+FIGURE_TEXT_LENGTH_MAX = 25  # TODO: HOLY VALUE
+
+
 def too_long(item) -> bool:
     if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
         return False
@@ -120,7 +123,7 @@ def too_long(item) -> bool:
         # do not ignore centered text
         return False
     maxs = utila.maxs([len(item) for item in text.splitlines()])
-    if maxs > 10:
+    if maxs > FIGURE_TEXT_LENGTH_MAX:
         return True
     return False
 
