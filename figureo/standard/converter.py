@@ -52,7 +52,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def render_pagecontent(self, pageid, item, pagesize=None):
         """Collect all figures."""
         if imageonly(item):
-            utila.error('duplicated image')
+            utila.debug('figure as image container')
             # return
             # handled by --images, refactor later
             # return
