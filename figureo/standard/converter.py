@@ -8,13 +8,11 @@
 # =============================================================================
 
 import collections
-import math
 
 import elements
 import iamraw
 import pdfminer
 import pdfminer.layout
-import PIL.Image
 import PIL.ImageDraw
 import rawmaker.converter.basic
 import rawmaker.reader
@@ -194,98 +192,12 @@ def extract_figure(figure, pageid: int = None) -> iamraw.Figure:
         # TODO: CHECK THIS
         # no figure, just an image container
         return None
-    # TODO: Investigate about correct scaling.
-    scalex, scaley = 4, 4
-    # scalex, scaley = 1 / figure.matrix[0], 1 / figure.matrix[3]
-    if scalex < 0 or scaley < 0:
-        # TODO: DONT KNOW WHY THIS CAN HAPPEN?
-        # TODO: INDICATE THIS FOR SOME USER DEFINED LAYOUT ERROR?
-        utila.error(f'negative scaling: {scalex} {scaley}')
-        scalex, scaley = math.fabs(scalex), math.fabs(scaley)
-
-    bounding = scale_bounding(
-        (figure.x0, figure.y0, figure.x1, figure.y1),
-        (scalex, scaley),
-    )
-
-    offset = bounding[0], bounding[1]
-    scale = scalex, scaley
-
+    bounding = (figure.x0, figure.y0, figure.x1, figure.y1)
     try:
         # TODO: USE NEW PROCES?
         raw = figureo.utils.rawfigure_frombounding(bounding)
     except MemoryError:
         utila.error(f'could not render figure on page {pageid}: {bounding}')
         return None
-    renderer = PIL.ImageDraw.Draw(raw, mode='RGBA')
-
-    for item in figure:
-        render(item, offset, scale, renderer, raw)
-
-    # scale bounding information to pdf size
-    bounding = scale_bounding(bounding, (1.0 / scalex, 1.0 / scaley))
-
     result = iamraw.Figure(data=raw, bounding=bounding)
-    return result
-
-
-def render(item, offset, scale, renderer, rawbuffer):  # pylint:disable=R0914
-    scalex, scaley = scale
-    bounding = list(item.bbox)
-    bounding[0] *= scale[0]
-    bounding[2] *= scale[0]
-    bounding[1] *= scale[1]
-    bounding[3] *= scale[1]
-
-    bounding[0] -= offset[0]
-    bounding[2] -= offset[0]
-    bounding[1] -= offset[1]
-    bounding[3] -= offset[1]
-
-    if isinstance(item, pdfminer.layout.LTLine):
-        renderer.line(
-            bounding,
-            width=utila.maxs(int(item.linewidth), 1),
-            fill='black',
-        )
-    elif isinstance(item, pdfminer.layout.LTRect):
-        renderer.rectangle(
-            bounding,
-            width=utila.maxs(int(item.linewidth), 1),
-            outline='black',
-        )
-    elif isinstance(item, pdfminer.layout.LTCurve):
-        for current, after in zip(item.pts[0:-1], item.pts[1:]):
-            expanded = pdfminer.layout.LTLine(
-                linewidth=item.linewidth,
-                p0=current,
-                p1=after,
-            )
-            # TODO: 200 HACK FOR NOT FLIPPED COORDINATE
-            render(expanded, (0, 200), (1.0, 1.0), renderer, rawbuffer)
-    elif isinstance(item, pdfminer.layout.LTFigure):
-        # render image
-        images = item._objs[:]  # pylint:disable=W0212
-        for image in images:
-            render(image, offset, scale, renderer, rawbuffer)
-    elif isinstance(item, pdfminer.layout.LTImage):
-        raw = rawmaker.miner.images.image_fromlt(item)
-        if not raw:
-            utila.error('could not render `image_fromlt`')
-            return
-        size = (int(item.width * scalex), int(item.height * scaley))
-        location = (int(item.x0 * scalex), int(item.y0 * scaley))
-        resized = raw.resize(size, resample=PIL.Image.ANTIALIAS)
-        rawbuffer.paste(resized, location)
-    else:
-        utila.error(f'not supported: could not render {item}')
-
-
-def scale_bounding(bounding: tuple, scale: tuple) -> tuple:
-    result = (
-        bounding[0] * scale[0],
-        bounding[1] * scale[1],
-        bounding[2] * scale[0],
-        bounding[3] * scale[1],
-    )
     return result
