@@ -2,6 +2,15 @@
 
 Every noteable change is logged here.
 
+## v0.5.0
+
+### Feature
+
+* reduce verbosity of logging (22f4b45e9f2a)
+* increase valid figure text item (f850c9aa52d0)
+* add some space to bounding (f00edba1486d)
+* skip caption line to improve extraction result (2a32d788a5b0)
+
 ## v0.4.0
 
 ### Feature
