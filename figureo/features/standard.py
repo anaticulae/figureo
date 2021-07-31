@@ -43,11 +43,17 @@ def work(
     return dumped
 
 
+# 2 percent tolerance
+SCALE = (0.99, 0.99, 1.01, 1.01)
+
+
 def beautify_figures(figures, path: str):
     """Use ghost to render pdf and crop interested area."""
     boundings = [
-        iamraw.ImageInformation(page=image.page, bounding=image.bounding)
-        for image in figures
+        iamraw.ImageInformation(
+            page=image.page,
+            bounding=utila.rectangle_scale(image.bounding, SCALE),
+        ) for image in figures
     ]
     extracted = ghost.images(path, boundings)
     for figure, image in zip(figures, extracted):
