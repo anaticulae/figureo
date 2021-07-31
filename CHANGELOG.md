@@ -2,6 +2,16 @@
 
 Every noteable change is logged here.
 
+## v0.4.0
+
+### Feature
+
+* crop figures from pdf extraction (29b7f56eb483)
+
+### Fix
+
+* use default bounding for white pages (a5bcfeeaed90)
+
 ## v0.3.0
 
 ### Feature
