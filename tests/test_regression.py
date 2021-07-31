@@ -81,3 +81,20 @@ def test_bachelor90_whitepage_error(testdir, monkeypatch):
         f'-i {source} -i{power.link(source)} --standard --pages={pages}',
         monkeypatch=monkeypatch,
     )
+
+
+def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
+    """Do not merge figure caption into detected figure."""
+    source = power.BACHELOR090_PDF
+    pages = '58'
+    tests.run(
+        f'-i {source} -i{power.link(source)} --standard --pages={pages}',
+        monkeypatch=monkeypatch,
+    )
+    names = utila.file_list(testdir.tmpdir, include='png')
+    bins = [
+        utila.file_read_binary(os.path.join(testdir.tmpdir, name))
+        for name in names
+    ]
+    hashed = {utilatest.binhash(item) for item in bins}
+    assert hashed == {1999208274, 2827542461}
