@@ -32,6 +32,7 @@ def work(
     if utila.exists(content):
         content = serializeraw.load_contentboundingbox(content, pages=pages)
     else:
+        utila.debug(f'{content} does not exists')
         content = None
     if utila.exists(tables):
         tables = serializeraw.load_tables(tables, pages=pages)
