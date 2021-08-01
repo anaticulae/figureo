@@ -25,6 +25,7 @@ import figureo.utils
 def work(
     path: str,
     content: str = None,
+    tables: str = None,
     pages: tuple = None,
 ) -> figureo.utils.DumpedFigureInformation:
     pages = sorted(pages) if pages else pages
@@ -32,9 +33,15 @@ def work(
         content = serializeraw.load_contentboundingbox(content, pages=pages)
     else:
         content = None
+    if utila.exists(tables):
+        tables = serializeraw.load_tables(tables, pages=pages)
+    else:
+        utila.debug(f'{tables} does not exists')
+        tables = None
     figures = figureo.standard.converter.extract_figures(
         path,
         boundings=content,
+        tables=tables,
         pages=pages,
     )
     if figures:

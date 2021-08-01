@@ -27,9 +27,10 @@ LAYOUT = pdfminer.layout.LAParams()
 
 class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
-    def __init__(self, boundings: list = None):
+    def __init__(self, boundings: list = None, tables: list = None):
         super().__init__(laparams=LAYOUT)
         self.boundings = boundings
+        self.tables = tables
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
@@ -37,6 +38,9 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
         bounding = None
+        tables = None
+        if self.tables:
+            tables = utila.select_content(self.tables, self.page)
         if self.boundings:
             bounding = utila.select_page(self.boundings, self.page)
         if bounding:
@@ -45,16 +49,16 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             # white page or no self.boundings defined.
             pagesize = (0, 0, ltpage.width, ltpage.height)
         for item in ltpage:
-            self.render_pagecontent(self.page, item, pagesize)
+            self.render_pagecontent(self.page, item, pagesize, tables=tables)
 
-    def render_pagecontent(self, pageid, item, pagesize=None):
+    def render_pagecontent(self, pageid, item, pagesize=None, tables=None):
         """Collect all figures."""
         if imageonly(item):
             utila.debug('figure as image container')
             # return
             # handled by --images, refactor later
             # return
-        if not valid_area(item.bbox, pagesize):
+        if not valid_area(item.bbox, pagesize, tables):
             # check after figure to avoid skipping figure
             return
         if too_long(item):
@@ -126,7 +130,13 @@ def too_long(item) -> bool:
     return False
 
 
-def valid_area(bbox: utila.Rectangle, pagesize: tuple, borderwidth=5) -> bool:
+def valid_area(
+    bbox: utila.Rectangle,
+    pagesize: tuple,
+    tables: iamraw.TableBoundings = None,
+    borderwidth=5,
+) -> bool:
+    tables = tables if tables else []
     # borderwith: minus means a little bit outside of the page. This often
     # happens when having full page images.
     inside = (
@@ -136,7 +146,12 @@ def valid_area(bbox: utila.Rectangle, pagesize: tuple, borderwidth=5) -> bool:
         pagesize[3] + borderwidth,
     )
     if utila.rectangle_inside(inside, bbox):
+        # intersecting with page border
         return True
+    for table in tables:
+        # does element collide with table bounding
+        if utila.intersecting_rectangle(table.bounding, bbox):
+            return True
     return False
 
 
@@ -166,12 +181,13 @@ def merge_figures(pagefigures) -> iamraw.Figures:
 def extract_figures(
     document: str,
     boundings: list = None,
+    tables: list = None,
     pages: tuple = None,
 ) -> iamraw.Figures:
     with rawmaker.reader.read(document) as pdf:
         # Processing layout
         content = pdfminer.pdfpage.PDFPage.create_pages(pdf)
-        device = FigureConverter(boundings=boundings)
+        device = FigureConverter(boundings=boundings, tables=tables)
         interpreter = pdfminer.pdfinterp.PDFPageInterpreter(
             device.resources,
             device,
