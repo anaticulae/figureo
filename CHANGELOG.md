@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.6.0
+
+### Feature
+
+* add debugging information (ea04afc17a78)
+* use extracted table to improve figure detector (3405439c96af)
+
 ## v0.5.0
 
 ### Feature
