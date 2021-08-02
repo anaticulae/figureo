@@ -95,6 +95,8 @@ def isinvalid(item) -> bool:
         return False
     # TODO: REMOVE STRIP LATER
     text = item.get_text().strip()
+    if not text:
+        return True
     if text == '.':
         return True
     if contains_listof(text):
