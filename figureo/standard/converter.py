@@ -145,13 +145,13 @@ def valid_area(
         pagesize[2] + borderwidth,
         pagesize[3] + borderwidth,
     )
-    if utila.rectangle_inside(inside, bbox):
-        # intersecting with page border
-        return True
     for table in tables:
         # does element collide with table bounding
         if utila.intersecting_rectangle(table.bounding, bbox):
-            return True
+            return False
+    if utila.rectangle_inside(inside, bbox):
+        # intersecting with page border
+        return True
     return False
 
 
