@@ -68,6 +68,8 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             return
         if iscaption(item):
             return
+        if isinvalid(item):
+            return
         self.nonfigure[pageid].append(item)
 
     def render_figure(self, item: pdfminer.layout.LTFigure, pageid: int):
@@ -86,6 +88,22 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if merged:
             self.content.extend(merged)
         return self.content
+
+
+def isinvalid(item) -> bool:
+    if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
+        return False
+    # TODO: REMOVE STRIP LATER
+    if contains_listof(item.get_text().strip()):
+        return True
+    return False
+
+
+def contains_listof(raw: str) -> bool:
+    dots_with_spaces = raw.count('. . . .')
+    connected_dots = raw.count('....')
+    result = dots_with_spaces > 4 or connected_dots >= 3
+    return result
 
 
 def iscaption(item) -> bool:
