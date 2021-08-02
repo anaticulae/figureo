@@ -2,6 +2,18 @@
 
 Every noteable change is logged here.
 
+## v0.7.0
+
+### Feature
+
+* skip content with to many dots (500596b6023f)
+
+### Fix
+
+* skip empty text items (ff99984f149a)
+* skip dots as potential figure content (f08c820f67bc)
+* table checker was not used and return wrong result (a42bb74aeea5)
+
 ## v0.6.0
 
 ### Feature
