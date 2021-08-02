@@ -94,16 +94,22 @@ def isinvalid(item) -> bool:
     if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
         return False
     # TODO: REMOVE STRIP LATER
-    if contains_listof(item.get_text().strip()):
+    text = item.get_text().strip()
+    if text == '.':
+        return True
+    if contains_listof(text):
         return True
     return False
 
 
 def contains_listof(raw: str) -> bool:
-    dots_with_spaces = raw.count('. . . .')
-    connected_dots = raw.count('....')
-    result = dots_with_spaces > 4 or connected_dots >= 3
-    return result
+    dots_with_spaces = raw.count('. . .')
+    connected_dots = raw.count('...')
+    if dots_with_spaces:
+        return True
+    if connected_dots:
+        return True
+    return False
 
 
 def iscaption(item) -> bool:

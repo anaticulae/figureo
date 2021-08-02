@@ -34,3 +34,14 @@ def test_figures_run_bachelor56page27(monkeypatch):
     image = serializeraw.load_image_info(path)
     assert image.width >= 221, image.width
     assert image.height >= 163, image.height
+
+
+@pytest.mark.xfail(reason='improve parser')
+@pytest.mark.usefixtures('testdir')
+def test_figures_skip_dots(monkeypatch):
+    source = power.BACHELOR090_PDF
+    cmd = f'-i {source} --pages=81,82 --standard'
+    tests.run(cmd, monkeypatch=monkeypatch)
+    figure = 'rawmaker__images_images'
+    # do not generate any figure
+    assert not os.path.exists(figure)
