@@ -68,7 +68,7 @@ def test_figure_master155_page17(testdir, monkeypatch):
         os.path.join(testdir.tmpdir, 'rawmaker__images_images'))
     assert len(imageinformation) == 1
     bounding = imageinformation[0].content[0].bounding
-    expected = (155.76, 182.04, 528.05, 408.15)
+    expected = (155.76, 182.04, 514.03, 389.72)
     assert utila.nears(bounding, expected)
 
 

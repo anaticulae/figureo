@@ -101,18 +101,13 @@ def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
 
 
 def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
-    """The figure name is determined dues hashing the figure content. If
-    both figures are equal(empty and same size for example) the figures
-    have the same name and one image information is lost. Therefore we
-    include the pageid id into a central pixel in the middle of the
-    figure. As a result of this, we do not lose bounding information.
+    """Detect two nearly equal figures on different pages.
 
-    TODO: REMOVE OUTDATED DOCS
+    Ensure that tables on the same page are not located as figure anymore.
     """
     written = extract(power.BACHELOR051_PDF, '30,33', monkeypatch)
-    # 3 png and 3 yaml files
-    # correct is 2 because 1 table is detected as figure
-    expected = 8
+    # 2 png and 2 yaml files
+    expected = 4
     assert len(written) == expected, str(written)
 
 
