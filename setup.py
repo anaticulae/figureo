@@ -46,8 +46,12 @@ if __name__ == "__main__":
             'figureo',
             'figureo.features',
             'figureo.standard',
+            'rawmaker_cleanup',
         ],
         entry_points={
-            'console_scripts': ['figureo = figureo.cli:main'],
+            'console_scripts': [
+                'figureo = figureo.cli:main',
+                'rawmaker_cleanup = rawmaker_cleanup.cli:main',
+            ],
         },
     )
