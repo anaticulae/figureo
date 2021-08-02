@@ -84,7 +84,11 @@ def test_bachelor90_whitepage_error(testdir, monkeypatch):
 
 
 def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
-    """Do not merge figure caption into detected figure."""
+    """Do not merge figure caption into detected figure.
+
+    One figure is composed out of lines and text.
+    The other figure is an image figure and handled by rawmaker --images.
+    """
     source = power.BACHELOR090_PDF
     pages = '58'
     tests.run(
@@ -97,4 +101,4 @@ def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
         for name in names
     ]
     hashed = {utilatest.binhash(item) for item in bins}
-    assert hashed == {1999208274, 2827542461}
+    assert hashed == {2827542461}

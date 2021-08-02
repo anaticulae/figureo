@@ -77,9 +77,10 @@ def test_render_master116_page18(monkeypatch, testdir):
 
 
 def test_render_master116_page2_figure_image(monkeypatch, testdir):
+    """Figure image is handled by rawmaker --images."""
     written = extract(power.MASTER116_PDF, 2, monkeypatch)
-    # 1 png and 1 yaml files
-    expected = 2
+    # 0 png and 0 yaml files
+    expected = 0
     assert len(written) == expected, str(written)
 
 
@@ -91,7 +92,7 @@ def test_render_master116_page2_figure_image(monkeypatch, testdir):
     (45, 1),
     (56, 1),
     (57, 1),
-    (58, 2),
+    (58, 1),
 ])
 def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
     written = extract(power.BACHELOR090_PDF, page, monkeypatch)
@@ -115,5 +116,7 @@ def extract(pdf, pages, monkeypatch) -> list:
     source = power.link(pdf)
     cmd = f'-i {pdf} -i {source} --pages={pages} --standard'
     tests.run(cmd, monkeypatch=monkeypatch)
+    if not utila.exists('rawmaker__images_images'):
+        return []
     written = utila.file_list('rawmaker__images_images')
     return written
