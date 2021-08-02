@@ -105,7 +105,10 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     both figures are equal(empty and same size for example) the figures
     have the same name and one image information is lost. Therefore we
     include the pageid id into a central pixel in the middle of the
-    figure. As a result of this, we do not lose bounding information."""
+    figure. As a result of this, we do not lose bounding information.
+
+    TODO: REMOVE OUTDATED DOCS
+    """
     written = extract(power.BACHELOR051_PDF, '30,33', monkeypatch)
     # 3 png and 3 yaml files
     # correct is 2 because 1 table is detected as figure
