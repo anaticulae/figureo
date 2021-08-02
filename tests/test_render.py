@@ -45,3 +45,14 @@ def test_figures_skip_dots(monkeypatch):
     figure = 'rawmaker__images_images'
     # do not generate any figure
     assert not os.path.exists(figure)
+
+
+@pytest.mark.usefixtures('testdir')
+def test_figures_double_image(monkeypatch):
+    """This is an image, not a figure. We have to skip this."""
+    source = power.BACHELOR090_PDF
+    cmd = f'-i {source} -i {power.link(source)} --pages=80 --standard'
+    tests.run(cmd, monkeypatch=monkeypatch)
+    figure = 'rawmaker__images_images'
+    # do not generate any figure
+    assert not os.path.exists(figure)

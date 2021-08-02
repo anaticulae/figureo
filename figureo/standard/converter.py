@@ -55,9 +55,8 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         """Collect all figures."""
         if imageonly(item):
             utila.debug('figure as image container')
-            # return
+            return
             # handled by --images, refactor later
-            # return
         if not valid_area(item.bbox, pagesize, tables):
             # check after figure to avoid skipping figure
             return
