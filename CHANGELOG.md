@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.8.0
+
+### Feature
+
+* add basic cli infrastructure (57260d79879e)
+* skip image only figures (3d8fd3f22ef2)
+
 ## v0.7.0
 
 ### Feature
