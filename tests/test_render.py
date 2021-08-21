@@ -13,6 +13,7 @@ import power
 import pytest
 import serializeraw
 import utila
+import utilatest
 
 import tests
 
@@ -48,6 +49,7 @@ def test_figures_skip_dots(monkeypatch):
 
 
 @pytest.mark.usefixtures('testdir')
+@utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(monkeypatch):
     """This is an image, not a figure. We have to skip this."""
     source = power.BACHELOR090_PDF
