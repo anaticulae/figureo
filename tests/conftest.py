@@ -41,6 +41,7 @@ def extract(resources):
         files=resources,
         destination=power.generated(),
         groupme='--pagenumbers --border --footer --content',
+        tablero=True,
         pages=':',
         worker=WORKER,
         base=power.REPOSITORY,
