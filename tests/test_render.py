@@ -22,15 +22,11 @@ import tests
 def test_figures_run_bachelor56page27(monkeypatch):
     """Ensure that text below, left and right from figure is included
     into figure."""
-    source = power.BACHELOR056_PDF
-    cmd = f'-i {source} --pages=27 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
-
+    run_standard(power.BACHELOR056_PDF, pages='27', monkeypatch=monkeypatch)
     expected_file_count = 1
     figure = 'rawmaker__images_images'
     written = utila.file_list(figure, include='yaml')
     assert len(written) == expected_file_count, str(written)
-
     path = os.path.join(figure, written[0])
     image = serializeraw.load_image_info(path)
     assert image.width >= 221, image.width
@@ -40,9 +36,7 @@ def test_figures_run_bachelor56page27(monkeypatch):
 @pytest.mark.xfail(reason='improve parser')
 @pytest.mark.usefixtures('testdir')
 def test_figures_skip_dots(monkeypatch):
-    source = power.BACHELOR090_PDF
-    cmd = f'-i {source} --pages=81,82 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    run_standard(power.BACHELOR090_PDF, pages='81,82', monkeypatch=monkeypatch)
     figure = 'rawmaker__images_images'
     # do not generate any figure
     assert not os.path.exists(figure)
@@ -52,9 +46,12 @@ def test_figures_skip_dots(monkeypatch):
 @utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(monkeypatch):
     """This is an image, not a figure. We have to skip this."""
-    source = power.BACHELOR090_PDF
-    cmd = f'-i {source} -i {power.link(source)} --pages=80 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    run_standard(power.BACHELOR090_PDF, pages='80', monkeypatch=monkeypatch)
     figure = 'rawmaker__images_images'
     # do not generate any figure
     assert not os.path.exists(figure)
+
+
+def run_standard(source, pages, monkeypatch):
+    cmd = f'-i {source} --pages={pages} --standard'
+    tests.run(cmd, monkeypatch=monkeypatch)
