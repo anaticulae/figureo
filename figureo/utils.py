@@ -34,17 +34,15 @@ IMAGE_HEIGHT_MAX = 768
 def rawfigure_frombounding(bbox, mode=RGBA, background=WHITE) -> PIL.Image:
     width = utila.rectangle_width(bbox)
     height = utila.rectangle_height(bbox)
-
     # limit max figure size to avoid too much memory consumption
     width = utila.mins(width, IMAGE_WIDTH_MAX)
     height = utila.mins(height, IMAGE_HEIGHT_MAX)
-
     # ensure positive figure size
     if width < 0 or height < 0:
         utila.error(f'negative figure size: {width} {height}')
     width = utila.maxs(width, 1)
     height = utila.maxs(height, 1)
-
+    # figure image size
     size = (int(width), int(height))
     raw = PIL.Image.new(mode, size, color=background)
     return raw
