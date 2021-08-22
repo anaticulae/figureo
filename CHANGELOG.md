@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.8.1
+
+### Feature
+
+* make figure extractor more precise (c40ef5ee2034)
+
 ## v0.8.0
 
 ### Feature
