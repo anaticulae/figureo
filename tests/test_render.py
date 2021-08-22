@@ -54,4 +54,7 @@ def test_figures_double_image(monkeypatch):
 
 def run_standard(source, pages, monkeypatch):
     cmd = f'-i {source} --pages={pages} --standard'
+    source = power.link(source)
+    if os.path.exists(source):
+        cmd = f'{cmd} -i {source}'
     tests.run(cmd, monkeypatch=monkeypatch)
