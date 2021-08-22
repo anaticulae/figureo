@@ -86,13 +86,12 @@ def cluster(  # pylint:disable=R0914
         # for _ in utila.ranges(item.bbox[0], item.bbox[2], step=50):
         for coordinate in utila.ranges(start, end, step=5):
             bucket.add(utila.roundme(coordinate))
-
+    # select areas with enough items
     content = list(bucket)  # TODO: REMOVE after upgrading UTILA
     content = utila.groupby_neighbors(content)
-
     # TODO: CHECK MIN_CLUSTER_SIZE CAUSE SET REMOVES ITEMS OUT OF CONTENT
     selected = [set(item) for item in content if len(item) >= min_cluster_size]
-
+    # prepare result
     result = []
     for current in selected:
         y0 = min(current)
