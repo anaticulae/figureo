@@ -78,7 +78,7 @@ def cluster(  # pylint:disable=R0914
         items: list,
         min_cluster_size=MIN_CLUSTER_SIZE,
 ):
-    bucket = utila.Buckets(utila.ranges(0, 1000, 25), sorting=True)
+    bucket = utila.Buckets(utila.ranges(0, 1000, 15), sorting=True)
     for item in items:
         start, end = item.bbox[1], item.bbox[3]
         # left to right to ensure that line is marked more than one
