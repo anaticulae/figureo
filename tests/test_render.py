@@ -58,3 +58,11 @@ def run_standard(source, pages, monkeypatch):
     if os.path.exists(source):
         cmd = f'{cmd} -i {source}'
     tests.run(cmd, monkeypatch=monkeypatch)
+
+
+def test_reg_figure_text_in_figure(testdir, monkeypatch):
+    """Do not include `Diplomarbeit` inside title page figure."""
+    run_standard(power.MASTER078_PDF, pages='0', monkeypatch=monkeypatch)
+    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    image = images[0].content[0]
+    assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
