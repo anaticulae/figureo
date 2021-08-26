@@ -84,7 +84,6 @@ def test_render_master116_page2_figure_image(monkeypatch, testdir):
     assert len(written) == expected, str(written)
 
 
-# TODO: 58, 2 reduce later to 1
 @pytest.mark.parametrize('page, expected', [
     (23, 1),
     (39, 1),
