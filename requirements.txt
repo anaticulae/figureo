@@ -7,7 +7,7 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-utila>=2.45.2<3.0.0
-rawmaker>=2.24.6<3.0.0
-ghost>=0.2.2<1.0.0
-elements>=0.8.0<1.0.0
+utila>=2.53.0<3.0.0
+rawmaker>=2.26.2<3.0.0
+ghost>=0.3.1<1.0.0
+elements>=0.9.0<1.0.0
