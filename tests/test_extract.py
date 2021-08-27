@@ -111,6 +111,14 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     assert len(written) == expected, str(written)
 
 
+def test_render_diss172page30(monkeypatch, testdir):
+    """Single image which intersects page border."""
+    written = extract(power.DISS172_PDF, '30', monkeypatch)
+    # 1 png and 1 yaml files
+    expected = 2
+    assert len(written) == expected, str(written)
+
+
 def extract(pdf, pages, monkeypatch) -> list:
     source = power.link(pdf)
     cmd = f'-i {pdf} -i {source} --pages={pages} --standard'

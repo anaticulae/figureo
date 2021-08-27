@@ -55,8 +55,8 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         """Collect all figures."""
         if imageonly(item):
             utila.debug('figure as image container')
-            return
             # handled by --images, refactor later
+            return
         if not valid_area(item.bbox, pagesize, tables):
             # check after figure to avoid skipping figure
             return
@@ -158,11 +158,12 @@ def valid_area(
     bbox: utila.Rectangle,
     pagesize: tuple,
     tables: iamraw.TableBoundings = None,
-    borderwidth=5,
+    borderwidth=512,
 ) -> bool:
     tables = tables if tables else []
-    # borderwith: minus means a little bit outside of the page. This often
+    # borderwidth: minus means a little bit outside of the page. This often
     # happens when having full page images.
+    # borderwidth: increase borderwidth to handle bad pdf printing
     inside = (
         pagesize[0] - borderwidth,
         pagesize[1] - borderwidth,
