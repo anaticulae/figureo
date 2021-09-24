@@ -22,7 +22,10 @@ import figureo.standard.text
 import figureo.utils
 
 # use layout to group test to avoid handling to much LTChar-data.
-LAYOUT = pdfminer.layout.LAParams()
+LAYOUT = pdfminer.layout.LAParams(
+    char_margin=2.7,
+    line_margin=0.01,
+)
 
 
 class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
@@ -98,6 +101,8 @@ def isinvalid(item) -> bool:
         return True
     if text == '.':
         return True
+    if text.count('(') != text.count(')'):
+        return True
     if contains_listof(text):
         return True
     return False
@@ -105,7 +110,7 @@ def isinvalid(item) -> bool:
 
 def contains_listof(raw: str) -> bool:
     dots_with_spaces = raw.count('. . .')
-    connected_dots = raw.count('...')
+    connected_dots = raw.count('....')
     if dots_with_spaces:
         return True
     if connected_dots:
@@ -135,7 +140,7 @@ def imageonly(figure) -> bool:
     return False
 
 
-FIGURE_TEXT_LENGTH_MAX = 25  # TODO: HOLY VALUE
+FIGURE_TEXT_LENGTH_MAX = 20  # TODO: HOLY VALUE
 
 
 def too_long(item) -> bool:

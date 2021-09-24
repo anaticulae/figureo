@@ -33,7 +33,6 @@ def test_figures_run_bachelor56page27(monkeypatch):
     assert image.height >= 163, image.height
 
 
-@pytest.mark.xfail(reason='improve parser')
 @pytest.mark.usefixtures('testdir')
 def test_figures_skip_dots(monkeypatch):
     run_standard(power.BACHELOR090_PDF, pages='81,82', monkeypatch=monkeypatch)
@@ -66,3 +65,11 @@ def test_reg_figure_text_in_figure(testdir, monkeypatch):
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
     image = images[0].content[0]
     assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
+
+
+def test_master31page4(testdir, monkeypatch):
+    run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
+    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    selected = images[0].content[0].bounding
+    expected = (305.57, 67.33, 526.39, 251.31)
+    assert selected == expected
