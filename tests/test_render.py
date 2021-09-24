@@ -22,7 +22,7 @@ import tests
 def test_figures_run_bachelor56page27(monkeypatch):
     """Ensure that text below, left and right from figure is included
     into figure."""
-    run_standard(power.BACHELOR056_PDF, pages='27', monkeypatch=monkeypatch)
+    run_standard(power.BACHELOR056_PDF, pages=27, monkeypatch=monkeypatch)
     expected_file_count = 1
     figure = 'rawmaker__images_images'
     written = utila.file_list(figure, include='yaml')
@@ -46,7 +46,7 @@ def test_figures_skip_dots(monkeypatch):
 @utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(monkeypatch):
     """This is an image, not a figure. We have to skip this."""
-    run_standard(power.BACHELOR090_PDF, pages='80', monkeypatch=monkeypatch)
+    run_standard(power.BACHELOR090_PDF, pages=80, monkeypatch=monkeypatch)
     figure = 'rawmaker__images_images'
     # do not generate any figure
     assert not os.path.exists(figure)
@@ -62,7 +62,7 @@ def run_standard(source, pages, monkeypatch):
 
 def test_reg_figure_text_in_figure(testdir, monkeypatch):
     """Do not include `Diplomarbeit` inside title page figure."""
-    run_standard(power.MASTER078_PDF, pages='0', monkeypatch=monkeypatch)
+    run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
     image = images[0].content[0]
     assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
