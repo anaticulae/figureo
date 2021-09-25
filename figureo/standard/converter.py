@@ -116,8 +116,7 @@ def contains_listof(raw: str) -> bool:
 def iscaption(item) -> bool:
     if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
         return False
-    # TODO: REMOVE STRIP LATER
-    if elements.iscaption(item.get_text().strip()):
+    if elements.iscaption(item.get_text()):
         return True
     return False
 
