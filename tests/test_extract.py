@@ -28,6 +28,17 @@ def extract_figures(pages=None):
     return extracted
 
 
+def standard_figures(pdf, pages: str, testdir, monkeypatch):
+    source = power.link(pdf)
+    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages={pages} --standard'
+    tests.run(cmd, monkeypatch=monkeypatch)
+    if not utila.exists('rawmaker__images_images'):
+        return []
+    # verify
+    written = utila.file_list('rawmaker__images_images')
+    return written
+
+
 def test_figures_extract():
     extracted = extract_figures()
     assert len(extracted) == 3, str(extracted)
@@ -39,7 +50,6 @@ def test_figures_dump_and_load(testdir):
     # 3 figures and 3 information
     with utilatest.increased_filecount(outpath, mindiff=6, maxdiff=6):
         serializeraw.dump_figures(extracted, outpath)
-
     loaded = serializeraw.load_figures(outpath)
     assert len(loaded) == 3
 
@@ -54,43 +64,31 @@ def test_figures_extract_master116_page19(testdir):
 
 @utilatest.longrun
 def test_figures_run_master116(monkeypatch, testdir):
-    pdf = power.MASTER116_PDF
-    source = power.link(pdf)
-    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages=17:24 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    written = standard_figures(
+        power.MASTER116_PDF,
+        '17:24',
+        testdir,
+        monkeypatch,
+    )
     # verify
     expected_file_count = 7 * 2
-    written = utila.file_list('rawmaker__images_images')
     assert len(written) == expected_file_count, str(written)
 
 
 def test_figures_run_master116page18(monkeypatch, testdir):
-    pdf = power.MASTER116_PDF
-    source = power.link(pdf)
-    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages=18 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
-    # verify
-    written = utila.file_list('rawmaker__images_images')
+    written = standard_figures(
+        power.MASTER116_PDF,
+        18,
+        testdir,
+        monkeypatch,
+    )
     assert len(written) == 2, str(written)
-
-
-def test_render_master116_page18(monkeypatch, testdir):
-    source = power.MASTER116_PDF
-    cmd = f'-i {source} --pages=18 --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
-
-    written = utila.file_list('rawmaker__images_images')
-    # 2 png and 2 yaml files
-    expected = 4
-    assert len(written) == expected, str(written)
 
 
 def test_render_master116_page2_figure_image(monkeypatch, testdir):
     """Figure image is handled by rawmaker --images."""
-    written = extract(power.MASTER116_PDF, 2, monkeypatch)
-    # 0 png and 0 yaml files
-    expected = 0
-    assert len(written) == expected, str(written)
+    written = standard_figures(power.MASTER116_PDF, 2, testdir, monkeypatch)
+    assert not written
 
 
 @pytest.mark.parametrize('page, expected', [
@@ -103,7 +101,12 @@ def test_render_master116_page2_figure_image(monkeypatch, testdir):
     (58, 1),
 ])
 def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
-    written = extract(power.BACHELOR090_PDF, page, monkeypatch)
+    written = standard_figures(
+        power.BACHELOR090_PDF,
+        page,
+        testdir,
+        monkeypatch,
+    )
     # png and yaml files
     expected = expected * 2
     assert len(written) == expected, str(written)
@@ -114,7 +117,12 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
 
     Ensure that tables on the same page are not located as figure anymore.
     """
-    written = extract(power.BACHELOR051_PDF, '30,33', monkeypatch)
+    written = standard_figures(
+        power.BACHELOR051_PDF,
+        '30,33',
+        testdir,
+        monkeypatch,
+    )
     # 2 png and 2 yaml files
     expected = 4
     assert len(written) == expected, str(written)
@@ -122,17 +130,12 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
 
 def test_render_diss172page30(monkeypatch, testdir):
     """Single image which intersects page border."""
-    written = extract(power.DISS172_PDF, '30', monkeypatch)
+    written = standard_figures(
+        power.DISS172_PDF,
+        '30',
+        testdir,
+        monkeypatch,
+    )
     # 1 png and 1 yaml files
     expected = 2
     assert len(written) == expected, str(written)
-
-
-def extract(pdf, pages, monkeypatch) -> list:
-    source = power.link(pdf)
-    cmd = f'-i {pdf} -i {source} --pages={pages} --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
-    if not utila.exists('rawmaker__images_images'):
-        return []
-    written = utila.file_list('rawmaker__images_images')
-    return written
