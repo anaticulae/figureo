@@ -51,14 +51,6 @@ def test_figures_double_image(monkeypatch):
     assert not os.path.exists(figure)
 
 
-def run_standard(source, pages, monkeypatch):
-    cmd = f'-i {source} --pages={pages} --standard'
-    source = power.link(source)
-    if os.path.exists(source):
-        cmd = f'{cmd} -i {source}'
-    tests.run(cmd, monkeypatch=monkeypatch)
-
-
 def test_reg_figure_text_in_figure(testdir, monkeypatch):
     """Do not include `Diplomarbeit` inside title page figure."""
     run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
@@ -73,3 +65,11 @@ def test_master31page4(testdir, monkeypatch):
     selected = images[0].content[0].bounding
     expected = (305.57, 67.33, 526.39, 251.31)
     assert selected == expected
+
+
+def run_standard(source, pages, monkeypatch):
+    cmd = f'-i {source} --pages={pages} --standard'
+    source = power.link(source)
+    if os.path.exists(source):
+        cmd = f'{cmd} -i {source}'
+    tests.run(cmd, monkeypatch=monkeypatch)
