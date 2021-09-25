@@ -62,7 +62,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             return
         if too_long(item):
             return
-        if isinstance(item, pdfminer.layout.LTRect) and item.linewidth == 0:
+        if isinstance(item, pdfminer.layout.LTRect) and not item.linewidth:
             # skip hidden Rectangle
             return
         if iscaption(item):
