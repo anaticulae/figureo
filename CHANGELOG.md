@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.9.0
+
+### Feature
+
+* adjust figure extractor to detect text inline images (10ed188b91e1)
+* increase valid area to detect bad renderer images (cdd54f4388a8)
+
 ## v0.8.1
 
 ### Feature
