@@ -52,17 +52,26 @@ def test_figures_extract_master116_page19(testdir):
         serializeraw.dump_figures(extracted, outpath)
 
 
-@pytest.mark.xfail(reason='table on page 20 is detected is figure')
 @utilatest.longrun
-@pytest.mark.usefixtures('testdir')
-def test_figures_run_master116(monkeypatch):
-    source = power.MASTER116_PDF
-    cmd = f'-i {source} --pages=17:24 --standard'
+def test_figures_run_master116(monkeypatch, testdir):
+    pdf = power.MASTER116_PDF
+    source = power.link(pdf)
+    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages=17:24 --standard'
     tests.run(cmd, monkeypatch=monkeypatch)
-
+    # verify
     expected_file_count = 7 * 2
     written = utila.file_list('rawmaker__images_images')
     assert len(written) == expected_file_count, str(written)
+
+
+def test_figures_run_master116page18(monkeypatch, testdir):
+    pdf = power.MASTER116_PDF
+    source = power.link(pdf)
+    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages=18 --standard'
+    tests.run(cmd, monkeypatch=monkeypatch)
+    # verify
+    written = utila.file_list('rawmaker__images_images')
+    assert len(written) == 2, str(written)
 
 
 def test_render_master116_page18(monkeypatch, testdir):
