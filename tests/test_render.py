@@ -67,6 +67,19 @@ def test_master31page4(testdir, monkeypatch):
     assert selected == expected
 
 
+def test_master31page10(testdir, monkeypatch):
+    """Detect single figure.
+
+    Two Asian characters are handled by rawmaker --image.
+    """
+    run_standard(power.MASTER031_PDF, pages=10, monkeypatch=monkeypatch)
+    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    assert len(images) == 1  # pylint:disable=C2001
+    selected = images[0].content[0].bounding
+    expected = (71.61, 415.7, 524.5, 556.19)
+    assert selected == expected
+
+
 def run_standard(source, pages, monkeypatch):
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
