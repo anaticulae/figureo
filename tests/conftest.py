@@ -16,7 +16,7 @@ import figureo
 pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 
 PACKAGE = figureo.PROCESS
-WORKER = 6
+WORKER = 4
 
 power.setup(figureo.ROOT)
 
