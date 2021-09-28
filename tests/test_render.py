@@ -35,33 +35,37 @@ def test_figures_run_bachelor56page27(monkeypatch):
 
 @pytest.mark.usefixtures('testdir')
 def test_figures_skip_dots(monkeypatch):
-    run_standard(power.BACHELOR090_PDF, pages='81,82', monkeypatch=monkeypatch)
-    figure = 'rawmaker__images_images'
+    images = run_standard(
+        power.BACHELOR090_PDF,
+        pages='81,82',
+        monkeypatch=monkeypatch,
+    )
     # do not generate any figure
-    assert not os.path.exists(figure)
+    assert not images
 
 
 @pytest.mark.usefixtures('testdir')
 @utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(monkeypatch):
     """This is an image, not a figure. We have to skip this."""
-    run_standard(power.BACHELOR090_PDF, pages=80, monkeypatch=monkeypatch)
-    figure = 'rawmaker__images_images'
+    images = run_standard(
+        power.BACHELOR090_PDF,
+        pages=80,
+        monkeypatch=monkeypatch,
+    )
     # do not generate any figure
-    assert not os.path.exists(figure)
+    assert not images
 
 
 def test_reg_figure_text_in_figure(testdir, monkeypatch):
     """Do not include `Diplomarbeit` inside title page figure."""
-    run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
-    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    images = run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
     image = images[0].content[0]
     assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
 
 
 def test_master31page4(testdir, monkeypatch):
-    run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
-    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    images = run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
     selected = images[0].content[0].bounding
     expected = (305.57, 67.33, 526.39, 251.31)
     assert selected == expected
@@ -72,17 +76,24 @@ def test_master31page10(testdir, monkeypatch):
 
     Two Asian characters are handled by rawmaker --image.
     """
-    run_standard(power.MASTER031_PDF, pages=10, monkeypatch=monkeypatch)
-    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    images = run_standard(
+        power.MASTER031_PDF,
+        pages=10,
+        monkeypatch=monkeypatch,
+    )
     assert len(images) == 1  # pylint:disable=C2001
     selected = images[0].content[0].bounding
     expected = (71.61, 415.7, 524.5, 556.19)
     assert selected == expected
 
 
-def run_standard(source, pages, monkeypatch):
+def run_standard(source, pages, monkeypatch) -> list:
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
     if os.path.exists(source):
         cmd = f'{cmd} -i {source}'
     tests.run(cmd, monkeypatch=monkeypatch)
+    if not os.path.exists('rawmaker__images_images'):
+        return []
+    images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
+    return images
