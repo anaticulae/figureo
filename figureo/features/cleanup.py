@@ -17,6 +17,13 @@ def work(
     *sources: list,
     pages: tuple = None,
 ) -> typing.List[typing.Tuple[str, str]]:
+    """\
+    ::: require standard to run standard before cleanup
+    """
+    # skip -i pdf source file
+    # TODO: REMOVE AFTER UPGRADING UTILA
+    sources = [item for item in sources if utila.file_ext(item) == 'yaml']
+    # load data
     figures, images = prepare(sources, pages=pages)
     result = hide(figures, images)
     # update hidden flag
