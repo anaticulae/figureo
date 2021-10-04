@@ -12,4 +12,4 @@ genex==0.18.0
 power==2.2.0
 tablero>=0.7.1<1.0.0
 # required for special release, remove later
-iamraw>=4.34.1<5.0.0
+iamraw>=4.34.2<5.0.0
