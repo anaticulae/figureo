@@ -58,9 +58,12 @@ def hide(figures, images):
 
 def prepare(sources: list, pages: tuple = None) -> tuple:
     # load images
-    loaded = serializeraw.load_image_infos_fromfiles(sources, pages=pages)
+    loaded = serializeraw.load_image_infos_fromfiles(
+        sources,
+        path_append=True,
+        pages=pages,
+    )
     content = utila.flatten_content(loaded)
-    content = list(zip(content, sources))
     # divide figures and images
     images, figures = utila.partition(lambda x: x[0].dpi, content)
     # group figure by page value
