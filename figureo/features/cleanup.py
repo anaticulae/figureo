@@ -14,6 +14,7 @@ import utila
 
 
 def work(
+    standard: str,  # pylint:disable=W0613
     *sources: list,
     pages: tuple = None,
 ) -> typing.List[typing.Tuple[str, str]]:

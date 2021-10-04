@@ -32,6 +32,7 @@ WORKPLAN = [
     utila.create_step(
         'cleanup',
         inputs=[
+            utila.ResultFile(producer='figureo', name='standard_standard', optional=True),
             utila.Pattern(name='rawmaker__images_images/*', ext='yaml'),
         ],
         output=[
