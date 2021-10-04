@@ -29,6 +29,15 @@ WORKPLAN = [
             ('figures/{FILEHASHS}', 'png'),
         ],
     ),
+    utila.create_step(
+        'cleanup',
+        inputs=[
+            utila.Pattern(name='rawmaker__images_images/*', ext='yaml'),
+        ],
+        output=[
+            '{FILEPATHS}',
+        ],
+    ),
 ]
 # yapf:enable
 
