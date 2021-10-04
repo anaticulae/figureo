@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.10.1
+
+### Fix
+
+* run standard before cleanup (b4c413f905d0)
+* do not try to load pdf as images (bf41285e6284)
+
 ## v0.10.0
 
 ### Feature
