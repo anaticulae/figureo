@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.10.2
+
+### Fix
+
+* hidden flag scrambled the path, use improved loader (fd8dbb4944b6)
+
 ## v0.10.1
 
 ### Fix
