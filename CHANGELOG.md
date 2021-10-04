@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.10.0
+
+### Feature
+
+* add cleanup step to disable images which are part of figure (2226ce224d21)
+
 ## v0.9.0
 
 ### Feature
