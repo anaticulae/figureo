@@ -25,6 +25,7 @@ def dump_figures(figures) -> figureo.utils.DumpedFigureInformation:
             width=width,
             height=height,
             bounding=bounding,
+            figure=True,
         )
         info = serializeraw.dump_image_info(info)
         result.append((info, figure.data))
