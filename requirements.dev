@@ -8,8 +8,8 @@
 #==============================================================================
 
 utilatest==0.9.0
-genex==0.18.1
-power==2.2.0
-tablero>=0.7.1<1.0.0
+genex==0.20.1
+power==2.2.1
+tablero>=0.8.1<1.0.0
 # required for special release, remove later
-iamraw>=4.36.2<5.0.0
+iamraw>=4.37.1<5.0.0
