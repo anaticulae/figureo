@@ -127,6 +127,20 @@ def test_bachelor37page18(testdir, monkeypatch):
     assert selected == expected
 
 
+def test_bachelor37page23(testdir, monkeypatch):
+    images = run_standard(
+        power.BACHELOR037_PDF,
+        pages=23,
+        monkeypatch=monkeypatch,
+    )
+    selected = images[0].content[0].bounding
+    expected = (70.92, 253.19, 510.36, 378.2)
+    assert selected == expected
+    selected = images[0].content[1].bounding
+    expected = (77.88, 562.07, 516.67, 631.23)
+    assert selected == expected
+
+
 def run_standard(source, pages, monkeypatch) -> list:
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
