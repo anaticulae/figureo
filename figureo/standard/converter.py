@@ -37,6 +37,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
+        self.caption = collections.defaultdict(list)
 
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
@@ -63,12 +64,13 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if not valid_area(item.bbox, pagesize, tables):
             # check after figure to avoid skipping figure
             return
+        if iscaption(item):
+            self.caption[pageid].append((item.bbox[1] + item.bbox[3]) / 2)
+            return
         if too_long(item):
             return
         if isinstance(item, pdfminer.layout.LTRect) and not item.linewidth:
             # skip hidden Rectangle
-            return
-        if iscaption(item):
             return
         if isinvalid(item):
             return
@@ -84,9 +86,10 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def figures(self) -> iamraw.Figures:
         """Create `text` figures after extraction complete pages. This
         method is only runned once."""
-        merged = merge_figures(self.nonfigure)
+        merged = merge_figures(self.nonfigure, breaker=self.caption)
         # TODO: RENDER INTO MERGED FIGURES
         self.nonfigure.clear()
+        self.caption.clear()
         if merged:
             self.content.extend(merged)
         return self.content
@@ -195,11 +198,14 @@ def leftupper_dot(raw, unique: int):
     renderer.point([0, 0, 1, 1], fill=(255, 255, 255, unique))
 
 
-def merge_figures(pagefigures) -> iamraw.Figures:
+def merge_figures(pagefigures, breaker) -> iamraw.Figures:
     """Group parts of figures, convert and export as raw image file."""
     result = []
     for page, values in pagefigures.items():
-        figures = figureo.standard.text.text_figures(values)
+        figures = figureo.standard.text.text_figures(
+            values,
+            breaker=breaker[page],
+        )
         for index, figure in enumerate(figures):
             figure.index = index
             figure.page = page

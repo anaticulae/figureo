@@ -27,18 +27,13 @@ def text_figures(
     width_min=150,
     height_min=100,
     area_min=150 * 150,
+    breaker=None,
 ) -> iamraw.Figure:
     alltext = all((isinstance(item, TEXT_ONLY) for item in items))
     if alltext:
         # do not detect figures which consist out of text elements. The
         # false positive rate is too high.
         return []
-    clustered = cluster(items)
-    result = []
-    for bounding in clustered:
-        raw = figureo.utils.rawfigure_frombounding(bounding)
-        figure = iamraw.Figure(data=raw, bounding=bounding)
-        result.append(figure)
 
     def valid(bounding: tuple) -> bool:
         """Ensure that text figure is big enougth to avoid many false
@@ -53,9 +48,29 @@ def text_figures(
             return True
         return False
 
+    result = []
+    for group in splitby_breaker(items, breaker):
+        clustered = cluster(group)
+        for bounding in clustered:
+            raw = figureo.utils.rawfigure_frombounding(bounding)
+            figure = iamraw.Figure(data=raw, bounding=bounding)
+            result.append(figure)
+
     # remove too small figures, disable for cluster which contains
     # rectangle, lines, curve etc. and accept them all.
     result = [item for item in result if valid(item.bounding)]
+    return result
+
+
+def splitby_breaker(items, breaker):
+    if not breaker:
+        return [items]
+    breaker = sorted(breaker)
+    grouped = utila.Buckets(border=breaker)
+    grouped.selector = lambda x: (x.bbox[1] + x.bbox[3]) / 2
+    for item in items:
+        grouped.add(item)
+    result = list(grouped)
     return result
 
 
