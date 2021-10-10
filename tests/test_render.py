@@ -114,6 +114,19 @@ def test_bachelor51page29(testdir, monkeypatch):
     assert selected == expected
 
 
+def test_bachelor37page18(testdir, monkeypatch):
+    """Do not increase valid_area tolerance too much to avoid including
+    parts of header and footer into extracted figures."""
+    images = run_standard(
+        power.BACHELOR037_PDF,
+        pages=18,
+        monkeypatch=monkeypatch,
+    )
+    selected = images[0].content[0].bounding
+    expected = (95.03, 63.46, 514.56, 210.87)
+    assert selected == expected
+
+
 def run_standard(source, pages, monkeypatch) -> list:
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)

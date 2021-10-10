@@ -163,7 +163,7 @@ def valid_area(
     bbox: utila.Rectangle,
     pagesize: tuple,
     tables: iamraw.TableBoundings = None,
-    borderwidth=512,
+    borderwidth=128,
 ) -> bool:
     tables = tables if tables else []
     # borderwidth: minus means a little bit outside of the page. This often
@@ -171,16 +171,16 @@ def valid_area(
     # borderwidth: increase borderwidth to handle bad pdf printing
     inside = (
         pagesize[0] - borderwidth,
-        pagesize[1] - borderwidth,
+        pagesize[1],
         pagesize[2] + borderwidth,
-        pagesize[3] + borderwidth,
+        pagesize[3],
     )
     for table in tables:
         # does element collide with table bounding
         if utila.intersecting_rectangle(table.bounding, bbox):
             return False
-    if utila.rectangle_inside(inside, bbox):
-        # intersecting with page border
+    if utila.intersecting_rectangle(inside, bbox):
+        # intersecting with content border
         return True
     return False
 
