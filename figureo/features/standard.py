@@ -51,7 +51,7 @@ def work(
     return dumped
 
 
-# 2 percent tolerance
+# 1 percent tolerance
 SCALE = (0.99, 0.99, 1.01, 1.01)
 
 
