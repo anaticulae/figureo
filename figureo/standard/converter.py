@@ -9,6 +9,7 @@
 
 import collections
 
+import configo
 import elements
 import iamraw
 import pdfminer
@@ -143,7 +144,7 @@ def imageonly(figure) -> bool:
     return False
 
 
-FIGURE_TEXT_LENGTH_MAX = 20  # TODO: HOLY VALUE
+FIGURE_TEXT_LENGTH_MAX = configo.HV_INT_PLUS(default=20)
 
 
 def too_long(item) -> bool:
