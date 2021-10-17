@@ -2,6 +2,20 @@
 
 Every noteable change is logged here.
 
+## v0.11.0
+
+### Feature
+
+* use captions to divide cluster areas (cf2d9122a514)
+
+### Fix
+
+* reduce tolerance to improve figure detection (70c80840b1f6)
+
+### Documentation
+
+* update outdated comment (877a4f80e6be)
+
 ## v0.10.3
 
 ### Feature
