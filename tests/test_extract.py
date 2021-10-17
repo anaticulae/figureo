@@ -112,6 +112,7 @@ def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
     assert len(written) == expected, str(written)
 
 
+@pytest.mark.xfail(reason='improve table parser')
 def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     """Detect two nearly equal figures on different pages.
 
