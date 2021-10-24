@@ -153,6 +153,20 @@ def test_bachelor67page48(testdir, monkeypatch):
     assert bounding == expected
 
 
+def test_bachelor67page52(testdir, monkeypatch):
+    images = run_standard(
+        power.BACHELOR067_PDF,
+        pages='52',
+        monkeypatch=monkeypatch,
+    )
+    expected = (109.25, 423.09, 510.7, 578.09)
+    bounding = images[0].content[0].bounding
+    assert bounding == expected
+    expected = (112.74, 177.94, 510.1, 332.94)
+    bounding = images[0].content[1].bounding
+    assert bounding == expected
+
+
 def run_standard(source, pages, monkeypatch) -> list:
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
