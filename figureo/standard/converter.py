@@ -95,20 +95,6 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 def figure_bounding(figure) -> tuple:
     if not isinstance(figure, pdfminer.layout.LTFigure):
         return figure.bbox
-
-    def visible(item) -> bool:
-        with contextlib.suppress(AttributeError):
-            # TODO: INVESTIGATE THIS
-            if item.linewidth:
-                return True
-            if item.fill:
-                if not item.evenodd:
-                    return True
-                return False
-            if not item.stroking_color and not item.non_stroking_color:
-                return False
-        return True
-
     figure = [item for item in figure if visible(item)]
     boundings = []
     for item in figure:
@@ -120,6 +106,20 @@ def figure_bounding(figure) -> tuple:
         boundings.append(bounding)
     result = utila.rectangle_max(boundings)
     return result
+
+
+def visible(item) -> bool:
+    with contextlib.suppress(AttributeError):
+        # TODO: INVESTIGATE THIS
+        if item.linewidth:
+            return True
+        if item.fill:
+            if not item.evenodd:
+                return True
+            return False
+        if not item.stroking_color and not item.non_stroking_color:
+            return False
+    return True
 
 
 def isinvalid(item) -> bool:
