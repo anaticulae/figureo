@@ -77,13 +77,6 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             return
         self.nonfigure[pageid].append(item)
 
-    def render_figure(self, item: pdfminer.layout.LTFigure, pageid: int):
-        rendered = extract_figure(item, pageid)
-        if rendered is None:
-            return
-        rendered.page = pageid
-        self.content.append(rendered)
-
     def figures(self) -> iamraw.Figures:
         """Create `text` figures after extraction complete pages. This
         method is only runned once."""
