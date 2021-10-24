@@ -141,6 +141,18 @@ def test_bachelor37page23(testdir, monkeypatch):
     assert selected == expected
 
 
+def test_bachelor67page48(testdir, monkeypatch):
+    """Shrink figure size which is badly printed by pdfprinter."""
+    images = run_standard(
+        power.BACHELOR067_PDF,
+        pages='48',
+        monkeypatch=monkeypatch,
+    )
+    expected = (110.29, 515.85, 511.84, 645.85)
+    bounding = images[0].content[0].bounding
+    assert bounding == expected
+
+
 def run_standard(source, pages, monkeypatch) -> list:
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)

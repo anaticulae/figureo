@@ -58,6 +58,8 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
     def render_pagecontent(self, pageid, item, pagesize=None, tables=None):
         """Collect all figures."""
+        # strip potential figure bounding
+        item.bbox = figure_bounding(item)
         if imageonly(item):
             utila.debug('figure as image container')
             # handled by --images, refactor later
@@ -87,6 +89,14 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if merged:
             self.content.extend(merged)
         return self.content
+
+
+def figure_bounding(figure):
+    if not isinstance(figure, pdfminer.layout.LTFigure):
+        return figure.bbox
+    boundings = [item.bbox for item in figure]
+    result = utila.rectangle_max(boundings)
+    return result
 
 
 def isinvalid(item) -> bool:
