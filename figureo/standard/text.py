@@ -7,6 +7,7 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
+import configo
 import iamraw
 import pdfminer.layout
 import utila
@@ -86,12 +87,12 @@ def textonly(bounding, items: list) -> bool:
     return True
 
 
-MIN_CLUSTER_SIZE = 25
+CLUSTER_SIZE_MIN = configo.HV_INT_PLUS(default=25)
 
 
 def cluster(  # pylint:disable=R0914
         items: list,
-        min_cluster_size=MIN_CLUSTER_SIZE,
+        min_cluster_size=CLUSTER_SIZE_MIN,
 ):
     bucket = utila.Buckets(utila.ranges(0, 1000, 15), sorting=True)
     for item in items:
@@ -104,7 +105,7 @@ def cluster(  # pylint:disable=R0914
     # select areas with enough items
     content = list(bucket)  # TODO: REMOVE after upgrading UTILA
     content = utila.groupby_neighbors(content)
-    # TODO: CHECK MIN_CLUSTER_SIZE CAUSE SET REMOVES ITEMS OUT OF CONTENT
+    # TODO: CHECK CLUSTER_SIZE_MIN CAUSE SET REMOVES ITEMS OUT OF CONTENT
     selected = [set(item) for item in content if len(item) >= min_cluster_size]
     # prepare result
     result = []
