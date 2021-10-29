@@ -28,7 +28,7 @@ def test_extract_figures_memory_error(testdir, monkeypatch, capsys):
 
 
 def test_nofigure_diss266_pagex(testdir, monkeypatch):
-    # TODO: INVESTIGATE WHERE DOE THESE RECTANGLES COME FROM!
+    # TODO: INVESTIGATE WHERE DOES THESE RECTANGLES COME FROM!
     source = power.DISS266_PDF
     pages = '27,28,61'
     tests.run(
@@ -52,8 +52,8 @@ def test_nofigure_diss266_small_text_elements(testdir, monkeypatch):
 def test_figure_master155_page15(testdir, monkeypatch):
     source = power.MASTER155_PDF
     tests.run(f'-i {source} --standard --pages=15', monkeypatch=monkeypatch)
-    imageinformation = serializeraw.images.load_image_informations_frompath(
-        os.path.join(testdir.tmpdir, 'rawmaker__images_images'))
+    imageinformation = serializeraw.load_image_infos_frompath(
+        testdir.tmpdir.join('rawmaker__images_images'))
     assert len(imageinformation) == 1
 
 
@@ -64,8 +64,8 @@ def test_figure_master155_page17(testdir, monkeypatch):
         f'-i {pdf} -i {power.link(pdf)} --standard --pages=17',
         monkeypatch=monkeypatch,
     )
-    imageinformation = serializeraw.images.load_image_informations_frompath(
-        os.path.join(testdir.tmpdir, 'rawmaker__images_images'))
+    imageinformation = serializeraw.load_image_infos_frompath(
+        testdir.tmpdir.join('rawmaker__images_images'))
     assert len(imageinformation) == 1
     bounding = imageinformation[0].content[0].bounding
     expected = (155.76, 182.04, 514.03, 389.72)
