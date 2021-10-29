@@ -44,6 +44,17 @@ def test_figures_skip_dots(monkeypatch):
     assert not images
 
 
+def test_figures_skip_xml(testdir, monkeypatch):
+    images = run_standard(
+        power.BACHELOR067_PDF,
+        pages='61',
+        monkeypatch=monkeypatch,
+    )
+    print(utila.forward_slash(str(testdir.tmpdir)))
+    # do not generate any figure
+    assert not images
+
+
 @pytest.mark.usefixtures('testdir')
 @utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(monkeypatch):

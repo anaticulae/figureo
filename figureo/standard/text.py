@@ -28,6 +28,7 @@ def text_figures(
     width_min=150,
     height_min=100,
     area_min=150 * 150,
+    invalids=None,
     breaker=None,
 ) -> iamraw.Figure:
     alltext = all((isinstance(item, TEXT_ONLY) for item in items))
@@ -53,6 +54,8 @@ def text_figures(
     for group in splitby_breaker(items, breaker):
         clustered = cluster(group)
         for bounding in clustered:
+            if not content_valid(bounding, content=items, invalids=invalids):
+                continue
             raw = figureo.utils.rawfigure_frombounding(bounding)
             figure = iamraw.Figure(data=raw, bounding=bounding)
             result.append(figure)
@@ -60,6 +63,27 @@ def text_figures(
     # rectangle, lines, curve etc. and accept them all.
     result = [item for item in result if valid(item.bounding)]
     return result
+
+
+CONTENT_INVALID_RATE_MAX = configo.HV_PERCENT_PLUS(default=15)
+
+
+def content_valid(bounding, content, invalids) -> bool:
+    if not invalids:
+        return True
+    content = [
+        item for item in content
+        if utila.intersecting_rectangle(bounding, item.bbox)
+    ]
+    invalids = [
+        item for item in invalids
+        if utila.intersecting_rectangle(bounding, item.bbox)
+    ]
+    rate = len(invalids) / len(content)
+    if rate > CONTENT_INVALID_RATE_MAX:
+        # too many invalid items
+        return False
+    return True
 
 
 def splitby_breaker(items, breaker):

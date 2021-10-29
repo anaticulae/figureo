@@ -39,6 +39,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
+        self.invalids = collections.defaultdict(list)
         self.caption = collections.defaultdict(list)
 
     def receive_layout(self, ltpage):
@@ -72,6 +73,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             self.caption[pageid].append((item.bbox[1] + item.bbox[3]) / 2)
             return
         if too_long(item):
+            self.invalids[pageid].append(item)
             return
         if isinstance(item, pdfminer.layout.LTRect) and not item.linewidth:
             # skip hidden Rectangle
@@ -83,9 +85,14 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def figures(self) -> iamraw.Figures:
         """Create `text` figures after extraction complete pages. This
         method is only runned once."""
-        merged = merge_figures(self.nonfigure, breaker=self.caption)
+        merged = merge_figures(
+            pagefigures=self.nonfigure,
+            invalids=self.invalids,
+            breaker=self.caption,
+        )
         # TODO: RENDER INTO MERGED FIGURES
         self.nonfigure.clear()
+        self.invalids.clear()
         self.caption.clear()
         if merged:
             self.content.extend(merged)
@@ -225,12 +232,13 @@ def leftupper_dot(raw, unique: int):
     renderer.point([0, 0, 1, 1], fill=(255, 255, 255, unique))
 
 
-def merge_figures(pagefigures, breaker) -> iamraw.Figures:
+def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
     """Group parts of figures, convert and export as raw image file."""
     result = []
     for page, values in pagefigures.items():
         figures = figureo.standard.text.text_figures(
             values,
+            invalids=invalids[page],
             breaker=breaker[page],
         )
         for index, figure in enumerate(figures):
