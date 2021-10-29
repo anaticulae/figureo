@@ -2,6 +2,19 @@
 
 Every noteable change is logged here.
 
+## v0.12.0
+
+### Feature
+
+* skip figures with too many invalid figures (65318b55b75e)
+* skip hidden rectangles (8ee8991bd23a)
+* make LTRectangle index able (e59bfb11f43a)
+
+### Fix
+
+* support figure inside figure (329820439d9c)
+* shrink bad printed figure bounding (4ae85775a6a4)
+
 ## v0.11.0
 
 ### Feature
