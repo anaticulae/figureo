@@ -12,8 +12,6 @@ import iamraw
 import pdfminer.layout
 import utila
 
-import figureo.utils
-
 # TODO: REMOVE HORIZONTAL AND VERTICAL LINES TO AVOID DETECTING TABLES AS
 # FIGURE?
 
@@ -36,20 +34,6 @@ def text_figures(
         # do not detect figures which consist out of text elements. The
         # false positive rate is too high.
         return []
-
-    def valid(bounding: tuple) -> bool:
-        """Ensure that text figure is big enougth to avoid many false
-        positive renderings."""
-        if not textonly(bounding, items):
-            return True
-        if utila.rectangle_size(bounding) < area_min:
-            return False
-        if utila.rectangle_width(bounding) >= width_min:
-            return True
-        if utila.rectangle_height(bounding) >= height_min:
-            return True
-        return False
-
     result = []
     for group in splitby_breaker(items, breaker):
         clustered = cluster(group)
@@ -60,7 +44,10 @@ def text_figures(
             result.append(figure)
     # remove too small figures, disable for cluster which contains
     # rectangle, lines, curve etc. and accept them all.
-    result = [item for item in result if valid(item.bounding)]
+    result = [
+        item for item in result
+        if bounding_valid(item.bounding, items, width_min, height_min, area_min)
+    ]
     second_look = figures_missing(items, result)
     if second_look:
         result.extend(second_look)
@@ -68,15 +55,32 @@ def text_figures(
 
 
 def figures_missing(items, done) -> list:
+    """Backup strategy to detect all LTFigures which are not part of
+    extracted text figures."""
     done = [item.bounding for item in done]
     figures = utila.select_type(items, selector=pdfminer.layout.LTFigure)
     result = []
     for item in figures:
         if utila.rectangles_intersecting(done, item.bbox):
+            # LTFigure is already part of a text figure
             continue
         figure = iamraw.Figure(bounding=tuple(item.bbox))
         result.append(figure)
     return result
+
+
+def bounding_valid(bounding: tuple, items, width_min, height_min, area_min) -> bool:  # yapf:disable
+    """Ensure that text figure is big enougth to avoid many false
+    positive renderings."""
+    if not textonly(bounding, items):
+        return True
+    if utila.rectangle_size(bounding) < area_min:
+        return False
+    if utila.rectangle_width(bounding) >= width_min:
+        return True
+    if utila.rectangle_height(bounding) >= height_min:
+        return True
+    return False
 
 
 CONTENT_INVALID_RATE_MAX = configo.HV_PERCENT_PLUS(default=15)
