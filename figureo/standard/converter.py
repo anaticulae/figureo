@@ -244,6 +244,9 @@ def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
         for index, figure in enumerate(figures):
             figure.index = index
             figure.page = page
+            if figure.data is None:
+                figure.data = figureo.utils.rawfigure_frombounding(
+                    figure.bounding)
             leftupper_dot(figure.data, unique=page)
         result.extend(figures)
     return result

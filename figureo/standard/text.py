@@ -56,8 +56,7 @@ def text_figures(
         for bounding in clustered:
             if not content_valid(bounding, content=items, invalids=invalids):
                 continue
-            raw = figureo.utils.rawfigure_frombounding(bounding)
-            figure = iamraw.Figure(data=raw, bounding=bounding)
+            figure = iamraw.Figure(bounding=bounding)
             result.append(figure)
     # remove too small figures, disable for cluster which contains
     # rectangle, lines, curve etc. and accept them all.
