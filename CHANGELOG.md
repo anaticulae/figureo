@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.13.0
+
+### Feature
+
+* check for non extracted text figures (207f6edcc74a)
+* create figure data if required (628acea763ce)
+
 ## v0.12.0
 
 ### Feature
