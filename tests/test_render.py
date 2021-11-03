@@ -156,6 +156,10 @@ def test_bachelor37page23(testdir, monkeypatch):
 @pytest.mark.parametrize('page, expected', [
     pytest.param(13, (126.27, 113.8, 497.37, 428.8), id='page13'),
     pytest.param(15, (126.41, 113.93, 497.23, 231.3), id='page15'),
+    pytest.param(16, (188.25, 591.37, 435.37, 625.48), id='page16'),
+    pytest.param(17, [(126.42, 153.29, 497.22, 189.96), (126.42, 319.85, 497.22, 365.6)], id='page17'),
+    pytest.param(19, (126.41, 113.93, 497.23, 253.93), id='page19'),
+    pytest.param(21, [(105.66, 386.18, 517.97, 646.18), (105.66, 167.68, 517.97, 337.68)], id='page21'),
     pytest.param(48, (110.29, 515.85, 511.84, 645.85), id='page48'),
     pytest.param(52, [(109.25, 423.09, 510.7, 578.09), (112.74, 177.94, 510.1, 332.94)], id='page52'),
 ])
