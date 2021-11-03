@@ -152,53 +152,32 @@ def test_bachelor37page23(testdir, monkeypatch):
     assert selected == expected
 
 
-def test_bachelor67page48(testdir, monkeypatch):
-    """Shrink figure size which is badly printed by pdfprinter."""
+# yapf:disable
+@pytest.mark.parametrize('page, expected', [
+    pytest.param(13, (126.27, 113.8, 497.37, 428.8), id='page13'),
+    pytest.param(15, (126.41, 113.93, 497.23, 231.3), id='page15'),
+    pytest.param(48, (110.29, 515.85, 511.84, 645.85), id='page48'),
+    pytest.param(52, [(109.25, 423.09, 510.7, 578.09), (112.74, 177.94, 510.1, 332.94)], id='page52'),
+])
+# yapf:enable
+def test_bachelor67pagex(page, expected, testdir, monkeypatch):
+    """\
+    page15: Detect single text figures which are build out of a single LTFigure.
+    page48: Shrink figure size which is badly printed by pdfprinter.
+    """
+    verify(power.BACHELOR067_PDF, page, expected, testdir, monkeypatch)
+
+
+def verify(source, page, expected, testdir, monkeypatch):
     images = run_standard(
-        power.BACHELOR067_PDF,
-        pages='48',
+        source=source,
+        pages=page,
         monkeypatch=monkeypatch,
     )
-    expected = (110.29, 515.85, 511.84, 645.85)
-    bounding = images[0].content[0].bounding
-    assert bounding == expected
-
-
-def test_bachelor67page52(testdir, monkeypatch):
-    images = run_standard(
-        power.BACHELOR067_PDF,
-        pages='52',
-        monkeypatch=monkeypatch,
-    )
-    expected = (109.25, 423.09, 510.7, 578.09)
-    bounding = images[0].content[0].bounding
-    assert bounding == expected
-    expected = (112.74, 177.94, 510.1, 332.94)
-    bounding = images[0].content[1].bounding
-    assert bounding == expected
-
-
-def test_bachelor67page13(testdir, monkeypatch):
-    images = run_standard(
-        power.BACHELOR067_PDF,
-        pages='13',
-        monkeypatch=monkeypatch,
-    )
-    expected = (126.27, 113.8, 497.37, 428.8)
-    bounding = images[0].content[0].bounding
-    assert bounding == expected
-
-
-def test_bachelor67page15(testdir, monkeypatch):
-    """Detect single text figures which are build out of a single LTFigure."""
-    images = run_standard(
-        power.BACHELOR067_PDF,
-        pages='15',
-        monkeypatch=monkeypatch,
-    )
-    expected = (126.41, 113.93, 497.23, 231.3)
-    bounding = images[0].content[0].bounding
-    assert bounding == expected
+    if isinstance(expected, tuple):
+        expected = [expected]
+    for figure, expect in zip(images[0].content, expected):
+        assert figure.bounding == expect
 
 
 def run_standard(source, pages, monkeypatch) -> list:
