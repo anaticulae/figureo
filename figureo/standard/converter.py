@@ -271,20 +271,3 @@ def extract_figures(
                 interpreter.process_page(page)
     figures = device.figures()
     return figures
-
-
-def extract_figure(figure, pageid: int = None) -> iamraw.Figure:
-    content = figure._objs  #  pylint:disable=W0212
-    if len(content) == 1 and isinstance(content[0], pdfminer.layout.LTImage):
-        # TODO: CHECK THIS
-        # no figure, just an image container
-        return None
-    bounding = (figure.x0, figure.y0, figure.x1, figure.y1)
-    try:
-        # TODO: USE NEW PROCES?
-        raw = figureo.utils.rawfigure_frombounding(bounding)
-    except MemoryError:
-        utila.error(f'could not render figure on page {pageid}: {bounding}')
-        return None
-    result = iamraw.Figure(data=raw, bounding=bounding)
-    return result
