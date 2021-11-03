@@ -61,6 +61,21 @@ def text_figures(
     # remove too small figures, disable for cluster which contains
     # rectangle, lines, curve etc. and accept them all.
     result = [item for item in result if valid(item.bounding)]
+    second_look = figures_missing(items, result)
+    if second_look:
+        result.extend(second_look)
+    return result
+
+
+def figures_missing(items, done) -> list:
+    done = [item.bounding for item in done]
+    figures = utila.select_type(items, selector=pdfminer.layout.LTFigure)
+    result = []
+    for item in figures:
+        if utila.rectangles_intersecting(done, item.bbox):
+            continue
+        figure = iamraw.Figure(bounding=tuple(item.bbox))
+        result.append(figure)
     return result
 
 
