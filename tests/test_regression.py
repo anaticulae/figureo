@@ -78,7 +78,7 @@ def test_bachelor90_whitepage_error(testdir, monkeypatch):
     source = power.BACHELOR090_PDF
     pages = '0:10'
     tests.run(
-        f'-i {source} -i{power.link(source)} --standard --pages={pages}',
+        f'-i {source} -i {power.link(source)} --standard --pages={pages}',
         monkeypatch=monkeypatch,
     )
 
@@ -92,7 +92,7 @@ def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
     source = power.BACHELOR090_PDF
     pages = '58'
     tests.run(
-        f'-i {source} -i{power.link(source)} --standard --pages={pages}',
+        f'-i {source} -i {power.link(source)} --standard --pages={pages}',
         monkeypatch=monkeypatch,
     )
     names = utila.file_list(testdir.tmpdir, include='png')
