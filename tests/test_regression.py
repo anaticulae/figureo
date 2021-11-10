@@ -60,14 +60,9 @@ def test_figure_master155_page15(testdir, monkeypatch):
 def test_figure_master155_page17(testdir, monkeypatch):
     """Include lower 0, 5, 10 base."""
     pdf = power.MASTER155_PDF
-    tests.run(
-        f'-i {pdf} -i {power.link(pdf)} --standard --pages=17',
-        monkeypatch=monkeypatch,
-    )
-    imageinformation = serializeraw.load_image_infos_frompath(
-        testdir.tmpdir.join('rawmaker__images_images'))
-    assert len(imageinformation) == 1
-    bounding = imageinformation[0].content[0].bounding
+    images = tests.standard_figures(pdf, 17, testdir, monkeypatch)
+    assert len(images) == 1
+    bounding = images[0].bounding
     expected = (155.76, 182.04, 514.03, 389.72)
     assert utila.nears(bounding, expected)
 

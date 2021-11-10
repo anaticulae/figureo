@@ -9,6 +9,9 @@
 
 import functools
 
+import power
+import serializeraw
+import utila
 import utilatest
 
 import figureo
@@ -28,3 +31,16 @@ failure = functools.partial(
     process=figureo.PROCESS,
     success=False,
 )
+
+
+def standard_figures(pdf, pages: str, testdir, monkeypatch):
+    source = power.link(pdf)
+    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages={pages} --standard'
+    run(cmd, monkeypatch=monkeypatch)
+    if not utila.exists('rawmaker__images_images'):
+        return []
+    # verify
+    written = serializeraw.load_image_infos_frompath(
+        testdir.tmpdir.join('rawmaker__images_images'))
+    result = utila.flatten_content(written)
+    return result
