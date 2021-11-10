@@ -29,8 +29,8 @@ def test_figures_run_bachelor56page27(monkeypatch):
     assert len(written) == expected_file_count, str(written)
     path = os.path.join(figure, written[0])
     image = serializeraw.load_image_info(path)
-    assert image.width >= 221, image.width
-    assert image.height >= 163, image.height
+    assert image.width >= 217, image.width
+    assert image.height >= 158, image.height
 
 
 @pytest.mark.usefixtures('testdir')
@@ -79,7 +79,7 @@ def test_master31page4(testdir, monkeypatch):
     images = run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
     selected = images[0].content[0].bounding
     expected = (305.57, 67.33, 526.39, 251.31)
-    assert selected == expected
+    assert utila.nears(selected, expected, diff=5.0)
 
 
 def test_master31page10(testdir, monkeypatch):
@@ -95,7 +95,7 @@ def test_master31page10(testdir, monkeypatch):
     assert len(images) == 1  # pylint:disable=C2001
     selected = images[0].content[0].bounding
     expected = (71.61, 415.7, 524.5, 556.19)
-    assert selected == expected
+    assert utila.nears(selected, expected, diff=4.0)
 
 
 def test_master75page1718(testdir, monkeypatch):
@@ -106,12 +106,12 @@ def test_master75page1718(testdir, monkeypatch):
     )
     # page17
     bounding = images[0].content[0].bounding
-    expected = (70.85, 135.41, 452.0, 715.99)
-    assert bounding == expected
+    expected = (70.85, 135.41, 452.0, 717.15)
+    assert utila.nears(bounding, expected)
     # page18
     bounding = images[1].content[0].bounding
     expected = (70.85, 73.3, 416.39, 725.25)
-    assert bounding == expected
+    assert utila.nears(bounding, expected)
 
 
 def test_bachelor51page29(testdir, monkeypatch):
@@ -122,7 +122,7 @@ def test_bachelor51page29(testdir, monkeypatch):
     )
     selected = images[0].content[0].bounding
     expected = (86.16, 56.28, 440.16, 281.28)
-    assert selected == expected
+    assert utila.nears(selected, expected)
 
 
 def test_bachelor37page18(testdir, monkeypatch):
@@ -135,7 +135,7 @@ def test_bachelor37page18(testdir, monkeypatch):
     )
     selected = images[0].content[0].bounding
     expected = (95.03, 63.46, 514.56, 210.87)
-    assert selected == expected
+    assert utila.nears(selected, expected)
 
 
 def test_bachelor37page23(testdir, monkeypatch):
@@ -145,11 +145,11 @@ def test_bachelor37page23(testdir, monkeypatch):
         monkeypatch=monkeypatch,
     )
     selected = images[0].content[0].bounding
-    expected = (70.92, 253.19, 510.36, 378.2)
-    assert selected == expected
-    selected = images[0].content[1].bounding
     expected = (77.88, 562.07, 516.67, 631.23)
-    assert selected == expected
+    assert utila.nears(selected, expected)
+    selected = images[0].content[1].bounding
+    expected = (70.92, 253.19, 510.36, 383.16)
+    assert utila.nears(selected, expected)
 
 
 # yapf:disable
@@ -161,7 +161,7 @@ def test_bachelor37page23(testdir, monkeypatch):
     pytest.param(19, (126.41, 113.93, 497.23, 253.93), id='page19'),
     pytest.param(21, [(105.66, 386.18, 517.97, 646.18), (105.66, 167.68, 517.97, 337.68)], id='page21'),
     pytest.param(48, (110.29, 515.85, 511.84, 645.85), id='page48'),
-    pytest.param(52, [(109.25, 423.09, 510.7, 578.09), (112.74, 177.94, 510.1, 332.94)], id='page52'),
+    pytest.param(52, [(112.74, 177.94, 510.1, 334.1), (109.25, 423.09, 510.7, 578.09)], id='page52'),
 ])
 # yapf:enable
 def test_bachelor67pagex(page, expected, testdir, monkeypatch):
@@ -181,7 +181,7 @@ def verify(source, page, expected, testdir, monkeypatch):
     if isinstance(expected, tuple):
         expected = [expected]
     for figure, expect in zip(images[0].content, expected):
-        assert figure.bounding == expect
+        assert utila.nears(figure.bounding, expect, diff=5.0)
 
 
 def run_standard(source, pages, monkeypatch) -> list:

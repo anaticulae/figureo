@@ -64,7 +64,7 @@ def test_figure_master155_page17(testdir, monkeypatch):
     assert len(images) == 1
     bounding = images[0].bounding
     expected = (155.76, 182.04, 514.03, 389.72)
-    assert utila.nears(bounding, expected)
+    assert utila.nears(bounding, expected, diff=5.0)
 
 
 def test_bachelor90_whitepage_error(testdir, monkeypatch):
@@ -105,4 +105,4 @@ def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
         for name in names
     ]
     hashed = {utilatest.binhash(item) for item in bins}
-    assert hashed == {2827542461}
+    assert hashed == {154856633}
