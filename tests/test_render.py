@@ -71,13 +71,13 @@ def test_figures_double_image(monkeypatch):
 def test_reg_figure_text_in_figure(testdir, monkeypatch):
     """Do not include `Diplomarbeit` inside title page figure."""
     images = run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
-    image = images[0].content[0]
+    image = images[0]
     assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
 
 
 def test_master31page4(testdir, monkeypatch):
     images = run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
-    selected = images[0].content[0].bounding
+    selected = images[0].bounding
     expected = (305.57, 67.33, 526.39, 251.31)
     assert utila.nears(selected, expected, diff=5.0)
 
@@ -93,7 +93,7 @@ def test_master31page10(testdir, monkeypatch):
         monkeypatch=monkeypatch,
     )
     assert len(images) == 1  # pylint:disable=C2001
-    selected = images[0].content[0].bounding
+    selected = images[0].bounding
     expected = (71.61, 415.7, 524.5, 556.19)
     assert utila.nears(selected, expected, diff=4.0)
 
@@ -105,11 +105,11 @@ def test_master75page1718(testdir, monkeypatch):
         monkeypatch=monkeypatch,
     )
     # page17
-    bounding = images[0].content[0].bounding
+    bounding = images[0].bounding
     expected = (70.85, 135.41, 452.0, 717.15)
     assert utila.nears(bounding, expected)
     # page18
-    bounding = images[1].content[0].bounding
+    bounding = images[1].bounding
     expected = (70.85, 73.3, 416.39, 725.25)
     assert utila.nears(bounding, expected)
 
@@ -120,7 +120,7 @@ def test_bachelor51page29(testdir, monkeypatch):
         pages=29,
         monkeypatch=monkeypatch,
     )
-    selected = images[0].content[0].bounding
+    selected = images[0].bounding
     expected = (86.16, 56.28, 440.16, 281.28)
     assert utila.nears(selected, expected)
 
@@ -133,7 +133,7 @@ def test_bachelor37page18(testdir, monkeypatch):
         pages=18,
         monkeypatch=monkeypatch,
     )
-    selected = images[0].content[0].bounding
+    selected = images[0].bounding
     expected = (95.03, 63.46, 514.56, 210.87)
     assert utila.nears(selected, expected)
 
@@ -144,10 +144,10 @@ def test_bachelor37page23(testdir, monkeypatch):
         pages=23,
         monkeypatch=monkeypatch,
     )
-    selected = images[0].content[0].bounding
+    selected = images[0].bounding
     expected = (77.88, 562.07, 516.67, 631.23)
     assert utila.nears(selected, expected)
-    selected = images[0].content[1].bounding
+    selected = images[1].bounding
     expected = (70.92, 253.19, 510.36, 383.16)
     assert utila.nears(selected, expected)
 
@@ -180,7 +180,7 @@ def verify(source, page, expected, testdir, monkeypatch):
     )
     if isinstance(expected, tuple):
         expected = [expected]
-    for figure, expect in zip(images[0].content, expected):
+    for figure, expect in zip(images, expected):
         assert utila.nears(figure.bounding, expect, diff=5.0)
 
 
@@ -193,4 +193,5 @@ def run_standard(source, pages, monkeypatch) -> list:
     if not os.path.exists('rawmaker__images_images'):
         return []
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
-    return images
+    result = utila.flatten_content(images)
+    return result
