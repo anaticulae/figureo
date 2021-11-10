@@ -78,6 +78,15 @@ def test_bachelor90_whitepage_error(testdir, monkeypatch):
     )
 
 
+def test_bachelor90_text_ending_inside_figure(testdir, monkeypatch):
+    source = power.BACHELOR090_PDF
+    images = tests.standard_figures(source, 57, testdir, monkeypatch)
+    assert len(images) == 1
+    bounding = images[0].bounding
+    expected = (112.83, 399.27, 479.46, 644.35)
+    assert utila.nears(bounding, expected)
+
+
 def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
     """Do not merge figure caption into detected figure.
 

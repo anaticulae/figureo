@@ -155,15 +155,40 @@ def determine_clusters(
     return result
 
 
-def determine_cluster_rectangle(cluster, items):
+def determine_cluster_rectangle(cluster, items, first=35.0):
     y0 = min(cluster)
     y1 = max(cluster)
     incluster = [
-        item.bbox
-        for item in items
+        item for item in items
         if y0 <= item.bbox[1] <= y1 or y0 <= item.bbox[3] <= y1
     ]
-    x0 = min(item[0] for item in incluster)
-    x1 = max(item[2] for item in incluster)
-    bounding = (x0, y0, x1, y1)
-    return bounding
+    x0 = min(item.bbox[0] for item in incluster)
+    x1 = max(item.bbox[2] for item in incluster)
+    # Does first line of text is included into text figure?
+    # determine text start
+    start_area = (x0, y0, x1, y0 + first)
+    firstline = [
+        item for item in items if utila.rectangle_inside(start_area, item.bbox)
+    ]
+    textline_in_figure = covering(start_area, firstline) < 0.35
+    if textline_in_figure:
+        # remove line start if line start is detected
+        for item in firstline:
+            incluster.remove(item)
+    # determine figure bounding
+    result = utila.rectangle_max([item.bbox for item in incluster])
+    return result
+
+
+def covering(area, firstline) -> float:
+    buckets = utila.Buckets(border=utila.ranges(
+        start=area[0],
+        stop=area[2],
+        step=20.0,
+    ))
+    for item in firstline:
+        for x in utila.ranges(start=item.bbox[0], stop=item.bbox[2], step=5.0):
+            buckets.add(x)
+    full = len([item for item in buckets if item])
+    rate = full / len(buckets)
+    return rate
