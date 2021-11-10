@@ -36,7 +36,7 @@ def text_figures(
         return []
     result = []
     for group in splitby_breaker(items, breaker):
-        clustered = cluster(group)
+        clustered = determine_clusters(group)
         for bounding in clustered:
             if not content_valid(bounding, content=items, invalids=invalids):
                 continue
@@ -131,9 +131,9 @@ def textonly(bounding, items: list) -> bool:
 CLUSTER_SIZE_MIN = configo.HV_INT_PLUS(default=25)
 
 
-def cluster(  # pylint:disable=R0914
-        items: list,
-        min_cluster_size=CLUSTER_SIZE_MIN,
+def determine_clusters(
+    items: list,
+    min_cluster_size=CLUSTER_SIZE_MIN,
 ):
     bucket = utila.Buckets(utila.ranges(0, 1000, 15), sorting=True)
     for item in items:
@@ -149,16 +149,21 @@ def cluster(  # pylint:disable=R0914
     selected = [set(item) for item in content if len(item) >= min_cluster_size]
     # prepare result
     result = []
-    for current in selected:
-        y0 = min(current)
-        y1 = max(current)
-        incluster = [
-            item.bbox
-            for item in items
-            if y0 <= item.bbox[1] <= y1 or y0 <= item.bbox[3] <= y1
-        ]
-        x0 = min(item[0] for item in incluster)
-        x1 = max(item[2] for item in incluster)
-        bounding = (x0, y0, x1, y1)
+    for cluster in selected:
+        bounding = determine_cluster_rectangle(cluster, items)
         result.append(bounding)
     return result
+
+
+def determine_cluster_rectangle(cluster, items):
+    y0 = min(cluster)
+    y1 = max(cluster)
+    incluster = [
+        item.bbox
+        for item in items
+        if y0 <= item.bbox[1] <= y1 or y0 <= item.bbox[3] <= y1
+    ]
+    x0 = min(item[0] for item in incluster)
+    x1 = max(item[2] for item in incluster)
+    bounding = (x0, y0, x1, y1)
+    return bounding
