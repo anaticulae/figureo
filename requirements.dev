@@ -7,9 +7,9 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-utilatest==0.10.0
-genex==0.21.1
+utilatest==0.10.1
+genex==0.21.2
 power==2.2.1
-tablero>=0.8.1<1.0.0
+tablero>=0.8.2<1.0.0
 # required for special release, remove later
-iamraw>=4.41.3<5.0.0
+iamraw>=4.43.1<5.0.0
