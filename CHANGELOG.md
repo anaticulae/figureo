@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.14.0
+
+### Feature
+
+* skip first text line included into figure (acc37553f690)
+
 ## v0.13.0
 
 ### Feature
