@@ -58,10 +58,14 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         for item in ltpage:
             self.render_pagecontent(self.page, item, pagesize, tables=tables)
 
-    def render_pagecontent(self, pageid, item, pagesize=None, tables=None):
+    def render_pagecontent(self, pageid, item, pagesize=None, tables=None):  # pylint:disable=R0911
         """Collect all figures."""
         # strip potential figure bounding
         item.bbox = figure_bounding(item)
+        if not item.bbox:
+            # skip invisible item
+            self.invalids[pageid].append(item)
+            return
         if imageonly(item):
             utila.debug('figure as image container')
             # handled by --images, refactor later
@@ -110,7 +114,13 @@ def figure_bounding(figure) -> tuple:
             bounding = figure_bounding(item)
         else:
             bounding = item.bbox
+        if not bounding:
+            # invisible bounding
+            continue
         boundings.append(bounding)
+    if not boundings:
+        # invisible item
+        return None
     result = utila.rectangle_max(boundings)
     return result
 
