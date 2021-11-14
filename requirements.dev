@@ -11,3 +11,4 @@ utilatest==0.10.1
 genex==0.21.2
 power==2.2.1
 tablero>=0.8.2<1.0.0
+formulero>=0.3.0<1.0.0
