@@ -12,6 +12,8 @@ Extract figures and convert to images
 
 """
 
+import collections
+
 import ghost
 import iamraw
 import serializeraw
@@ -34,21 +36,38 @@ def work(
     else:
         utila.debug(f'{content} does not exists')
         content = None
-    if utila.exists(tables):
-        tables = serializeraw.load_tables(tables, pages=pages)
-    else:
-        utila.debug(f'{tables} does not exists')
-        tables = None
+    nofigures = load_nofigures(
+        tables=tables,
+        pages=pages,
+    )
     figures = figureo.standard.converter.extract_figures(
         path,
         boundings=content,
-        nofigures=tables,
+        nofigures=nofigures,
         pages=pages,
     )
     if figures:
         figures = beautify_figures(figures, path)
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
+
+
+def load_nofigures(tables: str, pages: tuple = None) -> list:
+    collected = collections.defaultdict(list)
+    if utila.exists(tables):
+        tables = serializeraw.load_tables(tables, pages=pages)
+        for page in tables:
+            for item in page.content:
+                collected[page.page].append(item.bounding)
+    else:
+        utila.debug(f'{tables} does not exists')
+    result = [
+        iamraw.PageContent(
+            page=page,
+            content=boundings,
+        ) for page, boundings in collected.items()
+    ]
+    return result
 
 
 # 1 percent tolerance
