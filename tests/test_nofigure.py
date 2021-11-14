@@ -22,10 +22,12 @@ import tests
         '156,168,204',
         id='diss266_small_text_elements',
     ),
+    pytest.param(power.HOME050_PDF, '31', id='home50p31_formula'),
 ])
 def test_nofigure(source, pages, testdir, monkeypatch):
+    generated = power.link(source)
     tests.run(
-        f'-i {source} --standard --pages={pages}',
+        f'-i {generated} -i {source} --standard --pages={pages}',
         monkeypatch=monkeypatch,
     )
     assert not os.path.exists('rawmaker__images_images')
