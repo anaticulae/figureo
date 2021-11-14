@@ -157,12 +157,15 @@ def determine_clusters(
 
 # A normal line of text is between 10-13 height
 AREA_START_HEIGHT_MAX = configo.HV_FLOAT_PLUS(default=25.0)
+# Covering less than this is detected as text line start
+AREA_COVERING_RATE_MIN = configo.HV_PERCENT_PLUS(default=35.0)
 
 
 def determine_cluster_rectangle(
     cluster,
     items,
     first=AREA_START_HEIGHT_MAX,
+    area_covering_min=AREA_COVERING_RATE_MIN,
 ):
     y0 = min(cluster)
     y1 = max(cluster)
@@ -178,7 +181,7 @@ def determine_cluster_rectangle(
     firstline = [
         item for item in items if utila.rectangle_inside(start_area, item.bbox)
     ]
-    textline_in_figure = covering(start_area, firstline) < 0.35
+    textline_in_figure = covering(start_area, firstline) < area_covering_min
     if textline_in_figure:
         # remove line start if line start is detected
         for item in firstline:
