@@ -155,7 +155,15 @@ def determine_clusters(
     return result
 
 
-def determine_cluster_rectangle(cluster, items, first=35.0):
+# A normal line of text is between 10-13 height
+AREA_START_HEIGHT_MAX = configo.HV_FLOAT_PLUS(default=25.0)
+
+
+def determine_cluster_rectangle(
+    cluster,
+    items,
+    first=AREA_START_HEIGHT_MAX,
+):
     y0 = min(cluster)
     y1 = max(cluster)
     incluster = [
