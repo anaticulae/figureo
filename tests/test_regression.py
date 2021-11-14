@@ -27,28 +27,6 @@ def test_extract_figures_memory_error(testdir, monkeypatch, capsys):
     assert 'could not render' in stderr, str(stderr)
 
 
-def test_nofigure_diss266_pagex(testdir, monkeypatch):
-    # TODO: INVESTIGATE WHERE DOES THESE RECTANGLES COME FROM!
-    source = power.DISS266_PDF
-    pages = '27,28,61'
-    tests.run(
-        f'-i {source} --standard --pages={pages}',
-        monkeypatch=monkeypatch,
-    )
-    # do not detect any figures on page 27, 28, 61
-    assert not os.path.exists('rawmaker__images_images')
-
-
-def test_nofigure_diss266_small_text_elements(testdir, monkeypatch):
-    source = power.DISS266_PDF
-    pages = '156,168,204'
-    tests.run(
-        f'-i {source} --standard --pages={pages}',
-        monkeypatch=monkeypatch,
-    )
-    assert not os.path.exists('rawmaker__images_images')
-
-
 def test_figure_master155_page15(testdir, monkeypatch):
     source = power.MASTER155_PDF
     tests.run(f'-i {source} --standard --pages=15', monkeypatch=monkeypatch)
