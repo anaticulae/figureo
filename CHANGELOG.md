@@ -2,6 +2,17 @@
 
 Every noteable change is logged here.
 
+## v0.15.0
+
+### Feature
+
+* skip formula bounding as valid figureo area (289390a65520)
+
+### Fix
+
+* reduce start of line to reduce fail detection (4e5fa2dc53a2)
+* skip invisible item (df6874d52a6d)
+
 ## v0.14.0
 
 ### Feature
