@@ -28,12 +28,14 @@ def work(
     path: str,
     content: str = None,
     tables: str = None,
+    formulas: str = None,
     pages: tuple = None,
 ) -> figureo.utils.DumpedFigureInformation:
     pages = sorted(pages) if pages else pages
     boundings = load_content(content, pages=pages)
     nofigures = load_nofigures(
         tables=tables,
+        formulas=formulas,
         pages=pages,
     )
     figures = figureo.standard.converter.extract_figures(
@@ -56,7 +58,7 @@ def load_content(content, pages: tuple = None) -> list:
     return result
 
 
-def load_nofigures(tables: str, pages: tuple = None) -> list:
+def load_nofigures(tables: str, formulas: str, pages: tuple = None) -> list:
     collected = collections.defaultdict(list)
     if utila.exists(tables):
         tables = serializeraw.load_tables(tables, pages=pages)
@@ -65,6 +67,13 @@ def load_nofigures(tables: str, pages: tuple = None) -> list:
                 collected[page.page].append(item.bounding)
     else:
         utila.debug(f'{tables} does not exists')
+    if utila.exists(formulas):
+        formulas = serializeraw.load_rawformulas(formulas, pages=pages)
+        for page in formulas:
+            for formula in page.content:
+                collected[page.page].append(formula.bounding)
+    else:
+        utila.debug(f'{formulas} does not exists')
     result = [
         iamraw.PageContent(
             page=page,

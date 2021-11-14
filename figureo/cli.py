@@ -23,6 +23,7 @@ WORKPLAN = [
             utila.Pattern('*', 'pdf'),
             utila.ResultFile(producer='groupme', name='content_content', optional=True),
             utila.ResultFile(producer='tablero', name='decide_decide', optional=True),
+            utila.ResultFile(producer='rawmaker', name='formula_formula', optional=True),
         ],
         output=[
             ('figures/{FILEHASH_1}', 'yaml'),
