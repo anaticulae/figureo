@@ -7,9 +7,9 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 """Figure Extractor
+================
 
-Extract figures and convert to images
-
+Extract figures and convert to images.
 """
 
 import collections
@@ -31,18 +31,14 @@ def work(
     pages: tuple = None,
 ) -> figureo.utils.DumpedFigureInformation:
     pages = sorted(pages) if pages else pages
-    if utila.exists(content):
-        content = serializeraw.load_contentboundingbox(content, pages=pages)
-    else:
-        utila.debug(f'{content} does not exists')
-        content = None
+    boundings = load_content(content, pages=pages)
     nofigures = load_nofigures(
         tables=tables,
         pages=pages,
     )
     figures = figureo.standard.converter.extract_figures(
         path,
-        boundings=content,
+        boundings=boundings,
         nofigures=nofigures,
         pages=pages,
     )
@@ -50,6 +46,14 @@ def work(
         figures = beautify_figures(figures, path)
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
+
+
+def load_content(content, pages: tuple = None) -> list:
+    if not utila.exists(content):
+        utila.debug(f'{content} does not exists')
+        return None
+    result = serializeraw.load_contentboundingbox(content, pages=pages)
+    return result
 
 
 def load_nofigures(tables: str, pages: tuple = None) -> list:
