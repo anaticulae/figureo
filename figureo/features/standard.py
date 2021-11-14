@@ -42,7 +42,7 @@ def work(
     figures = figureo.standard.converter.extract_figures(
         path,
         boundings=content,
-        tables=tables,
+        nofigures=tables,
         pages=pages,
     )
     if figures:

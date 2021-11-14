@@ -32,10 +32,10 @@ LAYOUT = pdfminer.layout.LAParams(
 
 class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
 
-    def __init__(self, boundings: list = None, tables: list = None):
+    def __init__(self, boundings: list = None, nofigures: list = None):
         super().__init__(laparams=LAYOUT)
         self.boundings = boundings
-        self.tables = tables
+        self.nofigures = nofigures
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
@@ -45,9 +45,9 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
         bounding = None
-        tables = None
-        if self.tables:
-            tables = utila.select_content(self.tables, self.page)
+        nofigures = None
+        if self.nofigures:
+            nofigures = utila.select_content(self.nofigures, self.page)
         if self.boundings:
             bounding = utila.select_page(self.boundings, self.page)
         if bounding:
@@ -56,9 +56,14 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             # white page or no self.boundings defined.
             pagesize = (0, 0, ltpage.width, ltpage.height)
         for item in ltpage:
-            self.render_pagecontent(self.page, item, pagesize, tables=tables)
+            self.render_pagecontent(
+                self.page,
+                item,
+                pagesize,
+                nofigures=nofigures,
+            )
 
-    def render_pagecontent(self, pageid, item, pagesize=None, tables=None):  # pylint:disable=R0911
+    def render_pagecontent(self, pageid, item, pagesize=None, nofigures=None):  # pylint:disable=R0911
         """Collect all figures."""
         # strip potential figure bounding
         item.bbox = figure_bounding(item)
@@ -70,7 +75,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             utila.debug('figure as image container')
             # handled by --images, refactor later
             return
-        if not valid_area(item.bbox, pagesize, tables):
+        if not valid_area(item.bbox, pagesize, nofigures):
             # check after figure to avoid skipping figure
             return
         if iscaption(item):
@@ -209,10 +214,10 @@ def too_long(item) -> bool:
 def valid_area(
     bbox: utila.Rectangle,
     pagesize: tuple,
-    tables: iamraw.TableBoundings = None,
+    nofigures: iamraw.TableBoundings = None,
     borderwidth=128,
 ) -> bool:
-    tables = tables if tables else []
+    nofigures = nofigures if nofigures else []
     # borderwidth: minus means a little bit outside of the page. This often
     # happens when having full page images.
     # borderwidth: increase borderwidth to handle bad pdf printing
@@ -222,14 +227,22 @@ def valid_area(
         pagesize[2] + borderwidth,
         pagesize[3],
     )
-    for table in tables:
+    for noarea in nofigures:
         # does element collide with table bounding
-        if utila.intersecting_rectangle(table.bounding, bbox):
+        if utila.intersecting_rectangle(bounding_area(noarea), bbox):
             return False
     if utila.intersecting_rectangle(inside, bbox):
         # intersecting with content border
         return True
     return False
+
+
+def bounding_area(item) -> tuple:
+    with contextlib.suppress(AttributeError):
+        return item.bounding
+    with contextlib.suppress(AttributeError):
+        return item.bbox
+    return item
 
 
 def leftupper_dot(raw, unique: int):
@@ -265,13 +278,13 @@ def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
 def extract_figures(
     document: str,
     boundings: list = None,
-    tables: list = None,
+    nofigures: list = None,
     pages: tuple = None,
 ) -> iamraw.Figures:
     with rawmaker.reader.read(document) as pdf:
         # Processing layout
         content = pdfminer.pdfpage.PDFPage.create_pages(pdf)
-        device = FigureConverter(boundings=boundings, tables=tables)
+        device = FigureConverter(boundings=boundings, nofigures=nofigures)
         interpreter = pdfminer.pdfinterp.PDFPageInterpreter(
             device.resources,
             device,
@@ -282,5 +295,5 @@ def extract_figures(
                     continue
                 device.page = number
                 interpreter.process_page(page)
-    figures = device.figures()
-    return figures
+    result = device.figures()
+    return result
