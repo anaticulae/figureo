@@ -133,7 +133,7 @@ CLUSTER_SIZE_MIN = configo.HV_INT_PLUS(default=25)
 
 def determine_clusters(
     items: list,
-    min_cluster_size=CLUSTER_SIZE_MIN,
+    cluster_size_min=CLUSTER_SIZE_MIN,
 ):
     bucket = utila.Buckets(utila.ranges(0, 1000, 15), sorting=True)
     for item in items:
@@ -146,7 +146,7 @@ def determine_clusters(
     # select areas with enough items
     content = utila.groupby_neighbors(bucket)
     # TODO: CHECK CLUSTER_SIZE_MIN CAUSE SET REMOVES ITEMS OUT OF CONTENT
-    selected = [set(item) for item in content if len(item) >= min_cluster_size]
+    selected = [set(item) for item in content if len(item) >= cluster_size_min]
     # prepare result
     result = []
     for cluster in selected:
