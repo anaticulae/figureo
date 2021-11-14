@@ -11,5 +11,3 @@ utilatest==0.10.1
 genex==0.21.2
 power==2.2.1
 tablero>=0.8.2<1.0.0
-# required for special release, remove later
-iamraw>=4.43.1<5.0.0
