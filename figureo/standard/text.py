@@ -165,7 +165,7 @@ def determine_cluster_rectangle(
     cluster,
     items,
     first=AREA_START_HEIGHT_MAX,
-    area_covering_min=AREA_COVERING_RATE_MIN,
+    # area_covering_min=AREA_COVERING_RATE_MIN,
 ):
     y0 = min(cluster)
     y1 = max(cluster)
@@ -181,7 +181,7 @@ def determine_cluster_rectangle(
     firstline = [
         item for item in items if utila.rectangle_inside(start_area, item.bbox)
     ]
-    textline_in_figure = covering(start_area, firstline) < area_covering_min
+    textline_in_figure = hanging_textline(start_area, firstline)
     if textline_in_figure:
         # remove line start if line start is detected
         for item in firstline:
@@ -191,7 +191,7 @@ def determine_cluster_rectangle(
     return result
 
 
-def covering(area, firstline) -> float:
+def hanging_textline(area, firstline) -> bool:
     buckets = utila.Buckets(border=utila.ranges(
         start=area[0],
         stop=area[2],
@@ -200,6 +200,25 @@ def covering(area, firstline) -> float:
     for item in firstline:
         for x in utila.ranges(start=item.bbox[0], stop=item.bbox[2], step=5.0):
             buckets.add(x)
+    # 1/3 2/3
+    start, rest = splitby_percent(buckets, percent=0.35)
+    if rateme(rest):
+        return False
+    if rateme(start) < 0.8:
+        return True
+    return False
+
+
+def splitby_percent(items, percent=0.28):
+    assert 1.0 >= percent >= 0.0
+    splitindex = int(len(items) * percent)
+    return items[0:splitindex], items[splitindex:]
+
+
+def rateme(buckets) -> float:
+    if not buckets:
+        # TODO: ZERO OR ONE?
+        return 0.0
     full = len([item for item in buckets if item])
     rate = full / len(buckets)
     return rate

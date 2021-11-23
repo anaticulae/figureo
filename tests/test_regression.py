@@ -84,3 +84,15 @@ def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
     ]
     hashed = {utilatest.binhash(item) for item in bins}
     assert hashed == {154856633}
+
+
+def test_master110page54(testdir, monkeypatch):
+    images = tests.standard_figures(
+        power.MASTER110_PDF,
+        pages=54,
+        testdir=testdir,
+        monkeypatch=monkeypatch,
+    )
+    bounding = images[0].bounding
+    expected = (64.65, 114.39, 516.75, 463.11)
+    assert utila.nears(bounding, expected)
