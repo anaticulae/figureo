@@ -78,7 +78,7 @@ def test_reg_figure_text_in_figure(testdir, monkeypatch):
 def test_master31page4(testdir, monkeypatch):
     images = run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
     selected = images[0].bounding
-    expected = (305.57, 67.33, 526.39, 251.31)
+    expected = (297.36, 66.0, 532.92, 257.28)
     assert utila.nears(selected, expected, diff=5.0)
 
 

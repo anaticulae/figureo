@@ -41,6 +41,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         self.nonfigure = collections.defaultdict(list)
         self.invalids = collections.defaultdict(list)
         self.caption = collections.defaultdict(list)
+        self.images = collections.defaultdict(list)
 
     def receive_layout(self, ltpage):
         super().receive_layout(ltpage)
@@ -73,6 +74,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             return
         if imageonly(item):
             utila.debug('figure as image container')
+            self.images[pageid].append(item)
             # handled by --images, refactor later
             return
         if not valid_area(item.bbox, pagesize, nofigures):
@@ -98,11 +100,13 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             pagefigures=self.nonfigure,
             invalids=self.invalids,
             breaker=self.caption,
+            images=self.images,
         )
         # TODO: RENDER INTO MERGED FIGURES
         self.nonfigure.clear()
         self.invalids.clear()
         self.caption.clear()
+        self.images.clear()
         if merged:
             self.content.extend(merged)
         return self.content
@@ -255,7 +259,7 @@ def leftupper_dot(raw, unique: int):
     renderer.point([0, 0, 1, 1], fill=(255, 255, 255, unique))
 
 
-def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
+def merge_figures(pagefigures, invalids, breaker, images) -> iamraw.Figures:
     """Group parts of figures, convert and export as raw image file."""
     result = []
     for page, values in pagefigures.items():
@@ -264,6 +268,7 @@ def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
             invalids=invalids[page],
             breaker=breaker[page],
         )
+        figures = merge_images_into_textfigures(figures, images[page])
         for index, figure in enumerate(figures):
             figure.index = index
             figure.page = page
@@ -273,6 +278,31 @@ def merge_figures(pagefigures, invalids, breaker) -> iamraw.Figures:
             leftupper_dot(figure.data, unique=page)
         result.extend(figures)
     return result
+
+
+def merge_images_into_textfigures(figures: list, images: list) -> list:
+    """Merge images which intersects with text figure-bounding into
+    text-figure.
+
+    Image-Only figures are not handled by textfigure-detector, therefore
+    we have to merge them if there are part of figure.
+    """
+    if not images:
+        return figures
+    for figure in figures:
+        for image in images:
+            # TODO: DO NOT MERGE TWICE?
+            if not utila.intersecting_rectangle(
+                    figure.bounding,
+                    image.bbox,
+            ):
+                continue
+            # update figure bounding
+            figure.bounding = utila.rectangle_max((
+                figure.bounding,
+                image.bbox,
+            ))
+    return figures
 
 
 def extract_figures(

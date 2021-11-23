@@ -96,3 +96,18 @@ def test_master110page54(testdir, monkeypatch):
     bounding = images[0].bounding
     expected = (64.65, 114.39, 516.75, 463.11)
     assert utila.nears(bounding, expected)
+
+
+def test_master110page2930(testdir, monkeypatch):
+    images = tests.standard_figures(
+        power.MASTER110_PDF,
+        pages='29,30',
+        testdir=testdir,
+        monkeypatch=monkeypatch,
+    )
+    bounding = images[0].bounding
+    expected = (129.24, 123.1, 479.75, 332.46)
+    assert utila.nears(bounding, expected)
+    bounding = images[1].bounding
+    expected = (115.2, 123.88, 465.81, 411.9)
+    assert utila.nears(bounding, expected)
