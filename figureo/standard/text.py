@@ -64,7 +64,13 @@ def figures_missing(items, done) -> list:
         if utila.rectangles_intersecting(done, item.bbox):
             # LTFigure is already part of a text figure
             continue
-        figure = iamraw.Figure(bounding=tuple(item.bbox))
+        matching = [
+            test.bbox
+            for test in items
+            if utila.intersecting_rectangle(item.bbox, test.bbox)
+        ]
+        bounding = utila.rectangle_max([item.bbox] + matching)
+        figure = iamraw.Figure(bounding=bounding)
         result.append(figure)
     return result
 
