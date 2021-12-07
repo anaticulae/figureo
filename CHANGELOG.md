@@ -2,6 +2,17 @@
 
 Every noteable change is logged here.
 
+## v0.16.0
+
+### Feature
+
+* improve last line check (2327e4c02b28)
+
+### Fix
+
+* merge text figures into second try (ecb8d1f264f4)
+* merge images only into text figures (89c0541032e7)
+
 ## v0.15.0
 
 ### Feature
