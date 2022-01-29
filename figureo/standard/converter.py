@@ -97,7 +97,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if too_long(item):
             self.invalids[pageid].append(item)
             return
-        if isinstance(item, pdfminer.layout.LTRect) and not item.linewidth:
+        if isrectangle_hidden(item):
             # skip hidden Rectangle
             return
         if isinvalid(item):
@@ -121,6 +121,20 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if merged:
             self.content.extend(merged)
         return self.content
+
+
+def isrectangle_hidden(item) -> bool:
+    if not isinstance(item, pdfminer.layout.LTRect):
+        return False
+    if 0.0 < item.width < 1.0 and item.height:
+        # rectangle is a vertical line
+        return False
+    if 0.0 < item.height < 1.0 and item.width:
+        # rectangle is a horizontal line
+        return False
+    if item.linewidth:
+        return False
+    return True
 
 
 def figure_bounding(figure) -> tuple:

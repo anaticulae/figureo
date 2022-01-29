@@ -142,12 +142,10 @@ def test_bachelor37page23(testdir, monkeypatch):
         pages=23,
         monkeypatch=monkeypatch,
     )
-    selected = images[0].bounding
-    expected = (77.88, 562.07, 516.67, 631.23)
-    assert utila.nears(selected, expected)
-    selected = images[1].bounding
-    expected = (70.92, 253.19, 510.36, 383.16)
-    assert utila.nears(selected, expected)
+    boundings = sorted([image.bounding for image in images])
+    expected = [(65.52, 559.2, 529.92, 632.27), (70.92, 253.19, 510.36, 383.16)]
+    assert utila.nears(boundings[0], expected[0])
+    assert utila.nears(boundings[1], expected[1])
 
 
 # yapf:disable
