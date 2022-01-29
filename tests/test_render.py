@@ -18,17 +18,15 @@ import utilatest
 import tests
 
 
-@pytest.mark.usefixtures('testdir')
-def test_figures_run_bachelor56page27(monkeypatch):
+def test_figures_run_bachelor56page27(testdir, monkeypatch):
     """Ensure that text below, left and right from figure is included
     into figure."""
     run_standard(power.BACHELOR056_PDF, pages=27, monkeypatch=monkeypatch)
-    expected_file_count = 1
-    figure = 'rawmaker__images_images'
-    written = utila.file_list(figure, include='yaml')
-    assert len(written) == expected_file_count, str(written)
-    path = os.path.join(figure, written[0])
-    image = serializeraw.load_image_info(path)
+    images = serializeraw.load_image_infos_frompath(
+        testdir.tmpdir.join('rawmaker__images_images'))
+    images = utila.flatten_content(images)
+    assert len(images) == 1
+    image = images[0]
     assert image.width >= 217, image.width
     assert image.height >= 158, image.height
 
