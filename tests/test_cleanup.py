@@ -45,3 +45,15 @@ def run_cleanup(path, pages, monkeypatch) -> list:
         return []
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
     return images
+
+
+def test_bachelor51p30_hide_images(testdir, monkeypatch):
+    pdf = power.BACHELOR051_PDF
+    utila.run(f'rawmaker -i {pdf} --images --pages=30 -o {testdir.tmpdir}')
+    workdir = testdir.tmpdir.join('rawmaker__images_images')
+    cmd = f'-i {pdf} -i {workdir} -i {testdir.tmpdir} -o {testdir.tmpdir} --pages=30'
+    tests.run(cmd, monkeypatch=monkeypatch)
+    images = serializeraw.load_image_infos_frompath(workdir)
+    images = utila.flatten_content(images)
+    hidden = [item for item in images if item.hidden]
+    assert len(hidden) == 4

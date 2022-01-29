@@ -21,9 +21,7 @@ def work(
     """\
     ::: require standard to run standard before cleanup
     """
-    # skip -i pdf source file
-    # TODO: REMOVE AFTER UPGRADING UTILA
-    sources = [item for item in sources if utila.file_ext(item) == 'yaml']
+    sources = setup_sources(sources)
     # load data
     figures, images = prepare(sources, pages=pages)
     result = hide(figures, images)
@@ -32,6 +30,23 @@ def work(
         (path, serializeraw.dump_image_info(image)) for image, path in result
     ]
     return dumped
+
+
+def setup_sources(sources) -> list:
+    # separate steps are required, cause standard produces figure files
+    # which are required for cleanup step. In the current state utila
+    # determines inputs only at startup time. Therefore figureo wont know
+    # than theses later generated files exists. TODO: REMOVE AFTER
+    # UPGRADING INPUTS AFTER EVERY STEP
+    # skip -i pdf source file
+    # TODO: REMOVE AFTER UPGRADING UTILA
+    sources = [item for item in sources if utila.file_ext(item) == 'yaml']
+    directory = set(utila.path_parent(item) for item in sources)
+    for path in directory:
+        sources.extend(utila.file_list(path, include='yaml', absolute=True))
+    sources = [utila.forward_slash(item) for item in sources]
+    sources = utila.make_unique(sources)
+    return sources
 
 
 def hide(figures, images):
