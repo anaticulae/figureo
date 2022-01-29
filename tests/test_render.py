@@ -31,6 +31,17 @@ def test_figures_run_bachelor56page27(testdir, monkeypatch):
     assert image.height >= 158, image.height
 
 
+def test_figures_run_bachelor56page19(testdir, monkeypatch):
+    run_standard(power.BACHELOR056_PDF, pages=18, monkeypatch=monkeypatch)
+    images = serializeraw.load_image_infos_frompath(
+        testdir.tmpdir.join('rawmaker__images_images'))
+    images = utila.flatten_content(images)
+    assert len(images) == 1
+    image = images[0]
+    assert image.width >= 461, image.width
+    assert image.height >= 39, image.height
+
+
 @pytest.mark.usefixtures('testdir')
 def test_figures_skip_dots(monkeypatch):
     images = run_standard(
