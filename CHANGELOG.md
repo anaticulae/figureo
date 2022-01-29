@@ -2,6 +2,21 @@
 
 Every noteable change is logged here.
 
+## v0.17.0
+
+### Feature
+
+* add support for rotated pages (4296ee15a1b0)
+
+### Fix
+
+* do not skip line rectangles (07a79cea548e)
+* hack utila workstep input path computation (7d0d3c34a254)
+
+### Documentation
+
+* Happy New Year! (725c5f0cad44)
+
 ## v0.16.0
 
 ### Feature
