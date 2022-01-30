@@ -54,13 +54,13 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         pagesize = determine_pagesize(bounding, ltpage)
         for item in ltpage:
             self.render_pagecontent(
-                self.page,
                 item,
+                self.page,
                 pagesize,
                 nofigures=nofigures,
             )
 
-    def render_pagecontent(self, pageid, item, pagesize=None, nofigures=None):  # pylint:disable=R0911
+    def render_pagecontent(self, item, pageid, pagesize=None, nofigures=None):  # pylint:disable=R0911
         """Collect all figures."""
         # strip potential figure bounding
         item.bbox = figure_bounding(item)
