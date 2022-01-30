@@ -171,6 +171,17 @@ def test_diss205p102(testdir, monkeypatch):
     assert utila.nears(selected, expected)
 
 
+def test_diss205p141(testdir, monkeypatch):
+    images = run_standard(
+        power.DISS205_PDF,
+        pages=141,
+        monkeypatch=monkeypatch,
+    )
+    selected = images[0].bounding
+    expected = (81.23, 309.1, 505.51, 450.41)
+    assert utila.nears(selected, expected)
+
+
 # yapf:disable
 @pytest.mark.parametrize('page, expected', [
     pytest.param(13, (126.27, 113.8, 497.37, 428.8), id='page13'),

@@ -27,6 +27,9 @@ import figureo.utils
 LAYOUT = pdfminer.layout.LAParams(
     char_margin=2.7,
     line_margin=0.01,
+    # improve equal line merge: see diss205p141
+    # Example: Radius beträgt √ Wert der Zielfunktion
+    line_overlap=0.0,
 )
 
 
