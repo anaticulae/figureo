@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.17.1
+
+### Fix
+
+* merge more little chars to a single line (ee8a2efaaff8)
+
 ## v0.17.0
 
 ### Feature
