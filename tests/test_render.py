@@ -107,6 +107,7 @@ def test_master31page10(testdir, monkeypatch):
     assert utila.nears(selected, expected, diff=4.0)
 
 
+@utilatest.longrun
 def test_master75page1718(testdir, monkeypatch):
     images = run_standard(
         power.MASTER075_PDF,

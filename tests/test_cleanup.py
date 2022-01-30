@@ -12,6 +12,7 @@ import os
 import power
 import serializeraw
 import utila
+import utilatest
 
 import tests
 import tests.test_render
@@ -47,6 +48,7 @@ def run_cleanup(path, pages, monkeypatch) -> list:
     return images
 
 
+@utilatest.longrun
 def test_bachelor51p30_hide_images(testdir, monkeypatch):
     pdf = power.BACHELOR051_PDF
     utila.run(f'rawmaker -i {pdf} --images --pages=30 -o {testdir.tmpdir}')

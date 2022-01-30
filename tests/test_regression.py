@@ -98,6 +98,7 @@ def test_master110page54(testdir, monkeypatch):
     assert utila.nears(bounding, expected)
 
 
+@utilatest.longrun
 def test_master110page2930(testdir, monkeypatch):
     images = tests.standard_figures(
         power.MASTER110_PDF,
@@ -113,6 +114,7 @@ def test_master110page2930(testdir, monkeypatch):
     assert utila.nears(bounding, expected)
 
 
+@utilatest.longrun
 def test_diss157p3536(testdir, monkeypatch):
     images = tests.standard_figures(
         power.DISS157_PDF,

@@ -39,11 +39,13 @@ def standard_figures(pdf, pages: str, testdir, monkeypatch):
     return written
 
 
+@utilatest.longrun
 def test_figures_extract():
     extracted = extract_figures()
     assert len(extracted) == 3, str(extracted)
 
 
+@utilatest.longrun
 def test_figures_dump_and_load(testdir):
     outpath = testdir.tmpdir
     extracted = extract_figures()
@@ -54,6 +56,7 @@ def test_figures_dump_and_load(testdir):
     assert len(loaded) == 3
 
 
+@utilatest.longrun
 def test_figures_extract_master116_page19(testdir):
     outpath = testdir.tmpdir
     extracted = extract_figures((19, 38))
@@ -113,6 +116,7 @@ def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
 
 
 @pytest.mark.xfail(reason='improve table parser')
+@utilatest.longrun
 def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     """Detect two nearly equal figures on different pages.
 
