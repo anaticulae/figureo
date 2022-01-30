@@ -51,22 +51,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             nofigures = utila.select_content(self.nofigures, self.page)
         if self.boundings:
             bounding = utila.select_page(self.boundings, self.page)
-        if bounding:
-            normal = ltpage.height > ltpage.width
-            if normal:
-                # normal
-                pagesize = (0, bounding.top, ltpage.width, bounding.bottom)
-            else:
-                # rotated
-                pagesize = (
-                    ltpage.width - bounding.bottom,
-                    0,
-                    ltpage.width - bounding.top,
-                    ltpage.height,
-                )
-        else:
-            # white page or no self.boundings defined.
-            pagesize = (0, 0, ltpage.width, ltpage.height)
+        pagesize = determine_pagesize(bounding, ltpage)
         for item in ltpage:
             self.render_pagecontent(
                 self.page,
@@ -121,6 +106,26 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         if merged:
             self.content.extend(merged)
         return self.content
+
+
+def determine_pagesize(bounding, ltpage):
+    if not bounding:
+        # white page or no self.boundings defined.
+        pagesize = (0, 0, ltpage.width, ltpage.height)
+        return pagesize
+    normal = ltpage.height > ltpage.width
+    if normal:
+        # normal
+        pagesize = (0, bounding.top, ltpage.width, bounding.bottom)
+        return pagesize
+    # rotated
+    pagesize = (
+        ltpage.width - bounding.bottom,
+        0,
+        ltpage.width - bounding.top,
+        ltpage.height,
+    )
+    return pagesize
 
 
 def isrectangle_hidden(item) -> bool:
