@@ -89,7 +89,14 @@ def bounding_valid(bounding: tuple, items, width_min, height_min, area_min) -> b
     return False
 
 
-CONTENT_INVALID_RATE_MAX = configo.HV_PERCENT_PLUS(default=15)
+CONTENT_INVALID_RATE_MAX = configo.HolyTable(items=[
+    (5, 0.1),
+    (10, 0.2),
+    (15, 0.2),
+    (20, 0.2),
+    (30, 0.18),
+    (40, 0.15),
+])
 
 
 def content_valid(bounding, content, invalids) -> bool:
@@ -104,7 +111,7 @@ def content_valid(bounding, content, invalids) -> bool:
         if utila.intersecting_rectangle(bounding, item.bbox)
     ]
     rate = len(invalids) / len(content)
-    if rate > CONTENT_INVALID_RATE_MAX:
+    if rate > CONTENT_INVALID_RATE_MAX(len(content)):
         # too many invalid items
         return False
     return True
