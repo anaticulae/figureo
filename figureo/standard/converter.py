@@ -38,7 +38,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
     def __init__(self, boundings: list = None, nofigures: list = None):
         super().__init__(laparams=LAYOUT)
         self.boundings = boundings
-        self.nofigures = nofigures
+        self.nofigures = nofigures  # TODO: VERIFY NAMING
         self.content = []
         self.page = 0
         self.nonfigure = collections.defaultdict(list)
