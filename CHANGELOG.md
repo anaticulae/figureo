@@ -2,6 +2,12 @@
 
 Every noteable change is logged here.
 
+## v0.17.2
+
+### Feature
+
+* make error rate content length decedent (2a87d051f19e)
+
 ## v0.17.1
 
 ### Fix
