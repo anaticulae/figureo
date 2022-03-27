@@ -202,6 +202,17 @@ def test_bachelor67pagex(page, expected, testdir, monkeypatch):
     verify(power.BACHELOR067_PDF, page, expected, testdir, monkeypatch)
 
 
+def test_master063p25(testdir, monkeypatch):
+    images = run_standard(
+        power.MASTER063_PDF,
+        pages=25,
+        monkeypatch=monkeypatch,
+    )
+    selected = images[0].bounding
+    expected = (70.85, 277.83, 408.35, 451.08)
+    assert utila.nears(selected, expected)
+
+
 def verify(source, page, expected, testdir, monkeypatch):
     images = run_standard(
         source=source,
