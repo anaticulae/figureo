@@ -16,12 +16,8 @@ import tests
 
 
 @pytest.mark.parametrize('source, pages', [
+    pytest.param(power.DISS266_PDF, '156,168,204', id='small_text_elements'),
     pytest.param(power.DISS266_PDF, '27,28,61', id='diss266'),
-    pytest.param(
-        power.DISS266_PDF,
-        '156,168,204',
-        id='diss266_small_text_elements',
-    ),
     pytest.param(power.HOME050_PDF, '31', id='home50p31_formula'),
     pytest.param(power.MASTER091B_PDF, '19', id='master091bp19'),
 ])
