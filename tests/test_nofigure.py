@@ -23,6 +23,7 @@ import tests
         id='diss266_small_text_elements',
     ),
     pytest.param(power.HOME050_PDF, '31', id='home50p31_formula'),
+    pytest.param(power.MASTER091B_PDF, '19', id='master091bp19'),
 ])
 def test_nofigure(source, pages, testdir, monkeypatch):
     generated = power.link(source)
