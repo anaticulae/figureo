@@ -21,22 +21,22 @@ WORKER = 4
 power.setup(figureo.ROOT)
 
 RESOURCES = [
+    (power.DISS143_PDF, '25'),
+    (power.DISS157_PDF, '30:40'),
+    (power.DISS172_PDF, '30'),
+    (power.DISS205_PDF, '100:110,140:145'),
+    (power.HOME050_PDF, '31'),
+    (power.MASTER075_PDF, '10:25'),
+    (power.MASTER110_PDF, '29:40,54'),
+    power.BACHELOR037_PDF,
     power.BACHELOR051_PDF,
     power.BACHELOR056_PDF,
+    power.BACHELOR067_PDF,
     power.BACHELOR085_PDF,
     power.BACHELOR090_PDF,
-    power.BACHELOR037_PDF,
     power.DISS266_PDF,
     power.MASTER116_PDF,
     power.MASTER155_PDF,
-    power.BACHELOR067_PDF,
-    (power.MASTER075_PDF, '10:25'),
-    (power.DISS157_PDF, '30:40'),
-    (power.MASTER110_PDF, '29:40,54'),
-    (power.DISS205_PDF, '100:110,140:145'),
-    (power.DISS172_PDF, '30'),
-    (power.DISS143_PDF, '25'),
-    (power.HOME050_PDF, '31'),
 ]
 
 
