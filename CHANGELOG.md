@@ -2,6 +2,16 @@
 
 Every noteable change is logged here.
 
+## v0.17.3
+
+### Fix
+
+* skip very small items (889d0e5ada1c)
+
+### Documentation
+
+* adjust modules path (d550973fe8a0)
+
 ## v0.17.2
 
 ### Feature
