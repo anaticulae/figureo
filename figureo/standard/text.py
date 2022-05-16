@@ -48,6 +48,11 @@ def text_figures(
         item for item in result
         if bounding_valid(item.bounding, items, width_min, height_min, area_min)
     ]
+    # TODO: INVESTIGATE LATER
+    # skip very small items
+    result = [
+        item for item in result if utila.rectangle_width(item.bounding) > 25.0
+    ]
     second_look = figures_missing(items, result)
     if second_look:
         result.extend(second_look)
