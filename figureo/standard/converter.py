@@ -72,7 +72,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             self.invalids[pageid].append(item)
             return
         if imageonly(item):
-            utila.debug('figure as image container')
+            utila.debug(f'figure as image container: {pageid}')
             self.images[pageid].append(item)
             # handled by --images, refactor later
             return
