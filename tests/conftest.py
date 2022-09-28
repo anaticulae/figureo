@@ -10,6 +10,7 @@
 import genex
 import power
 import pytest
+import utilatest
 from utilatest import mp  # pylint:disable=W0611
 from utilatest import td  # pylint:disable=W0611
 
@@ -18,7 +19,6 @@ import figureo
 pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 
 PACKAGE = figureo.PROCESS
-WORKER = 4
 
 power.setup(figureo.ROOT)
 
@@ -42,6 +42,8 @@ RESOURCES = [
     power.MASTER116_PDF,
     power.MASTER155_PDF,
 ]
+
+WORKER = utilatest.worker_count(7, onci=len(RESOURCES))
 
 
 @pytest.mark.usefixtures('session')
