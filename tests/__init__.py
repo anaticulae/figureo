@@ -33,14 +33,14 @@ failure = functools.partial(
 )
 
 
-def standard_figures(pdf, pages: str, testdir, monkeypatch):
+def standard_figures(pdf, pages: str, td, mp):
     source = power.link(pdf)
-    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages={pages} --standard'
-    run(cmd, monkeypatch=monkeypatch)
+    cmd = f'-i {pdf} -i {source} -o {td.tmpdir} --pages={pages} --standard'
+    run(cmd, mp=mp)
     if not utila.exists('rawmaker__images_images'):
         return []
     # verify
     written = serializeraw.load_image_infos_frompath(
-        testdir.tmpdir.join('rawmaker__images_images'))
+        td.tmpdir.join('rawmaker__images_images'))
     result = utila.flatten_content(written)
     return result

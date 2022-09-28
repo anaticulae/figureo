@@ -16,17 +16,18 @@ import utilatest
 import tests
 
 
+@pytest.mark.usefixtures('testdir')
 @pytest.mark.parametrize('source, pages', [
     pytest.param(power.DISS266_PDF, '156,168,204', id='small_text_elements'),
     pytest.param(power.DISS266_PDF, '27,28,61', id='diss266'),
     pytest.param(power.HOME050_PDF, '31', id='home50p31_formula'),
     pytest.param(power.MASTER091B_PDF, '19', id='master091bp19'),
 ])
-def test_nofigure(source, pages, testdir, monkeypatch):
+def test_nofigure(source, pages, mp):
     utilatest.fixture_requires(source)
     generated = power.link(source)
     tests.run(
         f'-i {generated} -i {source} --standard --pages={pages}',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     assert not os.path.exists('rawmaker__images_images')

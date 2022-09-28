@@ -29,11 +29,11 @@ def extract_figures(pages=None):
     return extracted
 
 
-def standard_figures(pdf, pages: str, testdir, monkeypatch):
+def standard_figures(pdf, pages: str, td, mp):
     utilatest.fixture_requires(pdf)
     source = power.link(pdf)
-    cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages={pages} --standard'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    cmd = f'-i {pdf} -i {source} -o {td.tmpdir} --pages={pages} --standard'
+    tests.run(cmd, mp=mp)
     if not utila.exists('rawmaker__images_images'):
         return []
     # verify
@@ -48,8 +48,8 @@ def test_figures_extract():
 
 
 @utilatest.longrun
-def test_figures_dump_and_load(testdir):
-    outpath = testdir.tmpdir
+def test_figures_dump_and_load(td):
+    outpath = td.tmpdir
     extracted = extract_figures()
     # 3 figures and 3 information
     with utilatest.increased_filecount(outpath, mindiff=6, maxdiff=6):
@@ -59,8 +59,8 @@ def test_figures_dump_and_load(testdir):
 
 
 @utilatest.longrun
-def test_figures_extract_master116_page19(testdir):
-    outpath = testdir.tmpdir
+def test_figures_extract_master116_page19(td):
+    outpath = td.tmpdir
     extracted = extract_figures((19, 38))
     # 3 figures and 3 information
     with utilatest.increased_filecount(outpath, mindiff=6, maxdiff=6):
@@ -68,31 +68,31 @@ def test_figures_extract_master116_page19(testdir):
 
 
 @utilatest.longrun
-def test_figures_run_master116(monkeypatch, testdir):
+def test_figures_run_master116(mp, td):
     written = standard_figures(
         power.MASTER116_PDF,
         '17:24',
-        testdir,
-        monkeypatch,
+        td,
+        mp,
     )
     # verify
     expected_file_count = 7 * 2
     assert len(written) == expected_file_count, str(written)
 
 
-def test_figures_run_master116page18(monkeypatch, testdir):
+def test_figures_run_master116page18(mp, td):
     written = standard_figures(
         power.MASTER116_PDF,
         18,
-        testdir,
-        monkeypatch,
+        td,
+        mp,
     )
     assert len(written) == 2, str(written)
 
 
-def test_render_master116_page2_figure_image(monkeypatch, testdir):
+def test_render_master116_page2_figure_image(mp, td):
     """Figure image is handled by rawmaker --images."""
-    written = standard_figures(power.MASTER116_PDF, 2, testdir, monkeypatch)
+    written = standard_figures(power.MASTER116_PDF, 2, td, mp)
     assert not written
 
 
@@ -105,12 +105,12 @@ def test_render_master116_page2_figure_image(monkeypatch, testdir):
     (57, 1),
     (58, 1),
 ])
-def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
+def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     written = standard_figures(
         power.BACHELOR090_PDF,
         page,
-        testdir,
-        monkeypatch,
+        td,
+        mp,
     )
     # png and yaml files
     expected = expected * 2
@@ -119,7 +119,7 @@ def test_render_bachelor90_pagex_figure(page, expected, monkeypatch, testdir):
 
 @pytest.mark.xfail(reason='improve table parser')
 @utilatest.longrun
-def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
+def test_render_bachelor51_page30_33_figure_image(mp, td):
     """Detect two nearly equal figures on different pages.
 
     Ensure that tables on the same page are not located as figure anymore.
@@ -127,21 +127,21 @@ def test_render_bachelor51_page30_33_figure_image(monkeypatch, testdir):
     written = standard_figures(
         power.BACHELOR051_PDF,
         '30,33',
-        testdir,
-        monkeypatch,
+        td,
+        mp,
     )
     # 2 png and 2 yaml files
     expected = 4
     assert len(written) == expected, str(written)
 
 
-def test_render_diss172page30(monkeypatch, testdir):
+def test_render_diss172page30(mp, td):
     """Single image which intersects page border."""
     written = standard_figures(
         power.DISS172_PDF,
         '30',
-        testdir,
-        monkeypatch,
+        td,
+        mp,
     )
     # 1 png and 1 yaml files
     expected = 2

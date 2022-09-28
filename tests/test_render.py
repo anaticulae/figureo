@@ -18,12 +18,12 @@ import utilatest
 import tests
 
 
-def test_figures_run_bachelor56page27(testdir, monkeypatch):
+def test_figures_run_bachelor56page27(td, mp):
     """Ensure that text below, left and right from figure is included
     into figure."""
-    run_standard(power.BACHELOR056_PDF, pages=27, monkeypatch=monkeypatch)
+    run_standard(power.BACHELOR056_PDF, pages=27, mp=mp)
     images = serializeraw.load_image_infos_frompath(
-        testdir.tmpdir.join('rawmaker__images_images'))
+        td.tmpdir.join('rawmaker__images_images'))
     images = utila.flatten_content(images)
     assert len(images) == 1
     image = images[0]
@@ -31,10 +31,10 @@ def test_figures_run_bachelor56page27(testdir, monkeypatch):
     assert image.height >= 158, image.height
 
 
-def test_figures_run_bachelor56page19(testdir, monkeypatch):
-    run_standard(power.BACHELOR056_PDF, pages=18, monkeypatch=monkeypatch)
+def test_figures_run_bachelor56page19(td, mp):
+    run_standard(power.BACHELOR056_PDF, pages=18, mp=mp)
     images = serializeraw.load_image_infos_frompath(
-        testdir.tmpdir.join('rawmaker__images_images'))
+        td.tmpdir.join('rawmaker__images_images'))
     images = utila.flatten_content(images)
     assert len(images) == 1
     image = images[0]
@@ -43,55 +43,58 @@ def test_figures_run_bachelor56page19(testdir, monkeypatch):
 
 
 @pytest.mark.usefixtures('testdir')
-def test_figures_skip_dots(monkeypatch):
+def test_figures_skip_dots(mp):
     images = run_standard(
         power.BACHELOR090_PDF,
         pages='81,82',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     # do not generate any figure
     assert not images
 
 
-def test_figures_skip_xml(testdir, monkeypatch):
+def test_figures_skip_xml(td, mp):
     images = run_standard(
         power.BACHELOR067_PDF,
         pages='61',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
-    print(utila.forward_slash(str(testdir.tmpdir)))
+    print(utila.forward_slash(str(td.tmpdir)))
     # do not generate any figure
     assert not images
 
 
 @pytest.mark.usefixtures('testdir')
 @utilatest.requires(power.BACHELOR090_PDF)
-def test_figures_double_image(monkeypatch):
+def test_figures_double_image(mp):
     """This is an image, not a figure. We have to skip this."""
     images = run_standard(
         power.BACHELOR090_PDF,
         pages=80,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     # do not generate any figure
     assert not images
 
 
-def test_reg_figure_text_in_figure(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_reg_figure_text_in_figure(mp):
     """Do not include `Diplomarbeit` inside title page figure."""
-    images = run_standard(power.MASTER078_PDF, pages=0, monkeypatch=monkeypatch)
+    images = run_standard(power.MASTER078_PDF, pages=0, mp=mp)
     image = images[0]
     assert image.height < 140.0, f'Diplomarbeit included: {image.height}'
 
 
-def test_master31page4(testdir, monkeypatch):
-    images = run_standard(power.MASTER031_PDF, pages=4, monkeypatch=monkeypatch)
+@pytest.mark.usefixtures('testdir')
+def test_master31page4(mp):
+    images = run_standard(power.MASTER031_PDF, pages=4, mp=mp)
     selected = images[0].bounding
     expected = (297.36, 66.0, 532.92, 257.28)
     assert utila.nears(selected, expected, diff=5.0)
 
 
-def test_master31page10(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_master31page10(mp):
     """Detect single figure.
 
     Two Asian characters are handled by rawmaker --image.
@@ -99,7 +102,7 @@ def test_master31page10(testdir, monkeypatch):
     images = run_standard(
         power.MASTER031_PDF,
         pages=10,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     assert len(images) == 1  # pylint:disable=C2001
     selected = images[0].bounding
@@ -108,11 +111,12 @@ def test_master31page10(testdir, monkeypatch):
 
 
 @utilatest.longrun
-def test_master75page1718(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_master75page1718(mp):
     images = run_standard(
         power.MASTER075_PDF,
         pages='17,18',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     # page17
     bounding = images[0].bounding
@@ -124,35 +128,38 @@ def test_master75page1718(testdir, monkeypatch):
     assert utila.nears(bounding, expected)
 
 
-def test_bachelor51page29(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_bachelor51page29(mp):
     images = run_standard(
         power.BACHELOR051_PDF,
         pages=29,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     selected = images[0].bounding
     expected = (86.16, 56.28, 440.16, 281.28)
     assert utila.nears(selected, expected)
 
 
-def test_bachelor37page18(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_bachelor37page18(mp):
     """Do not increase valid_area tolerance too much to avoid including
     parts of header and footer into extracted figures."""
     images = run_standard(
         power.BACHELOR037_PDF,
         pages=18,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     selected = images[0].bounding
     expected = (95.03, 63.46, 514.56, 210.87)
     assert utila.nears(selected, expected)
 
 
-def test_bachelor37page23(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_bachelor37page23(mp):
     images = run_standard(
         power.BACHELOR037_PDF,
         pages=23,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     boundings = sorted([image.bounding for image in images])
     expected = [(65.52, 559.2, 529.92, 632.27), (70.92, 253.19, 510.36, 383.16)]
@@ -160,22 +167,24 @@ def test_bachelor37page23(testdir, monkeypatch):
     assert utila.nears(boundings[1], expected[1])
 
 
-def test_diss205p102(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_diss205p102(mp):
     images = run_standard(
         power.DISS205_PDF,
         pages=102,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     selected = images[0].bounding
     expected = (179.13, 250.27, 406.71, 437.01)
     assert utila.nears(selected, expected)
 
 
-def test_diss205p141(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_diss205p141(mp):
     images = run_standard(
         power.DISS205_PDF,
         pages=141,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     selected = images[0].bounding
     expected = (81.23, 309.1, 505.51, 450.41)
@@ -194,30 +203,31 @@ def test_diss205p141(testdir, monkeypatch):
     pytest.param(52, [(112.74, 177.94, 510.1, 334.1), (109.25, 423.09, 510.7, 578.09)], id='page52'),
 ])
 # yapf:enable
-def test_bachelor67pagex(page, expected, testdir, monkeypatch):
+def test_bachelor67pagex(page, expected, td, mp):  # pylint:disable=W0613
     """\
     page15: Detect single text figures which are build out of a single LTFigure.
     page48: Shrink figure size which is badly printed by pdfprinter.
     """
-    verify(power.BACHELOR067_PDF, page, expected, testdir, monkeypatch)
+    verify(power.BACHELOR067_PDF, page, expected, mp)
 
 
-def test_master063p25(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_master063p25(mp):
     images = run_standard(
         power.MASTER063_PDF,
         pages=25,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     selected = images[0].bounding
     expected = (70.85, 277.83, 408.35, 451.08)
     assert utila.nears(selected, expected)
 
 
-def verify(source, page, expected, testdir, monkeypatch):
+def verify(source, page, expected, mp):
     images = run_standard(
         source=source,
         pages=page,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     if isinstance(expected, tuple):
         expected = [expected]
@@ -225,13 +235,13 @@ def verify(source, page, expected, testdir, monkeypatch):
         assert utila.nears(figure.bounding, expect, diff=5.0)
 
 
-def run_standard(source, pages, monkeypatch) -> list:
+def run_standard(source, pages, mp) -> list:
     utilatest.fixture_requires(source)
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
     if os.path.exists(source):
         cmd = f'{cmd} -i {source}'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    tests.run(cmd, mp=mp)
     if not os.path.exists('rawmaker__images_images'):
         return []
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')

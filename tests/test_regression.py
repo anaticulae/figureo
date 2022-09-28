@@ -10,6 +10,7 @@
 import os
 
 import power
+import pytest
 import serializeraw.images
 import utila
 import utilatest
@@ -17,55 +18,57 @@ import utilatest
 import tests
 
 
+@pytest.mark.usefixtures('testdir')
 @utilatest.nightly
-def test_extract_figures_memory_error(testdir, monkeypatch, capsys):
+def test_extract_figures_memory_error(mp, capsys):
     # TODO: VALIDATE THIS UNIT TEST. THE MEMORY ERROR LOOKS QUITE
     # CONFUSING, PAY ATENTION TO THE PAGE NUMBERS
     source = power.BACHELOR085_PDF
-    tests.run(f'-i {source}  --standard --pages=75:', monkeypatch=monkeypatch)
+    tests.run(f'-i {source}  --standard --pages=75:', mp=mp)
     stderr = utilatest.stderr(capsys)
     assert 'could not render' in stderr, str(stderr)
 
 
-def test_figure_master155_page15(testdir, monkeypatch):
+def test_figure_master155_page15(td, mp):
     source = power.MASTER155_PDF
-    tests.run(f'-i {source} --standard --pages=15', monkeypatch=monkeypatch)
+    tests.run(f'-i {source} --standard --pages=15', mp=mp)
     imageinformation = serializeraw.load_image_infos_frompath(
-        testdir.tmpdir.join('rawmaker__images_images'))
+        td.tmpdir.join('rawmaker__images_images'))
     assert len(imageinformation) == 1
 
 
-def test_figure_master155_page17(testdir, monkeypatch):
+def test_figure_master155_page17(td, mp):
     """Include lower 0, 5, 10 base."""
     pdf = power.MASTER155_PDF
-    images = tests.standard_figures(pdf, 17, testdir, monkeypatch)
+    images = tests.standard_figures(pdf, 17, td, mp)
     assert len(images) == 1
     bounding = images[0].bounding
     expected = (155.76, 182.04, 514.03, 389.72)
     assert utila.nears(bounding, expected, diff=5.0)
 
 
-def test_bachelor90_whitepage_error(testdir, monkeypatch):
+@pytest.mark.usefixtures('testdir')
+def test_bachelor90_whitepage_error(mp):
     """First page is a white page, this page produced an missing
     bounding error."""
     source = power.BACHELOR090_PDF
     pages = '0:10'
     tests.run(
         f'-i {source} -i {power.link(source)} --standard --pages={pages}',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
 
 
-def test_bachelor90_text_ending_inside_figure(testdir, monkeypatch):
+def test_bachelor90_text_ending_inside_figure(td, mp):
     source = power.BACHELOR090_PDF
-    images = tests.standard_figures(source, 57, testdir, monkeypatch)
+    images = tests.standard_figures(source, 57, td, mp)
     assert len(images) == 1
     bounding = images[0].bounding
     expected = (112.83, 399.27, 479.46, 644.35)
     assert utila.nears(bounding, expected)
 
 
-def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
+def test_bachelor90page58_do_not_merge_caption(td, mp):
     """Do not merge figure caption into detected figure.
 
     One figure is composed out of lines and text.
@@ -75,23 +78,22 @@ def test_bachelor90page58_do_not_merge_caption(testdir, monkeypatch):
     pages = '58'
     tests.run(
         f'-i {source} -i {power.link(source)} --standard --pages={pages}',
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
-    names = utila.file_list(testdir.tmpdir, include='png')
+    names = utila.file_list(td.tmpdir, include='png')
     bins = [
-        utila.file_read_binary(os.path.join(testdir.tmpdir, name))
-        for name in names
+        utila.file_read_binary(os.path.join(td.tmpdir, name)) for name in names
     ]
     hashed = {utilatest.binhash(item) for item in bins}
     assert hashed == {154856633}
 
 
-def test_master110page54(testdir, monkeypatch):
+def test_master110page54(td, mp):
     images = tests.standard_figures(
         power.MASTER110_PDF,
         pages=54,
-        testdir=testdir,
-        monkeypatch=monkeypatch,
+        td=td,
+        mp=mp,
     )
     bounding = images[0].bounding
     expected = (64.65, 114.39, 516.75, 463.11)
@@ -99,12 +101,12 @@ def test_master110page54(testdir, monkeypatch):
 
 
 @utilatest.longrun
-def test_master110page2930(testdir, monkeypatch):
+def test_master110page2930(td, mp):
     images = tests.standard_figures(
         power.MASTER110_PDF,
         pages='29,30',
-        testdir=testdir,
-        monkeypatch=monkeypatch,
+        td=td,
+        mp=mp,
     )
     bounding = images[0].bounding
     expected = (129.24, 123.1, 479.75, 332.46)
@@ -115,12 +117,12 @@ def test_master110page2930(testdir, monkeypatch):
 
 
 @utilatest.longrun
-def test_diss157p3536(testdir, monkeypatch):
+def test_diss157p3536(td, mp):
     images = tests.standard_figures(
         power.DISS157_PDF,
         pages='35,36',
-        testdir=testdir,
-        monkeypatch=monkeypatch,
+        td=td,
+        mp=mp,
     )
     bounding = images[0].bounding
     expected = (217.12, 520.89, 399.89, 687.07)

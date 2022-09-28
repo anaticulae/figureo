@@ -18,7 +18,7 @@ import tests
 import tests.test_render
 
 
-def test_bachelor51page29_cleanup(testdir, monkeypatch):
+def test_bachelor51page29_cleanup(td, mp):
     generated = os.path.join(
         power.link(power.BACHELOR051_PDF),
         'rawmaker__images_images',
@@ -26,22 +26,22 @@ def test_bachelor51page29_cleanup(testdir, monkeypatch):
     tests.test_render.run_standard(
         power.BACHELOR051_PDF,
         pages=29,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
-    utila.copy_content(generated, testdir.tmpdir.join('rawmaker__images_images'))  # yapf:disable
+    utila.copy_content(generated, td.tmpdir.join('rawmaker__images_images'))  # yapf:disable
     run_cleanup(
-        path=testdir.tmpdir,
+        path=td.tmpdir,
         pages=29,
-        monkeypatch=monkeypatch,
+        mp=mp,
     )
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
     # ensure that some images are hidden by extract figure
     assert any(item.hidden for item in utila.flatten_content(images))
 
 
-def run_cleanup(path, pages, monkeypatch) -> list:
+def run_cleanup(path, pages, mp) -> list:
     cmd = f'-i {path} -o {path} --pages={pages} --cleanup'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    tests.run(cmd, mp=mp)
     if not os.path.exists('rawmaker__images_images'):
         return []
     images = serializeraw.load_image_infos_frompath('rawmaker__images_images')
@@ -49,12 +49,12 @@ def run_cleanup(path, pages, monkeypatch) -> list:
 
 
 @utilatest.longrun
-def test_bachelor51p30_hide_images(testdir, monkeypatch):
+def test_bachelor51p30_hide_images(td, mp):
     pdf = power.BACHELOR051_PDF
-    utila.run(f'rawmaker -i {pdf} --images --pages=30 -o {testdir.tmpdir}')
-    workdir = testdir.tmpdir.join('rawmaker__images_images')
-    cmd = f'-i {pdf} -i {workdir} -i {testdir.tmpdir} -o {testdir.tmpdir} --pages=30'
-    tests.run(cmd, monkeypatch=monkeypatch)
+    utila.run(f'rawmaker -i {pdf} --images --pages=30 -o {td.tmpdir}')
+    workdir = td.tmpdir.join('rawmaker__images_images')
+    cmd = f'-i {pdf} -i {workdir} -i {td.tmpdir} -o {td.tmpdir} --pages=30'
+    tests.run(cmd, mp=mp)
     images = serializeraw.load_image_infos_frompath(workdir)
     images = utila.flatten_content(images)
     hidden = [item for item in images if item.hidden]
