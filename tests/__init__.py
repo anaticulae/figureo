@@ -22,14 +22,14 @@ run = functools.partial(
     utilatest.run_command,
     main=figureo.cli.main,
     process=figureo.PROCESS,
-    success=True,
+    expect=True,
 )
 
 failure = functools.partial(
     utilatest.run_command,
     main=figureo.cli.main,
     process=figureo.PROCESS,
-    success=False,
+    expect=False,
 )
 
 
