@@ -52,12 +52,10 @@ def pytest_sessionstart():
 def extract(resources):
     genex.extract(
         files=resources,
-        destination=power.generated(),
         groupme='--pagenumbers --border --footer --content',
         oneline=None,
         tablero=True,
         formulero=True,
         pages=':',
         worker=WORKER,
-        base=power.REPOSITORY,
     )
