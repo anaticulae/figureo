@@ -20,6 +20,7 @@ import tests
 
 @pytest.mark.usefixtures('testdir')
 @utilatest.nightly
+@utilatest.requires(power.BACHELOR085_PDF)
 def test_extract_figures_memory_error(mp, capsys):
     # TODO: VALIDATE THIS UNIT TEST. THE MEMORY ERROR LOOKS QUITE
     # CONFUSING, PAY ATENTION TO THE PAGE NUMBERS
@@ -29,6 +30,7 @@ def test_extract_figures_memory_error(mp, capsys):
     assert 'could not render' in stderr, str(stderr)
 
 
+@utilatest.requires(power.MASTER155_PDF)
 def test_figure_master155_page15(td, mp):
     source = power.MASTER155_PDF
     tests.run(f'-i {source} --standard --pages=15', mp=mp)
@@ -47,6 +49,7 @@ def test_figure_master155_page17(td, mp):
     assert utila.nears(bounding, expected, diff=5.0)
 
 
+@utilatest.requires(power.BACHELOR090_PDF)
 @pytest.mark.usefixtures('testdir')
 def test_bachelor90_whitepage_error(mp):
     """First page is a white page, this page produced an missing
@@ -68,6 +71,7 @@ def test_bachelor90_text_ending_inside_figure(td, mp):
     assert utila.nears(bounding, expected)
 
 
+@utilatest.requires(power.BACHELOR090_PDF)
 def test_bachelor90page58_do_not_merge_caption(td, mp):
     """Do not merge figure caption into detected figure.
 

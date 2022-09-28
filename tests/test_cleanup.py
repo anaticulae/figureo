@@ -18,6 +18,7 @@ import tests
 import tests.test_render
 
 
+@utilatest.requires(power.BACHELOR051_PDF)
 def test_bachelor51page29_cleanup(td, mp):
     generated = os.path.join(
         power.link(power.BACHELOR051_PDF),
@@ -49,6 +50,7 @@ def run_cleanup(path, pages, mp) -> list:
 
 
 @utilatest.longrun
+@utilatest.requires(power.BACHELOR051_PDF)
 def test_bachelor51p30_hide_images(td, mp):
     pdf = power.BACHELOR051_PDF
     utila.run(f'rawmaker -i {pdf} --images --pages=30 -o {td.tmpdir}')

@@ -34,6 +34,7 @@ failure = functools.partial(
 
 
 def standard_figures(pdf, pages: str, td, mp):
+    utilatest.fixture_requires(pdf)
     source = power.link(pdf)
     cmd = f'-i {pdf} -i {source} -o {td.tmpdir} --pages={pages} --standard'
     run(cmd, mp=mp)
