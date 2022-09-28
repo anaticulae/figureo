@@ -45,7 +45,10 @@ def work(
         pages=pages,
     )
     if figures:
-        figures = beautify_figures(figures, path)
+        if ghost.HAS_GHOST:
+            figures = beautify_figures(figures, path)
+        else:
+            utila.error('could not `beautify_figures`, install ghost')
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
 
