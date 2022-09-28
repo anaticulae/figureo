@@ -49,6 +49,7 @@ def work(
             figures = beautify_figures(figures, path)
         else:
             utila.error('could not `beautify_figures`, install ghost')
+            figures = beautify_no_ghost(figures)
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
 
@@ -90,7 +91,7 @@ def load_nofigures(tables: str, formulas: str, pages: tuple = None) -> list:
 SCALE = (0.99, 0.99, 1.01, 1.01)
 
 
-def beautify_figures(figures, path: str):
+def beautify_figures(figures, path: str) -> list:
     """Use ghost to render pdf and crop interested area."""
     boundings = [
         iamraw.ImageInformation(
@@ -101,4 +102,13 @@ def beautify_figures(figures, path: str):
     extracted = ghost.images(path, boundings)
     for figure, image in zip(figures, extracted):
         figure.data = image
+    return figures
+
+
+def beautify_no_ghost(figures) -> list:
+    """Write empty backup images."""
+    for figure in figures:
+        image = figureo.utils.rawfigure_frombounding(figure.bounding)
+        raw = figureo.utils.image_tobytes(image)
+        figure.data = raw
     return figures
