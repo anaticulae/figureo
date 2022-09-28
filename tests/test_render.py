@@ -226,6 +226,7 @@ def verify(source, page, expected, testdir, monkeypatch):
 
 
 def run_standard(source, pages, monkeypatch) -> list:
+    utilatest.fixture_requires(source)
     cmd = f'-i {source} --pages={pages} --standard'
     source = power.link(source)
     if os.path.exists(source):

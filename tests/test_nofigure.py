@@ -11,6 +11,7 @@ import os
 
 import power
 import pytest
+import utilatest
 
 import tests
 
@@ -22,6 +23,7 @@ import tests
     pytest.param(power.MASTER091B_PDF, '19', id='master091bp19'),
 ])
 def test_nofigure(source, pages, testdir, monkeypatch):
+    utilatest.fixture_requires(source)
     generated = power.link(source)
     tests.run(
         f'-i {generated} -i {source} --standard --pages={pages}',

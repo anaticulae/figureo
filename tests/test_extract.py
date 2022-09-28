@@ -20,6 +20,7 @@ import tests
 def extract_figures(pages=None):
     """2 Figures on page 12 and 1 figure and 1 image on page 13."""
     source = power.MASTER116_PDF
+    utilatest.fixture_requires(source)
     content = power.link(source)
     if pages is None:
         pages = (12, 13)
@@ -29,6 +30,7 @@ def extract_figures(pages=None):
 
 
 def standard_figures(pdf, pages: str, testdir, monkeypatch):
+    utilatest.fixture_requires(pdf)
     source = power.link(pdf)
     cmd = f'-i {pdf} -i {source} -o {testdir.tmpdir} --pages={pages} --standard'
     tests.run(cmd, monkeypatch=monkeypatch)
