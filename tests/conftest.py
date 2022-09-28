@@ -52,7 +52,9 @@ def pytest_sessionstart():
 def extract(resources):
     genex.extract(
         files=resources,
-        groupme='--pagenumbers --border --footer --content',
+        groupme='--border --content',
+        pagenumber=True,
+        footnote=True,
         oneline=None,
         tablero=True,
         formulero=True,
