@@ -55,11 +55,13 @@ def extract(resources):
     genex.extract(
         files=resources,
         groupme='--border --content',
-        pagenumber=True,
+        cleanup=True,
         footnote=True,
-        oneline=None,
-        tablero=True,
         formulero=True,
+        headnote=True,
+        oneline=None,
+        pagenumber=True,
+        tablero=True,
         pages=':',
         worker=WORKER,
     )
