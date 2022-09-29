@@ -19,6 +19,7 @@ import tests
 
 
 @pytest.mark.xfail(reason='new software')
+@pytest.mark.timeout(60)
 @pytest.mark.usefixtures('testdir')
 @utilatest.nightly
 @utilatest.requires(power.BACHELOR085_PDF)
