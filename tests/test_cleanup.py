@@ -29,7 +29,11 @@ def test_bachelor51page29_cleanup(td, mp):
         pages=29,
         mp=mp,
     )
-    utila.copy_content(generated, td.tmpdir.join('rawmaker__images_images'))  # yapf:disable
+    utila.copy_content(
+        generated,
+        td.tmpdir.join('rawmaker__images_images'),
+        unlock=True,
+    )
     run_cleanup(
         path=td.tmpdir,
         pages=29,
