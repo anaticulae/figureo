@@ -129,7 +129,7 @@ def test_master75page1718(mp):
 
 
 @pytest.mark.usefixtures('testdir')
-def test_bachelor51page29(mp):
+def test_bachelor51page29_nocleanup(mp):
     images = run_standard(
         power.BACHELOR051_PDF,
         pages=29,
