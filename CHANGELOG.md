@@ -2,6 +2,29 @@
 
 Every noteable change is logged here.
 
+## v0.18.0 (2022-09-29)
+
+### Feature
+
+* generate backup images if ghost is not installed (6703654dcb21)
+* do not beautify figures if ghost is not installed (7fa54fcd9617)
+* increase debugging information (13775d2571c2)
+
+### Chore
+
+* add timeout plugin (e61638b4d2d3)
+* upgrade requirements.txt (463e84df8a1f)
+* extend test data generator (4d1ffa883f67)
+* add headnote (5dbea0469314)
+* upgrade requirements.txt (de32767f1ca3)
+* use opengl for test data generation (fbf91fe38711)
+* adjust test data generator (62a3bfa00296)
+* add missing generator package (b1376c9f5474)
+* add Jenkinsfile (3e8651c6a9e9)
+* upgrade requirements.txt (8def7233584b)
+* extend test data generator (3fa959a44361)
+* upgrade requirements.txt (ce75467d10bd)
+
 ## v0.17.3
 
 ### Fix
