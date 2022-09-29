@@ -2,6 +2,13 @@
 
 Every noteable change is logged here.
 
+## v0.18.1 (2022-09-29)
+
+### Chore
+
+* add missing generator (ebc32a41ef7c)
+* upgrade requirements.txt (0bdbcf3fb22a)
+
 ## v0.18.0 (2022-09-29)
 
 ### Feature
