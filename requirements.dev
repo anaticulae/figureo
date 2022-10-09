@@ -7,13 +7,13 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-utilatest==0.20.1
-genex==0.35.2
-power==2.14.1
+utilatest==0.23.0
+genex==0.35.5
+power==2.14.2
 tablero>=0.10.1<1.0.0
-formulero>=0.6.1<1.0.0
+formulero>=0.7.0<1.0.0
 pagenumber>=0.2.1<1.0.0
 footnote>=0.2.2<1.0.0
-headnote>=0.3.1<1.0.0
-groupme>=0.37.0<0.38.0
-cleanup>=0.7.0<1.0.0
+headnote>=0.4.0<1.0.0
+groupme>=0.37.1<0.38.0
+cleanup>=0.7.1<1.0.0
