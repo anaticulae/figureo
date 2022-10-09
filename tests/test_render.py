@@ -55,13 +55,12 @@ def test_figures_skip_dots(mp):
     assert not images
 
 
-def test_figures_skip_xml(td, mp):
+def test_figures_skip_xml(td, mp):  # pylint:disable=W0613
     images = run_standard(
         power.BACHELOR067_PDF,
         pages='61',
         mp=mp,
     )
-    print(utila.forward_slash(str(td.tmpdir)))
     # do not generate any figure
     assert not images
 
