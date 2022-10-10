@@ -21,6 +21,7 @@ pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 PACKAGE = figureo.PROCESS
 
 power.setup(figureo.ROOT)
+
 RESOURCES = [
     (power.DISS143_PDF, '25'),
     (power.DISS157_PDF, '30:40'),
@@ -31,6 +32,7 @@ RESOURCES = [
     (power.MASTER031_PDF, '5:20'),
     (power.MASTER063_PDF, '20:30'),
     (power.MASTER075_PDF, '10:25'),
+    (power.MASTER078_PDF, '0:10'),
     (power.MASTER091B_PDF, '19'),
     (power.MASTER105_PDF, '30:40'),
     (power.MASTER110_PDF, '29:40,54'),
