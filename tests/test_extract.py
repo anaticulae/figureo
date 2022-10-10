@@ -67,7 +67,6 @@ def test_figures_extract_master116_page19(td):
         serializeraw.dump_figures(extracted, outpath)
 
 
-@pytest.mark.xfail(reason='new software')
 @utilatest.longrun
 def test_figures_run_master116(mp, td):
     written = standard_figures(
@@ -81,7 +80,6 @@ def test_figures_run_master116(mp, td):
     assert len(written) == expected_file_count, str(written)
 
 
-@pytest.mark.xfail(reason='integration')
 def test_figures_run_master116page18(mp, td):
     written = standard_figures(
         power.MASTER116_PDF,
@@ -119,6 +117,7 @@ def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     assert len(written) == expected, str(written)
 
 
+@pytest.mark.xfail(reason='disable after software integration')
 @utilatest.longrun
 def test_render_bachelor51_page30_33_figure_image(mp, td):
     """Detect two nearly equal figures on different pages.

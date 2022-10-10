@@ -10,7 +10,6 @@
 import os
 
 import power
-import pytest
 import serializeraw
 import utila
 import utilatest
@@ -54,7 +53,6 @@ def run_cleanup(path, pages, mp) -> list:
     return images
 
 
-@pytest.mark.xfail(reason='new software')
 @utilatest.longrun
 @utilatest.requires(power.BACHELOR051_PDF)
 def test_bachelor51p30_hide_images(td, mp):
