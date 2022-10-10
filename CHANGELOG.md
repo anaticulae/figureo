@@ -2,6 +2,18 @@
 
 Every noteable change is logged here.
 
+## v0.18.2 (2022-10-10)
+
+### Chore
+
+* add missing resource generator (509aaee77719)
+* shrink test data generator (7385222da7a2)
+* add missing test resource (3d8494ef2bf7)
+* upgrade baw (82ab09734caf)
+* convert nightly to all (3025c1d2c3df)
+* upgrade requirements.txt (58660a544ad1)
+* do not run in privileged mode (bf11a2eef14e)
+
 ## v0.18.1 (2022-09-29)
 
 ### Chore
