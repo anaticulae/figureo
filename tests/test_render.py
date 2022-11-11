@@ -236,8 +236,13 @@ def verify(source, page, expected, mp):
     )
     if isinstance(expected, tuple):
         expected = [expected]
-    for figure, expect in zip(images, expected):
-        assert utila.nears(figure.bounding, expect, diff=5.0)
+    boxs = utila.sort_leftright_topdown([figure.bounding for figure in images])
+    for bbox, expect in zip(boxs, expected):
+        assert utila.nears(
+            bbox,
+            expect,
+            diff=5.0,
+        )
 
 
 def run_standard(source, pages, mp) -> list:
