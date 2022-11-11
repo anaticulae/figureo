@@ -7,8 +7,6 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import os
-
 import power
 import pytest
 import serializeraw.images
@@ -20,7 +18,7 @@ import tests
 
 @pytest.mark.xfail(reason='new software')
 @pytest.mark.timeout(60)
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 @utilatest.nightly
 @utilatest.requires(power.BACHELOR085_PDF)
 def test_extract_figures_memory_error(mp, capsys):
@@ -52,7 +50,7 @@ def test_figure_master155_page17(td, mp):
 
 
 @utilatest.requires(power.BACHELOR090_PDF)
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_bachelor90_whitepage_error(mp):
     """First page is a white page, this page produced an missing
     bounding error."""
@@ -88,9 +86,7 @@ def test_bachelor90page58_do_not_merge_caption(td, mp):
         mp=mp,
     )
     names = utila.file_list(td.tmpdir, include='png')
-    bins = [
-        utila.file_read_binary(os.path.join(td.tmpdir, name)) for name in names
-    ]
+    bins = [utila.file_read_binary(td.tmpdir.join(name)) for name in names]
     hashed = {utilatest.binhash(item) for item in bins}
     assert hashed == {154856633}
 

@@ -96,7 +96,7 @@ def beautify_figures(figures, path: str) -> list:
     boundings = [
         iamraw.ImageInformation(
             page=image.page,
-            bounding=utila.rectangle_scale(image.bounding, SCALE),
+            bounding=utila.rect_scale(image.bounding, SCALE),
         ) for image in figures
     ]
     extracted = ghost.images(path, boundings)

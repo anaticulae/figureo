@@ -8,12 +8,11 @@
 # =============================================================================
 
 import io
-import typing
 
 import PIL.Image
 import utila
 
-DumpedFigureInformation = typing.List[typing.Tuple[str, bytes]]
+DumpedFigureInformation = list[tuple[str, bytes]]
 
 
 def image_tobytes(image) -> bytes:
@@ -32,8 +31,8 @@ IMAGE_HEIGHT_MAX = 768
 
 
 def rawfigure_frombounding(bbox, mode=RGBA, background=WHITE) -> PIL.Image:
-    width = utila.rectangle_width(bbox)
-    height = utila.rectangle_height(bbox)
+    width = utila.rect_width(bbox)
+    height = utila.rect_height(bbox)
     # limit max figure size to avoid too much memory consumption
     width = utila.mins(width, IMAGE_WIDTH_MAX)
     height = utila.mins(height, IMAGE_HEIGHT_MAX)

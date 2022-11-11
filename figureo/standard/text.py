@@ -50,9 +50,7 @@ def text_figures(
     ]
     # TODO: INVESTIGATE LATER
     # skip very small items
-    result = [
-        item for item in result if utila.rectangle_width(item.bounding) > 25.0
-    ]
+    result = [item for item in result if utila.rect_width(item.bounding) > 25.0]
     second_look = figures_missing(items, result)
     if second_look:
         result.extend(second_look)
@@ -72,9 +70,9 @@ def figures_missing(items, done) -> list:
         matching = [
             test.bbox
             for test in items
-            if utila.intersecting_rectangle(item.bbox, test.bbox)
+            if utila.rect_intersecting(item.bbox, test.bbox)
         ]
-        bounding = utila.rectangle_max([item.bbox] + matching)
+        bounding = utila.rect_max([item.bbox] + matching)
         figure = iamraw.Figure(bounding=bounding)
         result.append(figure)
     return result
@@ -85,11 +83,11 @@ def bounding_valid(bounding: tuple, items, width_min, height_min, area_min) -> b
     positive renderings."""
     if not textonly(bounding, items):
         return True
-    if utila.rectangle_size(bounding) < area_min:
+    if utila.rect_size(bounding) < area_min:
         return False
-    if utila.rectangle_width(bounding) >= width_min:
+    if utila.rect_width(bounding) >= width_min:
         return True
-    if utila.rectangle_height(bounding) >= height_min:
+    if utila.rect_height(bounding) >= height_min:
         return True
     return False
 
@@ -109,11 +107,11 @@ def content_valid(bounding, content, invalids) -> bool:
         return True
     content = [
         item for item in content
-        if utila.intersecting_rectangle(bounding, item.bbox)
+        if utila.rect_intersecting(bounding, item.bbox)
     ]
     invalids = [
         item for item in invalids
-        if utila.intersecting_rectangle(bounding, item.bbox)
+        if utila.rect_intersecting(bounding, item.bbox)
     ]
     rate = len(invalids) / len(content)
     if rate > CONTENT_INVALID_RATE_MAX(len(content)):
@@ -140,9 +138,12 @@ def textonly(bounding, items: list) -> bool:
         item for item in items
         if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal)
     ]
-    for item in notext:
-        if utila.rectangle_inside(bounding, item.bbox, diff=10):
-            return False
+    if any((utila.rect_inside(
+            bounding,
+            item.bbox,
+            diff=10,
+    ) for item in notext)):
+        return False
     return True
 
 
@@ -197,7 +198,7 @@ def determine_cluster_rectangle(
     # determine text start
     start_area = (x0, y0, x1, y0 + first)
     firstline = [
-        item for item in items if utila.rectangle_inside(start_area, item.bbox)
+        item for item in items if utila.rect_inside(start_area, item.bbox)
     ]
     textline_in_figure = hanging_textline(start_area, firstline)
     if textline_in_figure:
@@ -205,7 +206,7 @@ def determine_cluster_rectangle(
         for item in firstline:
             incluster.remove(item)
     # determine figure bounding
-    result = utila.rectangle_max([item.bbox for item in incluster])
+    result = utila.rect_max([item.bbox for item in incluster])
     return result
 
 

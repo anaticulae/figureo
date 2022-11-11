@@ -18,8 +18,8 @@ def dump_figures(figures) -> figureo.utils.DumpedFigureInformation:
     result = []
     for figure in figures:
         bounding = tuple(figure.bounding)
-        width = utila.rectangle_width(figure.bounding)
-        height = utila.rectangle_height(figure.bounding)
+        width = utila.rect_width(figure.bounding)
+        height = utila.rect_height(figure.bounding)
         info = iamraw.ImageInformation(
             page=figure.page,
             width=width,

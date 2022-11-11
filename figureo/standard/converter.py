@@ -163,7 +163,7 @@ def figure_bounding(figure) -> tuple:
     if not boundings:
         # invisible item
         return None
-    result = utila.rectangle_max(boundings)
+    result = utila.rect_max(boundings)
     return result
 
 
@@ -266,9 +266,9 @@ def valid_area(
     )
     for noarea in nofigures:
         # does element collide with table bounding
-        if utila.intersecting_rectangle(bounding_area(noarea), bbox):
+        if utila.rect_intersecting(bounding_area(noarea), bbox):
             return False
-    if utila.intersecting_rectangle(inside, bbox):
+    if utila.rect_intersecting(inside, bbox):
         # intersecting with content border
         return True
     return False
@@ -325,13 +325,13 @@ def merge_images_into_textfigures(figures: list, images: list) -> list:
     for figure in figures:
         for image in images:
             # TODO: DO NOT MERGE TWICE?
-            if not utila.intersecting_rectangle(
+            if not utila.rect_intersecting(
                     figure.bounding,
                     image.bbox,
             ):
                 continue
             # update figure bounding
-            figure.bounding = utila.rectangle_max((
+            figure.bounding = utila.rect_max((
                 figure.bounding,
                 image.bbox,
             ))

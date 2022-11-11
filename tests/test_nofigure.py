@@ -16,7 +16,7 @@ import utilatest
 import tests
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 @pytest.mark.parametrize('source, pages', [
     pytest.param(power.DISS266_PDF, '156,168,204', id='small_text_elements'),
     pytest.param(power.DISS266_PDF, '27,28,61', id='diss266'),

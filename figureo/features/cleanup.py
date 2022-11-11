@@ -7,8 +7,6 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import typing
-
 import serializeraw
 import utila
 
@@ -17,7 +15,7 @@ def work(
     standard: str,  # pylint:disable=W0613
     *sources: list,
     pages: tuple = None,
-) -> typing.List[typing.Tuple[str, str]]:
+) -> list[tuple[str, str]]:
     """\
     ::: require standard to run standard before cleanup
     """
@@ -45,7 +43,7 @@ def setup_sources(sources) -> list:
     for path in directory:
         sources.extend(utila.file_list(path, include='yaml', absolute=True))
     sources = [utila.forward_slash(item) for item in sources]
-    sources = utila.make_unique(sources)
+    sources = utila.unique(sources)
     return sources
 
 
@@ -59,7 +57,7 @@ def hide(figures, images):
             for fig in figure:
                 # does the image intersects with the figure. Therefore we
                 # want to hide this figure.
-                if not utila.intersecting_rectangle(
+                if not utila.rect_intersecting(
                         fig[0].bounding,
                         image[0].bounding,
                 ):

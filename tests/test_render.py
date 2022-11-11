@@ -44,7 +44,7 @@ def test_figures_run_bachelor56page19(td, mp):
     assert image.height >= 39, image.height
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_figures_skip_dots(mp):
     images = run_standard(
         power.BACHELOR090_PDF,
@@ -65,7 +65,7 @@ def test_figures_skip_xml(td, mp):  # pylint:disable=W0613
     assert not images
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 @utilatest.requires(power.BACHELOR090_PDF)
 def test_figures_double_image(mp):
     """This is an image, not a figure. We have to skip this."""
@@ -78,7 +78,7 @@ def test_figures_double_image(mp):
     assert not images
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_reg_figure_text_in_figure(mp):
     """Do not include `Diplomarbeit` inside title page figure."""
     images = run_standard(power.MASTER078_PDF, pages=0, mp=mp)
@@ -87,7 +87,7 @@ def test_reg_figure_text_in_figure(mp):
 
 
 @pytest.mark.xfail(reason='software integration')
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_master31page4(mp):
     images = run_standard(power.MASTER031_PDF, pages=4, mp=mp)
     selected = images[0].bounding
@@ -95,7 +95,7 @@ def test_master31page4(mp):
     assert utila.nears(selected, expected)
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_master31page10(mp):
     """Detect single figure.
 
@@ -114,7 +114,7 @@ def test_master31page10(mp):
 
 @pytest.mark.xfail(reason='new software')
 @utilatest.longrun
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_master75page1718(mp):
     images = run_standard(
         power.MASTER075_PDF,
@@ -131,7 +131,7 @@ def test_master75page1718(mp):
     assert utila.nears(bounding, expected)
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_bachelor51page29_nocleanup(mp):
     images = run_standard(
         power.BACHELOR051_PDF,
@@ -144,7 +144,7 @@ def test_bachelor51page29_nocleanup(mp):
 
 
 @pytest.mark.xfail(reason='new software')
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_bachelor37page18(mp):
     """Do not increase valid_area tolerance too much to avoid including
     parts of header and footer into extracted figures."""
@@ -159,7 +159,7 @@ def test_bachelor37page18(mp):
 
 
 @pytest.mark.xfail(reason='new software')
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_bachelor37page23(mp):
     images = run_standard(
         power.BACHELOR037_PDF,
@@ -172,7 +172,7 @@ def test_bachelor37page23(mp):
     assert utila.nears(boundings[1], expected[1])
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_diss205p102(mp):
     images = run_standard(
         power.DISS205_PDF,
@@ -184,7 +184,7 @@ def test_diss205p102(mp):
     assert utila.nears(selected, expected)
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_diss205p141(mp):
     images = run_standard(
         power.DISS205_PDF,
@@ -216,7 +216,7 @@ def test_bachelor67pagex(page, expected, td, mp):  # pylint:disable=W0613
     verify(power.BACHELOR067_PDF, page, expected, mp)
 
 
-@pytest.mark.usefixtures('testdir')
+@pytest.mark.usefixtures('td')
 def test_master063p25(mp):
     images = run_standard(
         power.MASTER063_PDF,
