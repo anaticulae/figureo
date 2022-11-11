@@ -117,7 +117,6 @@ def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     assert len(written) == expected, str(written)
 
 
-@pytest.mark.xfail(reason='disable after software integration')
 @utilatest.longrun
 def test_render_bachelor51_page30_33_figure_image(mp, td):
     """Detect two nearly equal figures on different pages.
