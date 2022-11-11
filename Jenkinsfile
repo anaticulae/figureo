@@ -3,7 +3,7 @@
 pipeline {
     agent {
         docker {
-            image '169.254.149.20:6001/arch_python_baw_opengl:0.11.0'
+            image '169.254.149.20:6001/arch_python_baw_ghost_opencv:0.15.1'
             args  '-v $WORKSPACE:/var/workdir'
         }
     }
