@@ -14,13 +14,9 @@ import utilatest
 from utilatest import mp  # pylint:disable=W0611
 from utilatest import td  # pylint:disable=W0611
 
-import figureo
-
 pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 
-PACKAGE = figureo.PROCESS
-
-power.setup(figureo.ROOT)
+power.setup(__file__)
 
 RESOURCES = [
     (power.DISS143_PDF, '25'),
