@@ -2,6 +2,18 @@
 
 Every noteable change is logged here.
 
+## v0.18.3 (2022-12-04)
+
+### Chore
+
+* remove dependency (92ad636525d5)
+* use quick installer (d3330f2e8572)
+* upgrade pipe library (3ad6fd1cb345)
+* upgrade environment (26354a5b0b20)
+* publish resources if all fails (ea6d5f7956d3)
+* add pipe library (61c23349e9b5)
+* upgrade requirements.txt (d7f6f820d59d)
+
 ## v0.18.2 (2022-10-10)
 
 ### Chore
