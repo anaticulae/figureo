@@ -7,6 +7,9 @@ pipeline{
         }
     }
     stages{
+        stage('integrate'){
+            steps{script{baw.integrate()}}
+        }
         stage('setup'){
             steps{script{baw.setup()}}
         }
@@ -45,6 +48,10 @@ pipeline{
                 }
             }
         }
+        stage('pre-release'){
+            when{not{branch 'master'}}
+            steps{sh 'baw publish --pre'}
+        }
         stage('generate'){
             steps{
                 sh 'baw --docken generate all'
@@ -61,7 +68,10 @@ pipeline{
         }
         stage('release'){
             steps{
-                script{publish.release()}
+                script{
+                    publish.release()
+                    baw.rebase()
+                }
             }
         }
     }
