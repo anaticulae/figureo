@@ -2,6 +2,15 @@
 
 Every noteable change is logged here.
 
+## v0.18.4 (2022-12-20)
+
+### Chore
+
+* add integrate, pre-release and rebase step (8fd1166be9d2)
+* upgrade requirements.txt (583887771b76)
+* upgrade Jenkinsfile (5a331f6639ca)
+* upgrade pipe library (08517b5d8a67)
+
 ## v0.18.3 (2022-12-04)
 
 ### Chore
