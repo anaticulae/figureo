@@ -11,7 +11,7 @@ import os
 
 import figureo.__patch__
 
-__version__ = '0.18.4'
+__version__ = '0.18.5'
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 PROCESS = 'figureo'
