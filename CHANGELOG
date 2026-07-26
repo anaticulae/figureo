@@ -1,276 +1,950 @@
-# Changelog
+# CHANGELOG
 
-Every noteable change is logged here.
+
+## v1.0.0 (2026-07-26)
+
+### Chores
+
+- **github**: Add .github
+  ([`8952fbd`](https://github.com/anaticulae/figureo/commit/8952fbd9f7f7615dca264795b833cff45f163e66))
+
+- **license**: Add missing LICENSE
+  ([`03af445`](https://github.com/anaticulae/figureo/commit/03af445cfa634fcd2d75914cde0c063e6f4aa097))
+
+- **pyproject**: Add modern layout
+  ([`cd1f3fe`](https://github.com/anaticulae/figureo/commit/cd1f3fed7d63dd10d6a77ea6524da277db5ca785))
+
+- **pyproject**: Remove outdated files
+  ([`0779ae3`](https://github.com/anaticulae/figureo/commit/0779ae399bc026d6806f3f36464b0c39c3c134e2))
+
+### Documentation
+
+- **readme**: Adjust file types
+  ([`1824c31`](https://github.com/anaticulae/figureo/commit/1824c316c70a04f6da96fa67c2acc04855ac7476))
+
+### Refactoring
+
+- **packages**: Adjust names
+  ([`ba42e0f`](https://github.com/anaticulae/figureo/commit/ba42e0f6dee992f26de1e59bfc0f745405c89bd4))
+
 
 ## v0.18.5 (2022-12-30)
 
-### Chore
+### Chores
 
-* upgrade Jenkinsfile (4027528a2b97)
-* upgrade requirements.txt (2b7ae5ec3cf5)
+- **Jenkins**: Upgrade Jenkinsfile
+  ([`4027528`](https://github.com/anaticulae/figureo/commit/4027528a2b971f29e15d51924513637fe81832c9))
+
+- **requirements**: Upgrade requirements.txt
+  ([`2b7ae5e`](https://github.com/anaticulae/figureo/commit/2b7ae5ec3cf5b0203b1592908774ad1fe045a0bf))
+
 
 ## v0.18.4 (2022-12-20)
 
-### Chore
+### Chores
 
-* add integrate, pre-release and rebase step (8fd1166be9d2)
-* upgrade requirements.txt (583887771b76)
-* upgrade Jenkinsfile (5a331f6639ca)
-* upgrade pipe library (08517b5d8a67)
+- **Jenkins**: Add integrate, pre-release and rebase step
+  ([`8fd1166`](https://github.com/anaticulae/figureo/commit/8fd1166be9d2e815705f343ec912d2a5d472fbe0))
+
+- **Jenkins**: Upgrade Jenkinsfile
+  ([`5a331f6`](https://github.com/anaticulae/figureo/commit/5a331f6639caf5dc3715e0980ed9411576b14813))
+
+- **Jenkins**: Upgrade pipe library
+  ([`08517b5`](https://github.com/anaticulae/figureo/commit/08517b5d8a67f393b4525b382e1ae084eaca842a))
+
+- **requirements**: Upgrade requirements.txt
+  ([`5838877`](https://github.com/anaticulae/figureo/commit/583887771b764873cbbad5efa0cf595b4e151f7b))
+
 
 ## v0.18.3 (2022-12-04)
 
-### Chore
+### Chores
 
-* remove dependency (92ad636525d5)
-* use quick installer (d3330f2e8572)
-* upgrade pipe library (3ad6fd1cb345)
-* upgrade environment (26354a5b0b20)
-* publish resources if all fails (ea6d5f7956d3)
-* add pipe library (61c23349e9b5)
-* upgrade requirements.txt (d7f6f820d59d)
+- **Jenkins**: Add pipe library
+  ([`61c2334`](https://github.com/anaticulae/figureo/commit/61c23349e9b5b83265798f0fa023a8f92173ee9c))
+
+- **Jenkins**: Publish resources if all fails
+  ([`ea6d5f7`](https://github.com/anaticulae/figureo/commit/ea6d5f7956d3f9d386492b2e4a2ae2366fa7dd4b))
+
+- **Jenkins**: Upgrade environment
+  ([`26354a5`](https://github.com/anaticulae/figureo/commit/26354a5b0b20ffc5679cffbca68b0b791ab84641))
+
+- **Jenkins**: Upgrade pipe library
+  ([`3ad6fd1`](https://github.com/anaticulae/figureo/commit/3ad6fd1cb34591466a540b585fd3a6e6cf17cd22))
+
+- **requirements**: Upgrade requirements.txt
+  ([`d7f6f82`](https://github.com/anaticulae/figureo/commit/d7f6f820d59dbe890472c9a6e84c6d3fdf89d295))
+
+- **setup**: Use quick installer
+  ([`d3330f2`](https://github.com/anaticulae/figureo/commit/d3330f2e8572a9802a47dcbbc186003d683e27c2))
+
+- **test**: Remove dependency
+  ([`92ad636`](https://github.com/anaticulae/figureo/commit/92ad636525d573a00af1d35e2997968058eae667))
+
+### Refactoring
+
+- **replace**: Automated replacement
+  ([`3a5e2a9`](https://github.com/anaticulae/figureo/commit/3a5e2a9e941b5d78a9753df06bc0ba81107c1b7a))
+
+### Testing
+
+- **baseline**: Adjust baseline
+  ([`bcd6724`](https://github.com/anaticulae/figureo/commit/bcd67248833afee19b939225a43a83d4fa9674b4))
+
+- **render**: Make test more robust
+  ([`949581e`](https://github.com/anaticulae/figureo/commit/949581e7afadd576ee4827601dfdb35c22d41a10))
+
 
 ## v0.18.2 (2022-10-10)
 
-### Chore
+### Chores
 
-* add missing resource generator (509aaee77719)
-* shrink test data generator (7385222da7a2)
-* add missing test resource (3d8494ef2bf7)
-* upgrade baw (82ab09734caf)
-* convert nightly to all (3025c1d2c3df)
-* upgrade requirements.txt (58660a544ad1)
-* do not run in privileged mode (bf11a2eef14e)
+- **Jenkinsfile**: Convert nightly to all
+  ([`3025c1d`](https://github.com/anaticulae/figureo/commit/3025c1d2c3df7c2f90ae51558ed1c24287e84f20))
+
+- **Jenkinsfile**: Do not run in privileged mode
+  ([`bf11a2e`](https://github.com/anaticulae/figureo/commit/bf11a2eef14ea55227433b503568b2ce11ce0ae0))
+
+- **Jenkinsfile**: Upgrade baw
+  ([`82ab097`](https://github.com/anaticulae/figureo/commit/82ab09734caf2d14747d74bcee77f157a2063e10))
+
+- **requirements**: Upgrade requirements.txt
+  ([`58660a5`](https://github.com/anaticulae/figureo/commit/58660a544ad1491eb5658d42b668998ee6db0e25))
+
+- **resources**: Add missing resource generator
+  ([`509aaee`](https://github.com/anaticulae/figureo/commit/509aaee7771941d0d8bffc8fbe821ce033b19bbd))
+
+- **resources**: Add missing test resource
+  ([`3d8494e`](https://github.com/anaticulae/figureo/commit/3d8494ef2bf784f6d603b507ea6d6f9e50d25493))
+
+- **resources**: Shrink test data generator
+  ([`7385222`](https://github.com/anaticulae/figureo/commit/7385222da7a264470b2c74b995153687ea9812ec))
+
+### Testing
+
+- **adjust**: Adjust tests after software integration
+  ([`e1361e3`](https://github.com/anaticulae/figureo/commit/e1361e344368080e4f37d6dd6a5bb93f97591725))
+
+- **enable**: Enable test after fixing headnote
+  ([`17fbda9`](https://github.com/anaticulae/figureo/commit/17fbda97f36cbc69de268b983fc9719a7df8a866))
+
+- **renderer**: Remove print statement
+  ([`ef2f29e`](https://github.com/anaticulae/figureo/commit/ef2f29ef7ef07007b6b682848aee2d06d1e7d018))
+
 
 ## v0.18.1 (2022-09-29)
 
-### Chore
+### Chores
 
-* add missing generator (ebc32a41ef7c)
-* upgrade requirements.txt (0bdbcf3fb22a)
+- **requirements**: Add missing generator
+  ([`ebc32a4`](https://github.com/anaticulae/figureo/commit/ebc32a41ef7c58cfd97017e63c616c28a9dd4e79))
+
+- **requirements**: Upgrade requirements.txt
+  ([`0bdbcf3`](https://github.com/anaticulae/figureo/commit/0bdbcf3fb22a20d28485100a1d74a2a127b9c46f))
+
 
 ## v0.18.0 (2022-09-29)
 
-### Feature
+### Chores
 
-* generate backup images if ughost is not installed (6703654dcb21)
-* do not beautify figures if ughost is not installed (7fa54fcd9617)
-* increase debugging information (13775d2571c2)
+- **baw**: Add timeout plugin
+  ([`e61638b`](https://github.com/anaticulae/figureo/commit/e61638b4d2d3d5aba44485638edf75b061c73491))
 
-### Chore
+- **ci**: Add Jenkinsfile
+  ([`3e8651c`](https://github.com/anaticulae/figureo/commit/3e8651c6a9e9781739c992dd43b84c08a62c81a6))
 
-* add timeout plugin (e61638b4d2d3)
-* upgrade requirements.txt (463e84df8a1f)
-* extend test data generator (4d1ffa883f67)
-* add headnote (5dbea0469314)
-* upgrade requirements.txt (de32767f1ca3)
-* use opengl for test data generation (fbf91fe38711)
-* adjust test data generator (62a3bfa00296)
-* add missing generator package (b1376c9f5474)
-* add Jenkinsfile (3e8651c6a9e9)
-* upgrade requirements.txt (8def7233584b)
-* extend test data generator (3fa959a44361)
-* upgrade requirements.txt (ce75467d10bd)
+- **Jenkinsfile**: Use opengl for test data generation
+  ([`fbf91fe`](https://github.com/anaticulae/figureo/commit/fbf91fe38711e5acb10e0def7bc1c4cb5e4a2737))
 
-## v0.17.3
+- **requirements**: Upgrade requirements.txt
+  ([`463e84d`](https://github.com/anaticulae/figureo/commit/463e84df8a1fb1780349b46eda2237ad5c6031a8))
 
-### Fix
+- **requirements**: Upgrade requirements.txt
+  ([`de32767`](https://github.com/anaticulae/figureo/commit/de32767f1ca3cfe17ab725ad0040180f0d525ab0))
 
-* skip very small items (889d0e5ada1c)
+- **requirements**: Upgrade requirements.txt
+  ([`8def723`](https://github.com/anaticulae/figureo/commit/8def7233584be126c80c534cf7c5217ee85e0c60))
 
-### Documentation
+- **requirements**: Upgrade requirements.txt
+  ([`ce75467`](https://github.com/anaticulae/figureo/commit/ce75467d10bd83ced64455930e880d08ced3a364))
 
-* adjust modules path (d550973fe8a0)
+- **resources**: Add headnote
+  ([`5dbea04`](https://github.com/anaticulae/figureo/commit/5dbea0469314b178a492799a9ed5f82553d06e99))
 
-## v0.17.2
+- **resources**: Add missing generator package
+  ([`b1376c9`](https://github.com/anaticulae/figureo/commit/b1376c9f54749f76d3d79e5a37d19896068c473f))
 
-### Feature
+- **resources**: Adjust test data generator
+  ([`62a3bfa`](https://github.com/anaticulae/figureo/commit/62a3bfa00296598bca83ce7c2debd4e056aca04d))
 
-* make error rate content length decedent (2a87d051f19e)
+- **resources**: Extend test data generator
+  ([`4d1ffa8`](https://github.com/anaticulae/figureo/commit/4d1ffa883f672ded46ff3d1f6c0c4c5e8876a35a))
 
-## v0.17.1
+- **resources**: Extend test data generator
+  ([`3fa959a`](https://github.com/anaticulae/figureo/commit/3fa959a443613209c804eb0be78785d908621235))
 
-### Fix
+### Code Style
 
-* merge more little chars to a single line (ee8a2efaaff8)
+- **changelog**: Adjust automation tool
+  ([`295084e`](https://github.com/anaticulae/figureo/commit/295084e072d75f0010e8237a44c0964580a5893e))
 
-## v0.17.0
+### Features
 
-### Feature
+- **converter**: Increase debugging information
+  ([`13775d2`](https://github.com/anaticulae/figureo/commit/13775d2571c2e947bbf9d1b52022ec0d93d42763))
 
-* add support for rotated pages (4296ee15a1b0)
+- **standard**: Do not beautify figures if ghost is not installed
+  ([`7fa54fc`](https://github.com/anaticulae/figureo/commit/7fa54fcd9617285ba77cc84d06bfd6c7d0e8bcfc))
 
-### Fix
+- **standard**: Generate backup images if ghost is not installed
+  ([`6703654`](https://github.com/anaticulae/figureo/commit/6703654dcb215e39d129f6ae05aaf38be4458105))
 
-* do not skip line rectangles (07a79cea548e)
-* hack utilo workstep input path computation (7d0d3c34a254)
+### Testing
 
-### Documentation
+- **cleanup**: Remove file lock to allow overwriting due test
+  ([`6869197`](https://github.com/anaticulae/figureo/commit/686919760e0a4bf146555517e22d2da8f3bb86fd))
 
-* Happy New Year! (725c5f0cad44)
+- **conftest**: Increase worker count on CI
+  ([`f699a6a`](https://github.com/anaticulae/figureo/commit/f699a6a792162507d2fe6efbd8e63033dcf85d5f))
 
-## v0.16.0
+- **interface**: Adjust interface
+  ([`1728714`](https://github.com/anaticulae/figureo/commit/1728714a002b10c2c7320d4d11985fcae27b1be7))
 
-### Feature
+- **refactor**: Remove defaults
+  ([`f3de110`](https://github.com/anaticulae/figureo/commit/f3de1107369dc5381b8139a27e69ec70c898912a))
 
-* improve last line check (2327e4c02b28)
+- **regression**: Add timeout in some cases very long running test
+  ([`d051406`](https://github.com/anaticulae/figureo/commit/d051406a1093acf2209ca5da44221af558d0af78))
 
-### Fix
+- **regression**: Adjust tests after integration
+  ([`4ca00ee`](https://github.com/anaticulae/figureo/commit/4ca00ee391f4ec8bfa8172315700188e318bac15))
 
-* merge text figures into second try (ecb8d1f264f4)
-* merge images only into text figures (89c0541032e7)
+- **rename**: Use fixture shortcuts
+  ([`6c4e899`](https://github.com/anaticulae/figureo/commit/6c4e899a6754c6da2a7e60cba97e545c3c0d1826))
 
-## v0.15.0
+- **render**: Make test name unique
+  ([`9951a71`](https://github.com/anaticulae/figureo/commit/9951a71a06355ab675c3fae58b65250c7d90a3fa))
 
-### Feature
+- **skip**: Skip non generated tests
+  ([`fc6f632`](https://github.com/anaticulae/figureo/commit/fc6f632e43192e82b12219eb92745a204f2ada43))
 
-* skip formula bounding as valid figureo area (289390a65520)
+- **skip**: Skip tests if resource is not generated
+  ([`f9ea1e0`](https://github.com/anaticulae/figureo/commit/f9ea1e0b488c736ad81d834c253aea20f42d3ac1))
 
-### Fix
 
-* reduce start of line to reduce fail detection (4e5fa2dc53a2)
-* skip invisible item (df6874d52a6d)
+## v0.17.3 (2022-05-16)
 
-## v0.14.0
+### Bug Fixes
 
-### Feature
+- **text**: Skip very small items
+  ([`889d0e5`](https://github.com/anaticulae/figureo/commit/889d0e5ada1c901281d4789a18b5a1928e0465f8))
 
-* skip first text line included into figure (acc37553f690)
+### Chores
 
-## v0.13.0
+- **requirements**: Upgrade requirements.txt
+  ([`9123dd7`](https://github.com/anaticulae/figureo/commit/9123dd799dd0b3405d53b58db5d03d9593d3115c))
 
-### Feature
+- **resources**: Add master091b
+  ([`76c47bd`](https://github.com/anaticulae/figureo/commit/76c47bd3bcc6e36580afda74eb098e2ca854a233))
 
-* check for non extracted text figures (207f6edcc74a)
-* create figure data if required (628acea763ce)
-
-## v0.12.0
-
-### Feature
-
-* skip figures with too many invalid figures (65318b55b75e)
-* skip hidden rectangles (8ee8991bd23a)
-* make LTRectangle index able (e59bfb11f43a)
-
-### Fix
-
-* support figure inside figure (329820439d9c)
-* shrink bad printed figure bounding (4ae85775a6a4)
-
-## v0.11.0
-
-### Feature
-
-* use captions to divide cluster areas (cf2d9122a514)
-
-### Fix
-
-* reduce tolerance to improve figure detection (70c80840b1f6)
+- **resources**: Sort resources alphabetically
+  ([`597bba3`](https://github.com/anaticulae/figureo/commit/597bba3b9de45ad4e80966a74c18ec9273b298a4))
 
 ### Documentation
 
-* update outdated comment (877a4f80e6be)
+- **fix**: Adjust modules path
+  ([`d550973`](https://github.com/anaticulae/figureo/commit/d550973fe8a0e0e7195cfe13b93c55661bcbf778))
 
-## v0.10.3
+### Testing
 
-### Feature
+- **regression**: Do not detect figure on master091b page 19
+  ([`72ccd3b`](https://github.com/anaticulae/figureo/commit/72ccd3b83ea0668043a5a7058631d4bdae8ba482))
 
-* add figure flag (e4e57af53207)
+- **style**: Format test code
+  ([`a5b9359`](https://github.com/anaticulae/figureo/commit/a5b9359bf0e5d237847a3f99cd806617a8a23e2e))
 
-## v0.10.2
 
-### Fix
+## v0.17.2 (2022-03-27)
 
-* hidden flag scrambled the path, use improved loader (fd8dbb4944b6)
+### Chores
 
-## v0.10.1
+- **requirements**: Upgrade requirements.txt
+  ([`c456a0f`](https://github.com/anaticulae/figureo/commit/c456a0f3294526668bfcf006c12c8571405dc0a1))
 
-### Fix
+### Features
 
-* run standard before cleanup (b4c413f905d0)
-* do not try to load pdf as images (bf41285e6284)
+- **text**: Make error rate content length decedent
+  ([`2a87d05`](https://github.com/anaticulae/figureo/commit/2a87d051f19e8325e01da44b7a8a5e5b1c21c878))
 
-## v0.10.0
+### Testing
 
-### Feature
+- **regression**: Verify master063 figure page 25 figure detection
+  ([`9959b31`](https://github.com/anaticulae/figureo/commit/9959b3163f4eccfce02d2dcf0e263aeb0e5852a0))
 
-* add cleanup step to disable images which are part of figure (2226ce224d21)
 
-## v0.9.0
+## v0.17.1 (2022-01-30)
 
-### Feature
+### Bug Fixes
 
-* adjust figure extractor to detect text inline images (10ed188b91e1)
-* increase valid area to detect bad renderer images (cdd54f4388a8)
+- **converter**: Merge more little chars to a single line
+  ([`ee8a2ef`](https://github.com/anaticulae/figureo/commit/ee8a2efaaff8c75a2ad88a280b741ba3411ae58d))
 
-## v0.8.1
+### Chores
 
-### Feature
+- **requirements**: Upgrade requirements.txt
+  ([`ff7310f`](https://github.com/anaticulae/figureo/commit/ff7310fd335bfcc722561ae8d6476d3d4647f6cf))
 
-* make figure extractor more precise (c40ef5ee2034)
+- **resources**: Extend test data generator
+  ([`f761bfa`](https://github.com/anaticulae/figureo/commit/f761bfaca11ddacff7123f22fda4090ed2b27a25))
 
-## v0.8.0
+- **resources**: Extend test data generator
+  ([`b38d4ab`](https://github.com/anaticulae/figureo/commit/b38d4abd9fe51e98f73ed9ac035cfe861acb5057))
 
-### Feature
+- **test**: Keep dev build fast
+  ([`a82b5ff`](https://github.com/anaticulae/figureo/commit/a82b5ffb12feee5a41f1217af7d2fcf5a1bd9365))
 
-* add basic cli infrastructure (57260d79879e)
-* skip image only figures (3d8fd3f22ef2)
+### Refactoring
 
-## v0.7.0
+- **converter**: Change parameter order
+  ([`f19ec81`](https://github.com/anaticulae/figureo/commit/f19ec815ac0e631b1afe3e557bbd3c389ae24209))
 
-### Feature
+- **converter**: Reduce complexity
+  ([`1d3a444`](https://github.com/anaticulae/figureo/commit/1d3a444e046426419a11e737e4ff872566b22e56))
 
-* skip content with to many dots (500596b6023f)
+### Testing
 
-### Fix
+- **render**: Validate diss205 page 102
+  ([`05a7b99`](https://github.com/anaticulae/figureo/commit/05a7b99b2f5c6e81c0c4552c5efc358fecea32be))
 
-* skip empty text items (ff99984f149a)
-* skip dots as potential figure content (f08c820f67bc)
-* table checker was not used and return wrong result (a42bb74aeea5)
 
-## v0.6.0
+## v0.17.0 (2022-01-29)
 
-### Feature
+### Bug Fixes
 
-* add debugging information (ea04afc17a78)
-* use extracted table to improve figure detector (3405439c96af)
+- **cleanup**: Hack utila workstep input path computation
+  ([`7d0d3c3`](https://github.com/anaticulae/figureo/commit/7d0d3c34a2541fb92a90651eecafe4376a804159))
 
-## v0.5.0
+- **converter**: Do not skip line rectangles
+  ([`07a79ce`](https://github.com/anaticulae/figureo/commit/07a79cea548edc7fcac9bf5fc2b22e55196b4a91))
 
-### Feature
+### Chores
 
-* reduce verbosity of logging (22f4b45e9f2a)
-* increase valid figure text item (f850c9aa52d0)
-* add some space to bounding (f00edba1486d)
-* skip caption line to improve extraction result (2a32d788a5b0)
+- **project**: Move project config
+  ([`1a21458`](https://github.com/anaticulae/figureo/commit/1a2145848fdd9f1e8a8e5327fa054a8d412505ce))
 
-## v0.4.0
+- **requirements**: Upgrade requirements.txt
+  ([`b4aacfc`](https://github.com/anaticulae/figureo/commit/b4aacfc04a91ef01314a492d7f2134281ecada57))
 
-### Feature
+### Documentation
 
-* crop figures from pdf extraction (29b7f56eb483)
+- **copyright**: Happy New Year!
+  ([`725c5f0`](https://github.com/anaticulae/figureo/commit/725c5f0cad44e5c8be6235c22aa7423a47358686))
 
-### Fix
+### Features
 
-* use default bounding for white pages (a5bcfeeaed90)
+- **converter**: Add support for rotated pages
+  ([`4296ee1`](https://github.com/anaticulae/figureo/commit/4296ee15a1b0e463f1fd20f0eb6c64f536a8d9c9))
 
-## v0.3.0
+### Testing
 
-### Feature
+- **rectangle**: Verify bachelor56p18 table figure extraction
+  ([`a0945e0`](https://github.com/anaticulae/figureo/commit/a0945e033ce969deac82b185e833ec1660786e06))
 
-* rename output to write to rawmaker__images folder (674c3476a8eb)
+- **refactor**: Simplify unit test
+  ([`ee90bfa`](https://github.com/anaticulae/figureo/commit/ee90bfa51fc262871b81d10b66d6277dfb7d607e))
 
-## v0.2.0
 
-### Feature
+## v0.16.0 (2021-12-07)
 
-* use content border as valid figure content (88607fa94971)
-* add groupme content to shrink figure extraction (954891a3be5e)
+### Bug Fixes
 
-## v0.1.0
+- **converter**: Merge images only into text figures
+  ([`89c0541`](https://github.com/anaticulae/figureo/commit/89c0541032e73dc4d05f59fa86832d3d2fe0a146))
 
-### Feature
+- **text**: Merge text figures into second try
+  ([`ecb8d1f`](https://github.com/anaticulae/figureo/commit/ecb8d1f264f48ad838bd4dd4a8743ef90c352ec1))
 
-* move code from rawmaker (a33bde8a369a)
+### Chores
 
-## v0.0.0 Initial release
+- **requirements**: Upgrade requirements.txt
+  ([`a5a7aea`](https://github.com/anaticulae/figureo/commit/a5a7aea8e01c7cbcc1570ab85da9df4761c8543f))
+
+- **resources**: Extend test data generator
+  ([`c387f4d`](https://github.com/anaticulae/figureo/commit/c387f4df89b118f540f5b17bf284f509466cabf6))
+
+- **resources**: Extend test data generator
+  ([`a5c47ad`](https://github.com/anaticulae/figureo/commit/a5c47ad69d543e5ea5013ef569cff8c1b453808e))
+
+### Features
+
+- **text**: Improve last line check
+  ([`2327e4c`](https://github.com/anaticulae/figureo/commit/2327e4c02b28b457424317ac65aced4831623c45))
+
+### Testing
+
+- **regression**: Diss157 figures
+  ([`9a9985a`](https://github.com/anaticulae/figureo/commit/9a9985a46a1bac603d1dc36458991598b4ee99f8))
+
+
+## v0.15.0 (2021-11-14)
+
+### Bug Fixes
+
+- **converter**: Skip invisible item
+  ([`df6874d`](https://github.com/anaticulae/figureo/commit/df6874d52a6df946a5b58b24489aec92486d8c76))
+
+- **text**: Reduce start of line to reduce fail detection
+  ([`4e5fa2d`](https://github.com/anaticulae/figureo/commit/4e5fa2dc53a2cde64e7acc20a298679673ae71c1))
+
+### Chores
+
+- **requirements**: Add formulero
+  ([`82465a5`](https://github.com/anaticulae/figureo/commit/82465a5af41818e2b2cfac37b0469d12075ee90d))
+
+- **requirements**: Remove outdated requirement
+  ([`eb48aad`](https://github.com/anaticulae/figureo/commit/eb48aad73f963ba67f3018e2c72f75d03126e838))
+
+- **requirements**: Upgrade requirements.txt
+  ([`18d8f4a`](https://github.com/anaticulae/figureo/commit/18d8f4a58887d967fb128de0ca2628d0167c573a))
+
+- **resources**: Extend test data generator
+  ([`58d08b9`](https://github.com/anaticulae/figureo/commit/58d08b9ea6c80b67fce1852d66512ec391d5771b))
+
+- **resources**: Run formulero
+  ([`6782ab4`](https://github.com/anaticulae/figureo/commit/6782ab45c2343f19def9ebdf8a6f5b7ff1b5e29f))
+
+### Code Style
+
+- **rename**: Improve naming
+  ([`167ac88`](https://github.com/anaticulae/figureo/commit/167ac887ba02a083e68a14bcacf58755e6aee2ce))
+
+### Features
+
+- **standard**: Skip formula bounding as valid figureo area
+  ([`289390a`](https://github.com/anaticulae/figureo/commit/289390a6552097d0f7402ea6ad7a1675617b6bf6))
+
+### Refactoring
+
+- **standard**: Generalize nofigure loader
+  ([`46939dd`](https://github.com/anaticulae/figureo/commit/46939dd5d553a69bab3bf764a71c36993344d824))
+
+- **standard**: Generalize var name
+  ([`735af9c`](https://github.com/anaticulae/figureo/commit/735af9ce02829bc3ce6581bb4250481445ef72c7))
+
+- **standard**: Move content loader to separate method
+  ([`e921db2`](https://github.com/anaticulae/figureo/commit/e921db22c9a976e028333e744f34e9ace310de9c))
+
+- **text**: Introduce holy value
+  ([`2a9a3c8`](https://github.com/anaticulae/figureo/commit/2a9a3c8dbd273f88321c5252e8ec92371212bae5))
+
+### Testing
+
+- **formula**: Do not detect formula as figure
+  ([`39ad295`](https://github.com/anaticulae/figureo/commit/39ad295842a7675bd8441023bc70a3d1f937aefb))
+
+- **refactor**: Add separate no figure tests
+  ([`f5f6c13`](https://github.com/anaticulae/figureo/commit/f5f6c13bf1d76530598b29f406a4d2a9f41592a2))
+
+
+## v0.14.0 (2021-11-10)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`7a4f7b1`](https://github.com/anaticulae/figureo/commit/7a4f7b10bad272262c94f02920e3952508203686))
+
+- **resources**: Extend test data generator
+  ([`b72654e`](https://github.com/anaticulae/figureo/commit/b72654ee2332998ac76128c14894bf61cce20954))
+
+### Features
+
+- **text**: Skip first text line included into figure
+  ([`acc3755`](https://github.com/anaticulae/figureo/commit/acc37553f690be58e0bf5199f55624cc83fb809f))
+
+### Refactoring
+
+- **text**: Reduce code complexity
+  ([`29ed48f`](https://github.com/anaticulae/figureo/commit/29ed48fb1a3984020d4c6cdcaf39ef48fc0b300d))
+
+- **text**: Remove none required code
+  ([`17ddb97`](https://github.com/anaticulae/figureo/commit/17ddb9762100b103ab9cfd0eec476496a562a3c4))
+
+### Testing
+
+- **adjust**: Adjust unit tests
+  ([`0145b97`](https://github.com/anaticulae/figureo/commit/0145b9736f2b5d792a04dfca15fcef8875a935d1))
+
+- **refactor**: Adjust white space
+  ([`7e6614e`](https://github.com/anaticulae/figureo/commit/7e6614e720a3c2496ea2109f150ed1c9d466244a))
+
+- **refactor**: Simplify code
+  ([`9dfceaf`](https://github.com/anaticulae/figureo/commit/9dfceaffeecadf20e93343d30cc3e4bee33e4de7))
+
+- **refactor**: Simplify code, increase re usability
+  ([`92ab09f`](https://github.com/anaticulae/figureo/commit/92ab09ff9e0a7eb72b1c066d4d0d815ff9b2eff6))
+
+
+## v0.13.0 (2021-11-03)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`9fc8626`](https://github.com/anaticulae/figureo/commit/9fc8626cc8daf6b93ae70386d69a6456c7f5d779))
+
+### Features
+
+- **converter**: Create figure data if required
+  ([`628acea`](https://github.com/anaticulae/figureo/commit/628acea763ce8359c7a5968ceb3ea8e03e01294d))
+
+- **text**: Check for non extracted text figures
+  ([`207f6ed`](https://github.com/anaticulae/figureo/commit/207f6edcc74ada4301a44679152808faa6bfbbd4))
+
+### Refactoring
+
+- **text**: Reduce complexity
+  ([`22fe571`](https://github.com/anaticulae/figureo/commit/22fe571fb83aa4c7ec86063e3a78a1c4d22ced0e))
+
+### Testing
+
+- **refactor**: Improve test re usability
+  ([`89cfcf2`](https://github.com/anaticulae/figureo/commit/89cfcf2e0220e421658ffb3be1cc06ca4ce84330))
+
+- **refactor**: Shorten image info name
+  ([`12ddf1d`](https://github.com/anaticulae/figureo/commit/12ddf1da7b5e01a7fb0621809509886a0c2d227f))
+
+- **render**: Verify LTFigure figures
+  ([`3647af3`](https://github.com/anaticulae/figureo/commit/3647af30fe73ec8cc21ca157864541c9488d2b49))
+
+- **renderer**: Increase test coverage
+  ([`c13c721`](https://github.com/anaticulae/figureo/commit/c13c7215a2c74e7315593856bfb670615b45e67a))
+
+
+## v0.12.0 (2021-10-29)
+
+### Bug Fixes
+
+- **converter**: Shrink bad printed figure bounding
+  ([`4ae8577`](https://github.com/anaticulae/figureo/commit/4ae85775a6a4cee6462fe6e81727f84c6155f306))
+
+- **converter**: Support figure inside figure
+  ([`3298204`](https://github.com/anaticulae/figureo/commit/329820439d9c621b5ff87e6470a4bc422ae400b2))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`bc5b622`](https://github.com/anaticulae/figureo/commit/bc5b622050f35c92b3b54242642d912dc6d413c0))
+
+- **resources**: Extend test data generator
+  ([`b7cf34c`](https://github.com/anaticulae/figureo/commit/b7cf34cd238306df529f097f49423944b80d009a))
+
+- **resources**: Shrink resource generator
+  ([`67f9ec8`](https://github.com/anaticulae/figureo/commit/67f9ec8fc6d0f97c4bd4d087ea32b1f66eec793a))
+
+### Features
+
+- **converter**: Skip hidden rectangles
+  ([`8ee8991`](https://github.com/anaticulae/figureo/commit/8ee8991bd23af94496482056a9b91bd5f17a41c4))
+
+- **pdfminer**: Make LTRectangle index able
+  ([`e59bfb1`](https://github.com/anaticulae/figureo/commit/e59bfb11f43aceb72f1ca3dc8c9ba8a747ed6d19))
+
+- **text**: Skip figures with too many invalid figures
+  ([`65318b5`](https://github.com/anaticulae/figureo/commit/65318b55b75e7813ad608235c08b01830dc4b978))
+
+### Refactoring
+
+- **converter**: Move visible method
+  ([`70b2c5c`](https://github.com/anaticulae/figureo/commit/70b2c5c6f8078ee65aee0958a327a2aedc476007))
+
+- **converter**: Remove outdated code
+  ([`450cb99`](https://github.com/anaticulae/figureo/commit/450cb99c9f362a421d66fea26a426f06c107f688))
+
+- **text**: Replace with holy value
+  ([`cc710b9`](https://github.com/anaticulae/figureo/commit/cc710b9d6e761d92612f811441ffa62ad77db918))
+
+
+## v0.11.0 (2021-10-17)
+
+### Bug Fixes
+
+- **standard**: Reduce tolerance to improve figure detection
+  ([`70c8084`](https://github.com/anaticulae/figureo/commit/70c80840b1f6f22bfa5f45243533830b89e44366))
+
+### Chores
+
+- **requirements**: Add configo
+  ([`6a3161f`](https://github.com/anaticulae/figureo/commit/6a3161f500b16e848681dc00447d881e2ee6f507))
+
+- **requirements**: Upgrade requirements.txt
+  ([`9cbb294`](https://github.com/anaticulae/figureo/commit/9cbb2947f33bba5b26956e6025c3298b412dc46f))
+
+- **resources**: Extend test data generator
+  ([`2df325c`](https://github.com/anaticulae/figureo/commit/2df325c61a50ea0024ab06b2bb8aa8679300903e))
+
+### Documentation
+
+- **fix**: Update outdated comment
+  ([`877a4f8`](https://github.com/anaticulae/figureo/commit/877a4f80e6bef2f18a502f1ad770b86ac80d8a40))
+
+### Features
+
+- **text**: Use captions to divide cluster areas
+  ([`cf2d912`](https://github.com/anaticulae/figureo/commit/cf2d9122a51432150aed20ad9f2b85808ba2dfb0))
+
+### Refactoring
+
+- **converter**: Introduce config holy value
+  ([`18769f7`](https://github.com/anaticulae/figureo/commit/18769f742b7c8983cce75e267b8c97f9e7109412))
+
+### Testing
+
+- **render**: Verify skipping caption as part of figure
+  ([`4fd9a45`](https://github.com/anaticulae/figureo/commit/4fd9a45a62989c5372d9bc5f14b7d908e2062b53))
+
+
+## v0.10.3 (2021-10-08)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`e59f4c7`](https://github.com/anaticulae/figureo/commit/e59f4c7cfa3ce5451b18cf639227126214f5d4a2))
+
+### Features
+
+- **standard**: Add figure flag
+  ([`e4e57af`](https://github.com/anaticulae/figureo/commit/e4e57af532077400625ec7dc840ca850f4682821))
+
+
+## v0.10.2 (2021-10-04)
+
+### Bug Fixes
+
+- **cleanup**: Hidden flag scrambled the path, use improved loader
+  ([`fd8dbb4`](https://github.com/anaticulae/figureo/commit/fd8dbb4944b66b47a212d3f95ec05529b481b8f8))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`f093e0b`](https://github.com/anaticulae/figureo/commit/f093e0baaaae379172c38277850e3f469d85ba67))
+
+
+## v0.10.1 (2021-10-04)
+
+### Bug Fixes
+
+- **cleanup**: Do not try to load pdf as images
+  ([`bf41285`](https://github.com/anaticulae/figureo/commit/bf41285e6284b9ba96cbfbe6abe73ea6cf8300fe))
+
+- **cleanup**: Run standard before cleanup
+  ([`b4c413f`](https://github.com/anaticulae/figureo/commit/b4c413f905d0e137c0b1499f68a95cca8e7e39eb))
+
+
+## v0.10.0 (2021-10-04)
+
+### Chores
+
+- **requirements**: Fix iamraw to complete this release
+  ([`a7811e2`](https://github.com/anaticulae/figureo/commit/a7811e262a78c49733c6ba4bb1510630f2238b60))
+
+- **requirements**: Upgrade requirements.txt
+  ([`bc54f94`](https://github.com/anaticulae/figureo/commit/bc54f949455f45f7f74afd9a6b2c6009821077d6))
+
+- **resources**: Reduce amount of worker
+  ([`e3789aa`](https://github.com/anaticulae/figureo/commit/e3789aaff236580bb03960dcced8d03cf24c6555))
+
+- **resources**: Shrink resource generator
+  ([`3b2a784`](https://github.com/anaticulae/figureo/commit/3b2a784f785b1c80226c52d3caf123d78141f662))
+
+### Features
+
+- **cleanup**: Add cleanup step to disable images which are part of figure
+  ([`2226ce2`](https://github.com/anaticulae/figureo/commit/2226ce224d21f1165af68d90a2f1846900c91852))
+
+### Testing
+
+- **figure**: Verify master075 complete page figure
+  ([`9fa11f7`](https://github.com/anaticulae/figureo/commit/9fa11f7009ebad4b121e85d07d29dad1ac3c0250))
+
+- **refactor**: Simplify code
+  ([`90651e9`](https://github.com/anaticulae/figureo/commit/90651e93e7d406605caac2955eb24b28c5671109))
+
+- **render**: Verify bachelor051 page29 image
+  ([`c1423a4`](https://github.com/anaticulae/figureo/commit/c1423a4375447398579cc0858ee6b998d3a52ab6))
+
+- **renderer**: Detect just a single figure
+  ([`41fcc7f`](https://github.com/anaticulae/figureo/commit/41fcc7fafdd475a4ccac81dd922817ef64a0c1d7))
+
+- **resources**: Extend test data generator
+  ([`ad591a2`](https://github.com/anaticulae/figureo/commit/ad591a2e95a2990a4224967323fc8f9a80761bd1))
+
+
+## v0.9.0 (2021-09-25)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`6c3dcf8`](https://github.com/anaticulae/figureo/commit/6c3dcf84aeb8029947e330f1b5d4bef1ded3ce9d))
+
+- **resources**: Extend test data generator
+  ([`04c9cb7`](https://github.com/anaticulae/figureo/commit/04c9cb7c7b4bdc958afbccf047764632ad74f432))
+
+### Features
+
+- **converter**: Adjust figure extractor to detect text inline images
+  ([`10ed188`](https://github.com/anaticulae/figureo/commit/10ed188b91e106127c747545730febe8db6a8ddb))
+
+- **standard**: Increase valid area to detect bad renderer images
+  ([`cdd54f4`](https://github.com/anaticulae/figureo/commit/cdd54f4388a8b4bd5997d1d52f2aceb17666496d))
+
+### Testing
+
+- **docs**: Remove outdated comment
+  ([`4391bda`](https://github.com/anaticulae/figureo/commit/4391bdafd7fc6a8aaa7c2db5738d73374a560b2f))
+
+- **refactor**: Simplify test
+  ([`380df80`](https://github.com/anaticulae/figureo/commit/380df808215346f0ea05a21dbb865314d2eac4ef))
+
+- **render**: Adjust page number data type
+  ([`d3e6976`](https://github.com/anaticulae/figureo/commit/d3e6976cd74f8401af58cfaf3ae601fea70feaf6))
+
+- **render**: Sort methods
+  ([`66a4c2a`](https://github.com/anaticulae/figureo/commit/66a4c2a00729804da8b06636c5867ba5005767d8))
+
+- **standard**: Add generated source as test input
+  ([`9b0f6a9`](https://github.com/anaticulae/figureo/commit/9b0f6a9c471e3496ea108bf30766b3912f3e5a47))
+
+
+## v0.8.1 (2021-08-22)
+
+### Chores
+
+- **requirements**: Add tablero
+  ([`dc75557`](https://github.com/anaticulae/figureo/commit/dc755579c55b3f0c09a34f8ea8033bf333b820fc))
+
+- **requirements**: Upgrade requirements.txt
+  ([`2882046`](https://github.com/anaticulae/figureo/commit/2882046195cbcd3ec0f533e460ec7713ccb79ce4))
+
+- **resources**: Extend test data generator
+  ([`6aa0efd`](https://github.com/anaticulae/figureo/commit/6aa0efd9632256b361a65aec504aa8aaf528db6a))
+
+### Code Style
+
+- **text**: Format code
+  ([`e40752f`](https://github.com/anaticulae/figureo/commit/e40752f72d298f379ff74492dd3a4094fb2ce80c))
+
+### Features
+
+- **standard**: Make figure extractor more precise
+  ([`c40ef5e`](https://github.com/anaticulae/figureo/commit/c40ef5ee203425142ae0b6168e4f6342fbf70ab7))
+
+### Refactoring
+
+- **serialize**: Replace with utila code
+  ([`4c1cd2b`](https://github.com/anaticulae/figureo/commit/4c1cd2b9158dbce2014393fe4c959ec3d5fdea37))
+
+### Testing
+
+- **fix**: Add generated data as additional resource source
+  ([`d44c7e0`](https://github.com/anaticulae/figureo/commit/d44c7e0cd96be52b0e0b9a968edee3bb391e4eda))
+
+- **render**: Do not include text below inside figure
+  ([`1f7471d`](https://github.com/anaticulae/figureo/commit/1f7471dc3e85501055f08bb28583e6f644151ff7))
+
+- **renderer**: Simplify test code
+  ([`0d6f90f`](https://github.com/anaticulae/figureo/commit/0d6f90febaf3fe644dfaf0379bce9ccd3484da59))
+
+- **renderer**: Skip test if data is not generated
+  ([`22b004f`](https://github.com/anaticulae/figureo/commit/22b004fb40bf7c201932a4362889872badef1354))
+
+
+## v0.8.0 (2021-08-04)
+
+### Chores
+
+- **requirements**: Make requirements less strict
+  ([`0aace4b`](https://github.com/anaticulae/figureo/commit/0aace4b97d540f954992944ccf48cd4e6b94c542))
+
+- **requirements**: Upgrade requirements.txt
+  ([`b2b550c`](https://github.com/anaticulae/figureo/commit/b2b550c14bd177459d60fa652f237966b1b1ab1c))
+
+### Features
+
+- **cleanup**: Add basic cli infrastructure
+  ([`57260d7`](https://github.com/anaticulae/figureo/commit/57260d79879e6f021cebf7dadbcc701350e060ed))
+
+- **standard**: Skip image only figures
+  ([`3d8fd3f`](https://github.com/anaticulae/figureo/commit/3d8fd3f22ef2f944d118e1dce055e304a92c2362))
+
+### Testing
+
+- **adjust**: Adjust tests after disabling figure images
+  ([`9a3a760`](https://github.com/anaticulae/figureo/commit/9a3a760850ed4fbd08444728afe88a2313a51374))
+
+
+## v0.7.0 (2021-08-02)
+
+### Bug Fixes
+
+- **standard**: Skip dots as potential figure content
+  ([`f08c820`](https://github.com/anaticulae/figureo/commit/f08c820f67bccca5128f0cda76f361b2b26b8bf7))
+
+- **standard**: Skip empty text items
+  ([`ff99984`](https://github.com/anaticulae/figureo/commit/ff99984f149ad38928393349916e80df86425e94))
+
+- **standard**: Table checker was not used and return wrong result
+  ([`a42bb74`](https://github.com/anaticulae/figureo/commit/a42bb74aeea58203dac0c70b62fada546b462bad))
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`62acc1d`](https://github.com/anaticulae/figureo/commit/62acc1de7a815df7e9e96b5f7150e7c84e53ff02))
+
+### Features
+
+- **standard**: Skip content with to many dots
+  ([`500596b`](https://github.com/anaticulae/figureo/commit/500596b6023f4e7c11d582ba0514067dbaf67b6b))
+
+### Testing
+
+- **fix**: Change after improving figure parser
+  ([`2087f58`](https://github.com/anaticulae/figureo/commit/2087f58f0b778e92fbae7209ff67639d860ad2e7))
+
+
+## v0.6.0 (2021-08-01)
+
+### Features
+
+- **standard**: Add debugging information
+  ([`ea04afc`](https://github.com/anaticulae/figureo/commit/ea04afc17a782da1b156c1b533ec82571b00aa59))
+
+- **standard**: Use extracted table to improve figure detector
+  ([`3405439`](https://github.com/anaticulae/figureo/commit/3405439c96afdabdedff8cfc10ba332c544d49e3))
+
+
+## v0.5.0 (2021-07-31)
+
+### Chores
+
+- **requirements**: Add elements
+  ([`053625e`](https://github.com/anaticulae/figureo/commit/053625e3e67cf3b8f90297d21ae0a2f9cdef15de))
+
+### Features
+
+- **converter**: Increase valid figure text item
+  ([`f850c9a`](https://github.com/anaticulae/figureo/commit/f850c9aa52d03eb4646773dd550cc15e5fe7885d))
+
+- **converter**: Reduce verbosity of logging
+  ([`22f4b45`](https://github.com/anaticulae/figureo/commit/22f4b45e9f2a78016bbd6db5d71f331872757c9b))
+
+- **converter**: Skip caption line to improve extraction result
+  ([`2a32d78`](https://github.com/anaticulae/figureo/commit/2a32d788a5b0b997edff7e615db3373fec9c758a))
+
+- **standard**: Add some space to bounding
+  ([`f00edba`](https://github.com/anaticulae/figureo/commit/f00edba1486d8cfffaffb51dabf7acdd2d1d7434))
+
+### Refactoring
+
+- **remove**: Remove outdated renderer code
+  ([`0dbaead`](https://github.com/anaticulae/figureo/commit/0dbaead8bdb2a73e5568122d1f78b3e7c2c6ae4f))
+
+### Testing
+
+- **reg**: Ensure that caption is not merged into figure
+  ([`eca73c9`](https://github.com/anaticulae/figureo/commit/eca73c9006f15beb4092281dc02738c5905b5dcf))
+
+
+## v0.4.0 (2021-07-31)
+
+### Bug Fixes
+
+- **converter**: Use default bounding for white pages
+  ([`a5bcfee`](https://github.com/anaticulae/figureo/commit/a5bcfeeaed90247453b24e328af32a586814a6a7))
+
+### Chores
+
+- **requirements**: Add ghost
+  ([`b69bbde`](https://github.com/anaticulae/figureo/commit/b69bbde0c5fef38eba8ac88253f3694f12848f8a))
+
+- **requirements**: Upgrade requirements.txt
+  ([`1976ae5`](https://github.com/anaticulae/figureo/commit/1976ae5f2b16fa7d2cc04f38b6441b311646250f))
+
+### Features
+
+- **standard**: Crop figures from pdf extraction
+  ([`29b7f56`](https://github.com/anaticulae/figureo/commit/29b7f56eb48337253d3f5f745593e893558c91c9))
+
+### Testing
+
+- **regression**: Add test to verify empty page behavior
+  ([`5a49dd0`](https://github.com/anaticulae/figureo/commit/5a49dd0299aa1036b27001711aafc4e3ab97957b))
+
+
+## v0.3.0 (2021-07-29)
+
+### Chores
+
+- **requirements**: Upgrade requirements.txt
+  ([`9ffcdea`](https://github.com/anaticulae/figureo/commit/9ffcdea471408a4623640ee3e1de0f0975e512a5))
+
+### Features
+
+- **cli**: Rename output to write to rawmaker__images folder
+  ([`674c347`](https://github.com/anaticulae/figureo/commit/674c3476a8ebef741298ba254732c558644aee91))
+
+
+## v0.2.0 (2021-07-29)
+
+### Chores
+
+- **requirements**: Add test data generator
+  ([`7477a41`](https://github.com/anaticulae/figureo/commit/7477a410b85407284fbee1ad7198fcf04bf27f91))
+
+- **resources**: Extend test resource generator
+  ([`c2a47d6`](https://github.com/anaticulae/figureo/commit/c2a47d69c71e602aea648ad2f7be8cc75008ff85))
+
+### Code Style
+
+- **imports**: Organize imports
+  ([`832341d`](https://github.com/anaticulae/figureo/commit/832341d9f1c29c72918a08fa49a3d97daa7fdff2))
+
+### Features
+
+- **converter**: Use content border as valid figure content
+  ([`88607fa`](https://github.com/anaticulae/figureo/commit/88607fa94971bdec86044560dec5564458f9e2ec))
+
+- **standard**: Add groupme content to shrink figure extraction
+  ([`954891a`](https://github.com/anaticulae/figureo/commit/954891a3be5edf1496268e5268351d89e0589899))
+
+### Testing
+
+- **refactor**: Add generated data as figure source
+  ([`b14e467`](https://github.com/anaticulae/figureo/commit/b14e467caaa9d15af5a190ce1ae67c476f09c44f))
+
+- **refactor**: Clarify naming
+  ([`0a88017`](https://github.com/anaticulae/figureo/commit/0a8801704f68fbb203aada56595d5eec8a2bfd2a))
+
+
+## v0.1.0 (2021-07-28)
+
+### Chores
+
+- **requirements**: Add rawmaker
+  ([`2b37b00`](https://github.com/anaticulae/figureo/commit/2b37b00b84da521be7b502775ac39166d3a64622))
+
+- **requirements**: Add utilatest, power
+  ([`80a268e`](https://github.com/anaticulae/figureo/commit/80a268efeb796d3fa3eb50528e11a13075ac5f98))
+
+### Features
+
+- **move**: Move code from rawmaker
+  ([`a33bde8`](https://github.com/anaticulae/figureo/commit/a33bde8a369a567c619f7a8e3e4815242f68e8b3))
+
+### Testing
+
+- **move**: Move tests from rawmaker
+  ([`914cb66`](https://github.com/anaticulae/figureo/commit/914cb6616637a39f533990f6d445b9534aa1884b))
+
+
+## v0.0.0 (2021-07-28)
+
+- Initial Release

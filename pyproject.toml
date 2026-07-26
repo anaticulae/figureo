@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "figureo"
-version = "0.18.5"
+version = "1.0.0"
 description = ""
 requires-python = ">=3.12"
 authors = [
