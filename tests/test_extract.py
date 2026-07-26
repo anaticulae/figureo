@@ -7,11 +7,11 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import power
+import hoverpower
 import pytest
 import serializeraw
-import utila
-import utilatest
+import utilo
+import utilotest
 
 import figureo.features.standard
 import tests
@@ -19,9 +19,9 @@ import tests
 
 def extract_figures(pages=None):
     """2 Figures on page 12 and 1 figure and 1 image on page 13."""
-    source = power.MASTER116_PDF
-    utilatest.fixture_requires(source)
-    content = power.link(source)
+    source = hoverpower.MASTER116_PDF
+    utilotest.fixture_requires(source)
+    content = hoverpower.link(source)
     if pages is None:
         pages = (12, 13)
     extracted = figureo.features.standard.work(source, content, pages=pages)
@@ -30,47 +30,47 @@ def extract_figures(pages=None):
 
 
 def standard_figures(pdf, pages: str, td, mp):
-    utilatest.fixture_requires(pdf)
-    source = power.link(pdf)
+    utilotest.fixture_requires(pdf)
+    source = hoverpower.link(pdf)
     cmd = f'-i {pdf} -i {source} -o {td.tmpdir} --pages={pages} --standard'
     tests.run(cmd, mp=mp)
-    if not utila.exists('rawmaker__images_images'):
+    if not utilo.exists('rawmaker__images_images'):
         return []
     # verify
-    written = utila.file_list('rawmaker__images_images')
+    written = utilo.file_list('rawmaker__images_images')
     return written
 
 
-@utilatest.longrun
+@utilotest.longrun
 def test_figures_extract():
     extracted = extract_figures()
     assert len(extracted) == 3, str(extracted)
 
 
-@utilatest.longrun
+@utilotest.longrun
 def test_figures_dump_and_load(td):
     outpath = td.tmpdir
     extracted = extract_figures()
     # 3 figures and 3 information
-    with utilatest.increased_filecount(outpath, mindiff=6, maxdiff=6):
+    with utilotest.increased_filecount(outpath, mindiff=6, maxdiff=6):
         serializeraw.dump_figures(extracted, outpath)
     loaded = serializeraw.load_figures(outpath)
     assert len(loaded) == 3
 
 
-@utilatest.longrun
+@utilotest.longrun
 def test_figures_extract_master116_page19(td):
     outpath = td.tmpdir
     extracted = extract_figures((19, 38))
     # 3 figures and 3 information
-    with utilatest.increased_filecount(outpath, mindiff=6, maxdiff=6):
+    with utilotest.increased_filecount(outpath, mindiff=6, maxdiff=6):
         serializeraw.dump_figures(extracted, outpath)
 
 
-@utilatest.longrun
+@utilotest.longrun
 def test_figures_run_master116(mp, td):
     written = standard_figures(
-        power.MASTER116_PDF,
+        hoverpower.MASTER116_PDF,
         '17:24',
         td,
         mp,
@@ -82,7 +82,7 @@ def test_figures_run_master116(mp, td):
 
 def test_figures_run_master116page18(mp, td):
     written = standard_figures(
-        power.MASTER116_PDF,
+        hoverpower.MASTER116_PDF,
         18,
         td,
         mp,
@@ -92,7 +92,7 @@ def test_figures_run_master116page18(mp, td):
 
 def test_render_master116_page2_figure_image(mp, td):
     """Figure image is handled by rawmaker --images."""
-    written = standard_figures(power.MASTER116_PDF, 2, td, mp)
+    written = standard_figures(hoverpower.MASTER116_PDF, 2, td, mp)
     assert not written
 
 
@@ -107,7 +107,7 @@ def test_render_master116_page2_figure_image(mp, td):
 ])
 def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     written = standard_figures(
-        power.BACHELOR090_PDF,
+        hoverpower.BACHELOR090_PDF,
         page,
         td,
         mp,
@@ -117,14 +117,14 @@ def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     assert len(written) == expected, str(written)
 
 
-@utilatest.longrun
+@utilotest.longrun
 def test_render_bachelor51_page30_33_figure_image(mp, td):
     """Detect two nearly equal figures on different pages.
 
     Ensure that tables on the same page are not located as figure anymore.
     """
     written = standard_figures(
-        power.BACHELOR051_PDF,
+        hoverpower.BACHELOR051_PDF,
         '30,33',
         td,
         mp,
@@ -137,7 +137,7 @@ def test_render_bachelor51_page30_33_figure_image(mp, td):
 def test_render_diss172page30(mp, td):
     """Single image which intersects page border."""
     written = standard_figures(
-        power.DISS172_PDF,
+        hoverpower.DISS172_PDF,
         '30',
         td,
         mp,

@@ -10,15 +10,15 @@
 import collections
 import contextlib
 
-import configo
-import elements
+import configos
+import elementae
 import iamraw
 import pdfminer
 import pdfminer.layout
 import PIL.ImageDraw
 import rawmaker.converter.basic
 import rawmaker.reader
-import utila
+import utilo
 
 import figureo.standard.text
 import figureo.utils
@@ -51,9 +51,9 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
         bounding = None
         nofigures = None
         if self.nofigures:
-            nofigures = utila.select_content(self.nofigures, self.page)
+            nofigures = utilo.select_content(self.nofigures, self.page)
         if self.boundings:
-            bounding = utila.select_page(self.boundings, self.page)
+            bounding = utilo.select_page(self.boundings, self.page)
         pagesize = determine_pagesize(bounding, ltpage)
         for item in ltpage:
             self.render_pagecontent(
@@ -72,7 +72,7 @@ class FigureConverter(rawmaker.converter.basic.FlippedLayoutAnalyzer):
             self.invalids[pageid].append(item)
             return
         if imageonly(item):
-            utila.debug(f'figure as image container: {pageid}')
+            utilo.debug(f'figure as image container: {pageid}')
             self.images[pageid].append(item)
             # handled by --images, refactor later
             return
@@ -163,7 +163,7 @@ def figure_bounding(figure) -> tuple:
     if not boundings:
         # invisible item
         return None
-    result = utila.rect_max(boundings)
+    result = utilo.rect_max(boundings)
     return result
 
 
@@ -210,7 +210,7 @@ def contains_listof(raw: str) -> bool:
 def iscaption(item) -> bool:
     if not isinstance(item, pdfminer.layout.LTTextBoxHorizontal):
         return False
-    if elements.iscaption(item.get_text()):
+    if elementae.iscaption(item.get_text()):
         return True
     return False
 
@@ -229,7 +229,7 @@ def imageonly(figure) -> bool:
     return False
 
 
-FIGURE_TEXT_LENGTH_MAX = configo.HV_INT_PLUS(default=20)
+FIGURE_TEXT_LENGTH_MAX = configos.HV_INT_PLUS(default=20)
 
 
 def too_long(item) -> bool:
@@ -242,14 +242,14 @@ def too_long(item) -> bool:
     if item.x0 > 200 and item.x1 < 450:
         # do not ignore centered text
         return False
-    maxs = utila.maxs([len(item) for item in text.splitlines()])
+    maxs = utilo.maxs([len(item) for item in text.splitlines()])
     if maxs > FIGURE_TEXT_LENGTH_MAX:
         return True
     return False
 
 
 def valid_area(
-    bbox: utila.Rectangle,
+    bbox: utilo.Rectangle,
     pagesize: tuple,
     nofigures: iamraw.TableBoundings = None,
     borderwidth=128,
@@ -266,9 +266,9 @@ def valid_area(
     )
     for noarea in nofigures:
         # does element collide with table bounding
-        if utila.rect_intersecting(bounding_area(noarea), bbox):
+        if utilo.rect_intersecting(bounding_area(noarea), bbox):
             return False
-    if utila.rect_intersecting(inside, bbox):
+    if utilo.rect_intersecting(inside, bbox):
         # intersecting with content border
         return True
     return False
@@ -325,13 +325,13 @@ def merge_images_into_textfigures(figures: list, images: list) -> list:
     for figure in figures:
         for image in images:
             # TODO: DO NOT MERGE TWICE?
-            if not utila.rect_intersecting(
+            if not utilo.rect_intersecting(
                     figure.bounding,
                     image.bbox,
             ):
                 continue
             # update figure bounding
-            figure.bounding = utila.rect_max((
+            figure.bounding = utilo.rect_max((
                 figure.bounding,
                 image.bbox,
             ))
@@ -352,7 +352,7 @@ def extract_figures(
             device.resources,
             device,
         )
-        with utila.SkipCollector(pages) as collector:
+        with utilo.SkipCollector(pages) as collector:
             for number, page in enumerate(content):
                 if collector.skip(number):
                     continue

@@ -14,10 +14,10 @@ Extract figures and convert to images.
 
 import collections
 
-import ghost
 import iamraw
 import serializeraw
-import utila
+import ughost
+import utilo
 
 import figureo.serialize
 import figureo.standard.converter
@@ -45,18 +45,18 @@ def work(
         pages=pages,
     )
     if figures:
-        if ghost.HAS_GHOST:
+        if ughost.HAS_GHOST:
             figures = beautify_figures(figures, path)
         else:
-            utila.error('could not `beautify_figures`, install ghost')
-            figures = beautify_no_ghost(figures)
+            utilo.error('could not `beautify_figures`, install ughost')
+            figures = beautify_no_ughost(figures)
     dumped = figureo.serialize.dump_figures(figures)
     return dumped
 
 
 def load_content(content, pages: tuple = None) -> list:
-    if not utila.exists(content):
-        utila.debug(f'{content} does not exists')
+    if not utilo.exists(content):
+        utilo.debug(f'{content} does not exists')
         return None
     result = serializeraw.load_contentboundingbox(content, pages=pages)
     return result
@@ -64,20 +64,20 @@ def load_content(content, pages: tuple = None) -> list:
 
 def load_nofigures(tables: str, formulas: str, pages: tuple = None) -> list:
     collected = collections.defaultdict(list)
-    if utila.exists(tables):
+    if utilo.exists(tables):
         tables = serializeraw.load_tables(tables, pages=pages)
         for page in tables:
             for item in page.content:
                 collected[page.page].append(item.bounding)
     else:
-        utila.debug(f'{tables} does not exists')
-    if utila.exists(formulas):
+        utilo.debug(f'{tables} does not exists')
+    if utilo.exists(formulas):
         formulas = serializeraw.load_rawformulas(formulas, pages=pages)
         for page in formulas:
             for formula in page.content:
                 collected[page.page].append(formula.bounding)
     else:
-        utila.debug(f'{formulas} does not exists')
+        utilo.debug(f'{formulas} does not exists')
     result = [
         iamraw.PageContent(
             page=page,
@@ -92,20 +92,20 @@ SCALE = (0.99, 0.99, 1.01, 1.01)
 
 
 def beautify_figures(figures, path: str) -> list:
-    """Use ghost to render pdf and crop interested area."""
+    """Use ughost to render pdf and crop interested area."""
     boundings = [
         iamraw.ImageInformation(
             page=image.page,
-            bounding=utila.rect_scale(image.bounding, SCALE),
+            bounding=utilo.rect_scale(image.bounding, SCALE),
         ) for image in figures
     ]
-    extracted = ghost.images(path, boundings)
+    extracted = ughost.images(path, boundings)
     for figure, image in zip(figures, extracted):
         figure.data = image
     return figures
 
 
-def beautify_no_ghost(figures) -> list:
+def beautify_no_ughost(figures) -> list:
     """Write empty backup images."""
     for figure in figures:
         image = figureo.utils.rawfigure_frombounding(figure.bounding)

@@ -3,7 +3,7 @@
 pipeline{
     agent{
         docker{
-            image '169.254.149.20:6001/arch_python_git_ghost_opencv_baw:v1.45.0'
+            image '169.254.149.20:6001/arch_python_git_ughost_opencv_baw:v1.45.0'
         }
     }
     stages{

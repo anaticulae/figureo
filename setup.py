@@ -8,16 +8,14 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import utila
+import utilo
 
-PACKAGES=[
+PACKAGES = [
     'figureo',
     'figureo.features',
     'figureo.standard',
 ]
-ENTRY_POINTS={
-    'console_scripts': ['figureo = figureo.cli:main',]
-}
+ENTRY_POINTS = {'console_scripts': ['figureo = figureo.cli:main',]}
 
 if __name__ == "__main__":
-    utila.install(__file__)
+    utilo.install(__file__)

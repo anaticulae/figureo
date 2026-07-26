@@ -7,8 +7,8 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-import utila
-import utila.cli
+import utilo
+import utilo.cli
 
 import figureo
 
@@ -17,24 +17,24 @@ DESCRIPTION = """
 
 # yapf:disable
 WORKPLAN = [
-    utila.create_step(
+    utilo.create_step(
         'standard',
         inputs=[
-            utila.Pattern('*', 'pdf'),
-            utila.ResultFile(producer='groupme', name='content_content', optional=True),
-            utila.ResultFile(producer='tablero', name='decide_decide', optional=True),
-            utila.ResultFile(producer='rawmaker', name='formula_formula', optional=True),
+            utilo.Pattern('*', 'pdf'),
+            utilo.ResultFile(producer='groupme', name='content_content', optional=True),
+            utilo.ResultFile(producer='tablero', name='decide_decide', optional=True),
+            utilo.ResultFile(producer='rawmaker', name='formula_formula', optional=True),
         ],
         output=[
             ('figures/{FILEHASH_1}', 'yaml'),
             ('figures/{FILEHASHS}', 'png'),
         ],
     ),
-    utila.create_step(
+    utilo.create_step(
         'cleanup',
         inputs=[
-            utila.ResultFile(producer='figureo', name='standard_standard', optional=True),
-            utila.Pattern(name='rawmaker__images_images/*', ext='yaml'),
+            utilo.ResultFile(producer='figureo', name='standard_standard', optional=True),
+            utilo.Pattern(name='rawmaker__images_images/*', ext='yaml'),
         ],
         output=[
             '{FILEPATHS}',
@@ -44,9 +44,9 @@ WORKPLAN = [
 # yapf:enable
 
 
-@utila.saveme
+@utilo.saveme
 def main():
-    config = utila.FeaturePackConfig(
+    config = utilo.FeaturePackConfig(
         configflag=True,
         description=DESCRIPTION,
         multiprocessed=True,
@@ -58,7 +58,7 @@ def main():
         rename=rename,
         version=figureo.__version__,
     )
-    utila.featurepack(
+    utilo.featurepack(
         workplan=WORKPLAN,
         config=config,
         root=figureo.ROOT,
@@ -70,7 +70,7 @@ def rename(path):
     if not isinstance(path, str):
         path = [rename(item) for item in path]
         return path
-    path = utila.rreplace(
+    path = utilo.rreplace(
         path,
         pattern='figureo__standard_figures',
         replace='rawmaker__images_images',

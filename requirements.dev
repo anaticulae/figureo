@@ -7,9 +7,9 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
-utilatest==0.26.0
-genex==0.37.1
-power==2.20.1
+utilotest==0.26.0
+gennex==0.37.1
+hoverpower==2.20.1
 tablero>=0.10.3<1.0.0
 formulero>=0.7.1<1.0.0
 pagenumber>=0.3.4<1.0.0

@@ -9,24 +9,24 @@
 
 import functools
 
-import power
+import hoverpower
 import serializeraw
-import utila
-import utilatest
+import utilo
+import utilotest
 
 import figureo
 import figureo.cli
 
 #pylint: disable=invalid-name
 run = functools.partial(
-    utilatest.run_command,
+    utilotest.run_command,
     main=figureo.cli.main,
     process=figureo.PROCESS,
     expect=True,
 )
 
 failure = functools.partial(
-    utilatest.run_command,
+    utilotest.run_command,
     main=figureo.cli.main,
     process=figureo.PROCESS,
     expect=False,
@@ -34,14 +34,14 @@ failure = functools.partial(
 
 
 def standard_figures(pdf, pages: str, td, mp):
-    utilatest.fixture_requires(pdf)
-    source = power.link(pdf)
+    utilotest.fixture_requires(pdf)
+    source = hoverpower.link(pdf)
     cmd = f'-i {pdf} -i {source} -o {td.tmpdir} --pages={pages} --standard'
     run(cmd, mp=mp)
-    if not utila.exists('rawmaker__images_images'):
+    if not utilo.exists('rawmaker__images_images'):
         return []
     # verify
     written = serializeraw.load_image_infos_frompath(
         td.tmpdir.join('rawmaker__images_images'))
-    result = utila.flatten_content(written)
+    result = utilo.flatten_content(written)
     return result

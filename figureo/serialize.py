@@ -9,7 +9,7 @@
 
 import iamraw
 import serializeraw
-import utila
+import utilo
 
 import figureo.utils
 
@@ -18,8 +18,8 @@ def dump_figures(figures) -> figureo.utils.DumpedFigureInformation:
     result = []
     for figure in figures:
         bounding = tuple(figure.bounding)
-        width = utila.rect_width(figure.bounding)
-        height = utila.rect_height(figure.bounding)
+        width = utilo.rect_width(figure.bounding)
+        height = utilo.rect_height(figure.bounding)
         info = iamraw.ImageInformation(
             page=figure.page,
             width=width,

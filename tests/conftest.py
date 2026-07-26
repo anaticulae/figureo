@@ -7,51 +7,51 @@
 # be prosecuted under federal law. Its content is company confidential.
 # =============================================================================
 
-import genex
-import power
+import gennex
+import hoverpower
 import pytest
-import utilatest
-from utilatest import mp  # pylint:disable=W0611
-from utilatest import td  # pylint:disable=W0611
+import utilotest
+from utilotest import mp  # pylint:disable=W0611
+from utilotest import td  # pylint:disable=W0611
 
 pytest_plugins = ['pytester', 'xdist']  # pylint: disable=invalid-name
 
-power.setup(__file__)
+hoverpower.setup(__file__)
 
 RESOURCES = [
-    (power.DISS143_PDF, '25'),
-    (power.DISS157_PDF, '30:40'),
-    (power.DISS172_PDF, '30'),
-    (power.DISS205_PDF, '100:110,140:145'),
-    (power.DISS266_PDF, '25:30,55:65,150:160,200:210'),
-    (power.HOME050_PDF, '31'),
-    (power.MASTER031_PDF, '5:20'),
-    (power.MASTER063_PDF, '20:30'),
-    (power.MASTER075_PDF, '10:25'),
-    (power.MASTER078_PDF, '0:10'),
-    (power.MASTER091B_PDF, '19'),
-    (power.MASTER105_PDF, '30:40'),
-    (power.MASTER110_PDF, '29:40,54'),
-    (power.MASTER116_PDF, '10:30'),
-    power.BACHELOR037_PDF,
-    power.BACHELOR051_PDF,
-    power.BACHELOR056_PDF,
-    power.BACHELOR067_PDF,
-    power.BACHELOR085_PDF,
-    power.BACHELOR090_PDF,
-    power.MASTER155_PDF,
+    (hoverpower.DISS143_PDF, '25'),
+    (hoverpower.DISS157_PDF, '30:40'),
+    (hoverpower.DISS172_PDF, '30'),
+    (hoverpower.DISS205_PDF, '100:110,140:145'),
+    (hoverpower.DISS266_PDF, '25:30,55:65,150:160,200:210'),
+    (hoverpower.HOME050_PDF, '31'),
+    (hoverpower.MASTER031_PDF, '5:20'),
+    (hoverpower.MASTER063_PDF, '20:30'),
+    (hoverpower.MASTER075_PDF, '10:25'),
+    (hoverpower.MASTER078_PDF, '0:10'),
+    (hoverpower.MASTER091B_PDF, '19'),
+    (hoverpower.MASTER105_PDF, '30:40'),
+    (hoverpower.MASTER110_PDF, '29:40,54'),
+    (hoverpower.MASTER116_PDF, '10:30'),
+    hoverpower.BACHELOR037_PDF,
+    hoverpower.BACHELOR051_PDF,
+    hoverpower.BACHELOR056_PDF,
+    hoverpower.BACHELOR067_PDF,
+    hoverpower.BACHELOR085_PDF,
+    hoverpower.BACHELOR090_PDF,
+    hoverpower.MASTER155_PDF,
 ]
 
-WORKER = utilatest.worker_count(7, onci=len(RESOURCES))
+WORKER = utilotest.worker_count(7, onci=len(RESOURCES))
 
 
 @pytest.mark.usefixtures('session')
 def pytest_sessionstart():
-    power.run()
+    hoverpower.run()
 
 
 def extract(resources):
-    genex.extract(
+    gennex.extract(
         files=resources,
         groupme='--border --content',
         cleanup=True,

@@ -53,8 +53,8 @@ Every noteable change is logged here.
 
 ### Feature
 
-* generate backup images if ghost is not installed (6703654dcb21)
-* do not beautify figures if ghost is not installed (7fa54fcd9617)
+* generate backup images if ughost is not installed (6703654dcb21)
+* do not beautify figures if ughost is not installed (7fa54fcd9617)
 * increase debugging information (13775d2571c2)
 
 ### Chore
@@ -103,7 +103,7 @@ Every noteable change is logged here.
 ### Fix
 
 * do not skip line rectangles (07a79cea548e)
-* hack utila workstep input path computation (7d0d3c34a254)
+* hack utilo workstep input path computation (7d0d3c34a254)
 
 ### Documentation
 

@@ -8,7 +8,7 @@
 # =============================================================================
 
 import serializeraw
-import utila
+import utilo
 
 
 def work(
@@ -32,18 +32,18 @@ def work(
 
 def setup_sources(sources) -> list:
     # separate steps are required, cause standard produces figure files
-    # which are required for cleanup step. In the current state utila
+    # which are required for cleanup step. In the current state utilo
     # determines inputs only at startup time. Therefore figureo wont know
     # than theses later generated files exists. TODO: REMOVE AFTER
     # UPGRADING INPUTS AFTER EVERY STEP
     # skip -i pdf source file
     # TODO: REMOVE AFTER UPGRADING UTILA
-    sources = [item for item in sources if utila.file_ext(item) == 'yaml']
-    directory = set(utila.path_parent(item) for item in sources)
+    sources = [item for item in sources if utilo.file_ext(item) == 'yaml']
+    directory = set(utilo.path_parent(item) for item in sources)
     for path in directory:
-        sources.extend(utila.file_list(path, include='yaml', absolute=True))
-    sources = [utila.forward_slash(item) for item in sources]
-    sources = utila.unique(sources)
+        sources.extend(utilo.file_list(path, include='yaml', absolute=True))
+    sources = [utilo.forward_slash(item) for item in sources]
+    sources = utilo.unique(sources)
     return sources
 
 
@@ -57,7 +57,7 @@ def hide(figures, images):
             for fig in figure:
                 # does the image intersects with the figure. Therefore we
                 # want to hide this figure.
-                if not utila.rect_intersecting(
+                if not utilo.rect_intersecting(
                         fig[0].bounding,
                         image[0].bounding,
                 ):
@@ -76,10 +76,10 @@ def prepare(sources: list, pages: tuple = None) -> tuple:
         path_append=True,
         pages=pages,
     )
-    content = utila.flatten_content(loaded)
+    content = utilo.flatten_content(loaded)
     # divide figures and images
-    images, figures = utila.partition(lambda x: x[0].dpi, content)
+    images, figures = utilo.partition(lambda x: x[0].dpi, content)
     # group figure by page value
-    figures_grouped = utila.groupby_x(figures, selector=lambda x: x[0].page)
+    figures_grouped = utilo.groupby_x(figures, selector=lambda x: x[0].page)
     figures_grouped: dict = {item[0][0].page: item for item in figures_grouped}
     return figures_grouped, images
