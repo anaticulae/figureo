@@ -53,10 +53,10 @@ def pytest_sessionstart():
 def extract(resources):
     gennex.extract(
         files=resources,
-        groupme='--border --content',
         cleanup=True,
         footnote=True,
-        formulero=True,
+        # formulero=True,
+        groupme='--border --content',
         headnote=True,
         oneline=None,
         pagenumber=True,

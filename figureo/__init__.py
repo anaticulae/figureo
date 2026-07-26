@@ -7,11 +7,12 @@
 # be prosecuted under federal law. Its content is company confidential.
 #==============================================================================
 
+import importlib.metadata
 import os
 
 import figureo.__patch__
 
-__version__ = '0.18.5'
+PROCESS = 'figureo'
+__version__ = importlib.metadata.version(PROCESS)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-PROCESS = 'figureo'
