@@ -10,7 +10,6 @@
 import os
 
 import hoverpower
-import pytest
 import serializeraw
 import utilo
 import utilotest
@@ -54,7 +53,6 @@ def run_cleanup(path, pages, mp) -> list:
     return images
 
 
-@pytest.mark.xfail(reason='softwaare upgrade')
 @utilotest.longrun
 @utilotest.requires(hoverpower.BACHELOR051_PDF)
 def test_bachelor51p30_hide_images(td, mp):
