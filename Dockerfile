@@ -14,6 +14,7 @@ ENV HOVERPOWER_STORE=/var/workdir/hoverpower/repo
 ENV BAW=/tmp/bar/
 
 RUN apt-get update && apt-get install -y \
+    ghostscript\
     libgl1 \
     libglib2.0-0 \
  && rm -rf /var/lib/apt/lists/*
