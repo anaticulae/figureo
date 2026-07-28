@@ -1,6 +1,40 @@
 # CHANGELOG
 
 
+## v1.0.1 (2026-07-28)
+
+### Chores
+
+- **docker**: Install ghostscript
+  ([`6c27611`](https://github.com/anaticulae/figureo/commit/6c276118ac902830f293650a7d839c357765f004))
+
+- **github**: Add missing secret
+  ([`9e3bb17`](https://github.com/anaticulae/figureo/commit/9e3bb173e2693882a10fd4297be95173dd18c9f0))
+
+- **github**: Upgrade actions
+  ([`fdfe7b8`](https://github.com/anaticulae/figureo/commit/fdfe7b8e435df324247e71c913c2975e9461bbc4))
+
+- **make**: Add OpenGL
+  ([`e6df96f`](https://github.com/anaticulae/figureo/commit/e6df96f21ef41638552b1ddea18f2cff5fd4937d))
+
+- **make**: Adjust var name
+  ([`3d61567`](https://github.com/anaticulae/figureo/commit/3d6156786629957a22c4a9f7b276ba959a21f70a))
+
+- **requirements**: Upgrade pyproject.toml
+  ([`6a5311d`](https://github.com/anaticulae/figureo/commit/6a5311d175e13654f2fd5fba62e6b408d90fa387))
+
+- **test**: Remove outdated steps
+  ([`8e6c9f3`](https://github.com/anaticulae/figureo/commit/8e6c9f31d190baae79ce5f7c827dfc05c804ac70))
+
+### Testing
+
+- **cleanup**: Enable unit test
+  ([`eef0c78`](https://github.com/anaticulae/figureo/commit/eef0c78e17a2e480f1d0af5d7dcf52e744f4d1fd))
+
+- **render**: Make test more robust
+  ([`d3faa1f`](https://github.com/anaticulae/figureo/commit/d3faa1f02801b960b40544c4c3d2da98906ff73f))
+
+
 ## v1.0.0 (2026-07-26)
 
 ### Chores
