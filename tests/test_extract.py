@@ -103,7 +103,7 @@ def test_render_master116_page2_figure_image(mp, td):
     (45, 1),
     (56, 1),
     (57, 1),
-    pytest.param(58, 1, marks=pytest.mark.xfail(reason='ci integration')),
+    (58, 1),
 ])
 def test_render_bachelor90_pagex_figure(page, expected, mp, td):
     written = standard_figures(

@@ -12,11 +12,11 @@ IMAGE := ghcr.io/anaticulae/$(NAME):$(VERSION)
 
 WORKDIR := /var/workdir
 CODE_DIR := $(CURDIR)
-CODERO_TMP := /tmp/figureo
+CODE_TMP := /tmp/figureo
 
 DOCKER_RUN := docker run \
 	-v $(CODE_DIR):$(WORKDIR) \
-	-v $(CODERO_TMP):$(CODERO_TMP)
+	-v $(CODE_TMP):$(CODE_TMP)
 
 docker-build:
 	docker build -t $(IMAGE) .

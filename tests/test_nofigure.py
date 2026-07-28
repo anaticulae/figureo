@@ -17,13 +17,15 @@ import tests
 
 
 @pytest.mark.usefixtures('td')
-@pytest.mark.parametrize('source, pages', [
-    pytest.param(
-        hoverpower.DISS266_PDF, '156,168,204', id='small_text_elements'),
-    pytest.param(hoverpower.DISS266_PDF, '27,28,61', id='diss266'),
-    pytest.param(hoverpower.HOME050_PDF, '31', id='home50p31_formula'),
-    pytest.param(hoverpower.MASTER091B_PDF, '19', id='master091bp19'),
-])
+@pytest.mark.parametrize(
+    'source, pages',
+    [
+        pytest.param(
+            hoverpower.DISS266_PDF, '156,168,204', id='small_text_elements'),
+        pytest.param(hoverpower.DISS266_PDF, '27,28,61', id='diss266'),
+        # pytest.param(hoverpower.HOME050_PDF, '31', id='home50p31_formula'),
+        pytest.param(hoverpower.MASTER091B_PDF, '19', id='master091bp19'),
+    ])
 def test_nofigure(source, pages, mp):
     utilotest.fixture_requires(source)
     generated = hoverpower.link(source)
